@@ -10,6 +10,7 @@
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+.pnp.*
 
 # testing
 /coverage
