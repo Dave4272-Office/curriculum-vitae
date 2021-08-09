@@ -1,32 +1,36 @@
+import { Container, Toolbar } from "@material-ui/core";
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import "./Details.sass";
 
-export function Details() {
-  return (
-    <div>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/edu">
-          <Edu />
-        </Route>
-        <Route path="/work">
-          <Work />
-        </Route>
-        <Route path="/certs">
-          <Certs />
-        </Route>
-        <Route path="/skills">
-          <Skills />
-        </Route>
-        <Route path="/interests">
-          <Intr />
-        </Route>
-      </Switch>
-    </div>
-  );
+export class Details extends React.Component {
+  render() {
+    return (
+      <Container>
+        <Toolbar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/edu">
+            <Edu />
+          </Route>
+          <Route path="/work">
+            <Work />
+          </Route>
+          <Route path="/certs">
+            <Certs />
+          </Route>
+          <Route path="/skills">
+            <Skills />
+          </Route>
+          <Route path="/interests">
+            <Intr />
+          </Route>
+        </Switch>
+      </Container>
+    );
+  }
 }
 
 function Home() {
