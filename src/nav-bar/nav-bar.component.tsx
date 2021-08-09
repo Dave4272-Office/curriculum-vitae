@@ -1,23 +1,39 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
-import { List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Toolbar,
+} from "@material-ui/core";
 
 import "./NavBar.sass";
 
-export function NavBar() {
-  return (
-    <div className="Navbar">
-      <List>
-        <Item activeOnlyWhenExact={true} to="/" label="Home" />
-        <Item to="/edu" label="Education" />
-        <Item to="/work" label="Work Experience" />
-        <Item to="/certs" label="Certifications" />
-        <Item to="/skills" label="Skills" />
-        <Item to="/interests" label="Interests" />
-      </List>
-    </div>
-  );
+export class NavBar extends React.Component {
+  render() {
+    return (
+      <div className="Navbar">
+        <Toolbar />
+        <List>
+          <Divider />
+          <Item activeOnlyWhenExact={true} to="/" label="Home" />
+          <Divider />
+          <Item to="/edu" label="Education" />
+          <Divider />
+          <Item to="/work" label="Work Experience" />
+          <Divider />
+          <Item to="/certs" label="Certifications" />
+          <Divider />
+          <Item to="/skills" label="Skills" />
+          <Divider />
+          <Item to="/interests" label="Interests" />
+          <Divider />
+        </List>
+      </div>
+    );
+  }
 }
 
 function Item({
@@ -38,10 +54,8 @@ function Item({
   };
 
   return (
-    <div className={match ? "active" : ""}>
-      <ListItem button component={Link} to={to} selected={x()}>
-        <ListItemText primary={label} />
-      </ListItem>
-    </div>
+    <ListItem button component={Link} to={to} selected={x()}>
+      <ListItemText primary={label} />
+    </ListItem>
   );
 }

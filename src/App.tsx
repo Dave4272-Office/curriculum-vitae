@@ -1,24 +1,23 @@
 import React from "react";
+import { Drawer } from "@material-ui/core";
 
 import { NavBar } from "./nav-bar/nav-bar.component";
 import { Details } from "./details/details.component";
-import { Drawer } from "@material-ui/core";
-import { Toolbar } from "@material-ui/core";
-
 import "./App.sass";
+import { Header } from "./header/header.component";
 
-function App() {
-  return (
-    <div className="App">
-      <Drawer variant="permanent" className="Drawer">
-        <Toolbar />
-        <NavBar />
-      </Drawer>
-      <div className="content">
-        <Details />
+export class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <Drawer variant="permanent" className="Drawer">
+          <NavBar />
+        </Drawer>
+        <div className="content">
+          <Details />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-export default App;
