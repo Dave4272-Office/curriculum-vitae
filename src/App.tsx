@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.sass';
+import React from "react";
+
+import { NavBar } from "./nav-bar/nav-bar.component";
+import { Details } from "./details/details.component";
+import { Drawer } from "@material-ui/core";
+import { Toolbar } from "@material-ui/core";
+
+import "./App.sass";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Drawer variant="permanent" className="Drawer">
+        <Toolbar />
+        <NavBar />
+      </Drawer>
+      <div className="content">
+        <Details />
+      </div>
     </div>
   );
 }
