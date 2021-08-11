@@ -1,4 +1,6 @@
 $drawerWidth: 250px
+$bgcolor: #1f0085
+$textdrawer: #ffffff
 
 .App
   display: flex
@@ -9,6 +11,10 @@ $drawerWidth: 250px
 
 .MuiDrawer-paper
   width: $drawerWidth
+
+.MuiPaper-root
+  background-color: $bgcolor !important
+  color: $textdrawer !important
 
 .content
   flex-grow: 1
