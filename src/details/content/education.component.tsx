@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Grid, Typography } from "@material-ui/core";
 import {
   Timeline,
   TimelineConnector,
@@ -16,17 +16,9 @@ export class Education extends React.Component {
   render() {
     return (
       <div>
-        <h2>Education</h2>
-        8.32 DGPA
-        <br />
-        <br />
-        84.0 %
-        <br />
-        <br />
-        9.2 CGPA (87.4 %)
-        <br />
-        <br />
-        <br />
+        <Typography variant="h2" gutterBottom className="extra-padded">
+          Education
+        </Typography>
         <Timeline>
           <TimelineItem>
             <TimelineOppositeContent className="year-container">
@@ -47,21 +39,49 @@ export class Education extends React.Component {
             <TimelineContent>
               <Card>
                 <CardContent>
-                  <Typography variant="h4" gutterBottom>
-                    B. Tech
-                  </Typography>
-                  <Typography variant="subtitle2">University :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    Maulana Abul Kalam Azad University of Technology
-                  </Typography>
-                  <Typography variant="subtitle2">College :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    Birbhum Institute of Engineering and Technology, Suri
-                  </Typography>
-                  <Typography variant="subtitle2">Major :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    Computer Science and Engineering
-                  </Typography>
+                  <Grid container>
+                    <Grid item sm={12} md={9}>
+                      <Typography variant="h4" gutterBottom>
+                        B. Tech
+                      </Typography>
+                    </Grid>
+                    <Grid item sm={12} md={3} container direction="column">
+                      <Grid item xs>
+                        <Typography variant="subtitle2">Score :</Typography>
+                      </Grid>
+                      <Grid item xs>
+                        <Typography variant="body1" gutterBottom>
+                          8.32 DGPA
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">University :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        Maulana Abul Kalam Azad University of Technology
+                        (MAKAUT)
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">College :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        Birbhum Institute of Engineering and Technology, Suri
+                        (BIET, Suri)
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">Major :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        Computer Science and Engineering (CSE)
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </CardContent>
               </Card>
             </TimelineContent>
@@ -85,21 +105,48 @@ export class Education extends React.Component {
             <TimelineContent>
               <Card>
                 <CardContent>
-                  <Typography variant="h4" gutterBottom>
-                    AISSCE (Sr. Secondary)
-                  </Typography>
-                  <Typography variant="subtitle2">Board :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    CBSE
-                  </Typography>
-                  <Typography variant="subtitle2">School :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    Sainik School Purulia
-                  </Typography>
-                  <Typography variant="subtitle2">Subjects :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    ENG, PHY, CHEM, MATH, CS(C++)
-                  </Typography>
+                  <Grid container>
+                    <Grid item sm={12} md={9}>
+                      <Typography variant="h4" gutterBottom>
+                        AISSCE (Sr. Secondary | XII)
+                      </Typography>
+                    </Grid>
+                    <Grid item sm={12} md={3} container direction="column">
+                      <Grid item xs>
+                        <Typography variant="subtitle2">Score :</Typography>
+                      </Grid>
+                      <Grid item xs>
+                        <Typography variant="body1" gutterBottom>
+                          84.00 %
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">Board :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        Central Board of Secondary Education (CBSE)
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">School :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        Sainik School Purulia (SSP)
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">Subjects :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        English, Physics, Chemistry, Mathematics, Computer
+                        Science(C++)
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </CardContent>
               </Card>
             </TimelineContent>
@@ -123,21 +170,47 @@ export class Education extends React.Component {
             <TimelineContent>
               <Card>
                 <CardContent>
-                  <Typography variant="h4" gutterBottom>
-                    AISSE (Secondary)
-                  </Typography>
-                  <Typography variant="subtitle2">Board :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    CBSE
-                  </Typography>
-                  <Typography variant="subtitle2">School :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    Sainik School Purulia
-                  </Typography>
-                  <Typography variant="subtitle2">Subjects :</Typography>
-                  <Typography variant="h6" gutterBottom>
-                    General Education
-                  </Typography>
+                  <Grid container>
+                    <Grid item sm={12} md={9}>
+                      <Typography variant="h4" gutterBottom>
+                        AISSE (Secondary | X)
+                      </Typography>
+                    </Grid>
+                    <Grid item sm={12} md={3} container direction="column">
+                      <Grid item xs>
+                        <Typography variant="subtitle2">Score :</Typography>
+                      </Grid>
+                      <Grid item xs>
+                        <Typography variant="body1" gutterBottom>
+                          9.2 CGPA (87.40 %)
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">Board :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        Central Board of Secondary Education (CBSE)
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">School :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        Sainik School Purulia (SSP)
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle2">Subjects :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="h6" gutterBottom>
+                        General Education
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </CardContent>
               </Card>
             </TimelineContent>
