@@ -5,11 +5,7 @@ import { NavBar } from "./nav-bar/nav-bar.component";
 import { Details } from "./details/details.component";
 import "./App.sass";
 import { Header } from "./header/header.component";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
-
-//Font Awesome Icons Custom Library
-library.add(faGraduationCap);
+import "./fa-icon.library"
 
 export class App extends React.Component {
   render() {
