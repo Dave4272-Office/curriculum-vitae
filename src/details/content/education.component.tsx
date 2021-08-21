@@ -15,7 +15,7 @@ import "./education.sass";
 export class Education extends React.Component {
   render() {
     return (
-      <div>
+      <>
         <Typography variant="h2" gutterBottom className="extra-padded">
           Education
         </Typography>
@@ -216,7 +216,7 @@ export class Education extends React.Component {
             </TimelineContent>
           </TimelineItem>
         </Timeline>
-      </div>
+      </>
     );
   }
 }
