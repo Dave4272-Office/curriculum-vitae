@@ -38,7 +38,7 @@ export class Skills extends React.Component {
               <List>
                 <ListItem divider>
                   <ListItemAvatar>
-                    <Avatar>1</Avatar>
+                    <Avatar className="soft-skill-list-icon">1</Avatar>
                   </ListItemAvatar>
                   <ListItemText>
                     <Typography variant="body1">
@@ -48,7 +48,7 @@ export class Skills extends React.Component {
                 </ListItem>
                 <ListItem divider>
                   <ListItemAvatar>
-                    <Avatar>2</Avatar>
+                    <Avatar className="soft-skill-list-icon">2</Avatar>
                   </ListItemAvatar>
                   <ListItemText>
                     <Typography variant="body1">
@@ -58,7 +58,7 @@ export class Skills extends React.Component {
                 </ListItem>
                 <ListItem divider>
                   <ListItemAvatar>
-                    <Avatar>3</Avatar>
+                    <Avatar className="soft-skill-list-icon">3</Avatar>
                   </ListItemAvatar>
                   <ListItemText>
                     <Typography variant="body1">
