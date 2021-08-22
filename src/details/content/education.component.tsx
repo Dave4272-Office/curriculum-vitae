@@ -10,7 +10,6 @@ import {
   TimelineSeparator,
 } from "@material-ui/lab";
 import React from "react";
-import "./education.sass";
 
 export class Education extends React.Component {
   render() {
@@ -21,7 +20,7 @@ export class Education extends React.Component {
         </Typography>
         <Timeline>
           <TimelineItem>
-            <TimelineOppositeContent className="year-container">
+            <TimelineOppositeContent className="timeline-opp-container">
               <Typography variant="h6" gutterBottom>
                 2016 - 2020
               </Typography>
@@ -87,7 +86,7 @@ export class Education extends React.Component {
             </TimelineContent>
           </TimelineItem>
           <TimelineItem>
-            <TimelineOppositeContent className="year-container">
+            <TimelineOppositeContent className="timeline-opp-container">
               <Typography variant="h6" gutterBottom>
                 2014 - 2016
               </Typography>
@@ -152,7 +151,7 @@ export class Education extends React.Component {
             </TimelineContent>
           </TimelineItem>
           <TimelineItem>
-            <TimelineOppositeContent className="year-container">
+            <TimelineOppositeContent className="timeline-opp-container">
               <Typography variant="h6" gutterBottom>
                 2009 - 2014
               </Typography>
