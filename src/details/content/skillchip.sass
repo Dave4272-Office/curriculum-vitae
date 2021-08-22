@@ -1,6 +1,8 @@
 $margin: 8px
-$chipiconsize: 46px
+$chipiconsize: 30px
 $outlineborder: 2px
+$containersize: 56px // icon size + padding + extra boundary of 10px
+$padding: 8px
 
 .skillchip-container
     display: flex
@@ -10,19 +12,19 @@ $outlineborder: 2px
 .skillchip-container>*
     margin: $margin
 
-.skillchip-container .MuiChip-root .MuiAvatar-root
+/** .skillchip-container .MuiChip-root .MuiAvatar-root
     width: $chipiconsize !important
-    height: $chipiconsize !important
+    height: $chipiconsize !important **/
 
 .skillchip-container .MuiChip-root
-    height: $chipiconsize + 10px
-    border-radius: ($chipiconsize + 10px) / 2
+    height: $containersize
+    border-radius: ($containersize) / 2
 
 .chst1>svg
     width: $chipiconsize !important
     height: $chipiconsize !important
     display: flex !important
-    overflow: hidden !important
+    //overflow: hidden !important
     position: relative !important
     align-items: center !important
     flex-shrink: 0 !important
@@ -30,6 +32,7 @@ $outlineborder: 2px
     user-select: none !important
     border-radius: 50% !important
     justify-content: center !important
+    padding: $padding !important
 
 .chst2>svg
     width: $chipiconsize !important
@@ -37,7 +40,7 @@ $outlineborder: 2px
     color: #fff !important
     background-color: rgb(17, 82, 147) !important
     display: flex !important
-    overflow: hidden !important
+    //overflow: hidden !important
     position: relative !important
     align-items: center !important
     flex-shrink: 0 !important
@@ -45,6 +48,7 @@ $outlineborder: 2px
     user-select: none !important
     border-radius: 50% !important
     justify-content: center !important
+    padding: $padding !important
 
 .chst3>svg
     width: $chipiconsize !important
@@ -52,7 +56,7 @@ $outlineborder: 2px
     color: #fff !important
     background-color: #c51162 !important
     display: flex !important
-    overflow: hidden !important
+    //overflow: hidden !important
     position: relative !important
     align-items: center !important
     flex-shrink: 0 !important
@@ -60,6 +64,7 @@ $outlineborder: 2px
     user-select: none !important
     border-radius: 50% !important
     justify-content: center !important
+    padding: $padding !important
 
 .skillchip-container .MuiChip-label
     font-size: 1rem

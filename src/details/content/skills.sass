@@ -1,6 +1,9 @@
 $paddleftright: 16px
 $paddtopbottom: 8px
 $dividerwidth: 80%
+$sub-headtitlepadd: 0px 10px
+$sub-headicnsize: 32px
+$sub-headiconlinesize: 50px
 
 .padding-top-bottom
     padding-top: $paddtopbottom
@@ -24,3 +27,22 @@ $dividerwidth: 80%
 
 .skill-divider
     width: $dividerwidth
+
+.sub-head-title
+    display: flex
+    align-items: center
+
+.sub-head-text
+    padding: $sub-headtitlepadd
+
+.sub-head-icon svg
+    height: $sub-headicnsize !important
+    width: unset !important
+
+.sub-head-icon
+    width: $sub-headiconlinesize !important
+    height: $sub-headiconlinesize !important
+    background-color: #f50057 !important
+
+.skill-text
+    font-size: xx-large !important

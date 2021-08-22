@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   ListItemAvatar,
   ListItemText,
@@ -28,7 +29,12 @@ export class Skills extends React.Component {
         <Grid container spacing={3}>
           <Grid item container className="grid-coloumns">
             <Grid item md={5}>
-              <Typography variant="h4">Soft skills:</Typography>
+              <div className="sub-head-title">
+                <Avatar className="sub-head-icon skill-text">S</Avatar>
+                <Typography variant="h4" className="sub-head-text">
+                  Soft Skills:
+                </Typography>
+              </div>
               <List>
                 <ListItem divider>
                   <ListItemAvatar>
@@ -64,7 +70,14 @@ export class Skills extends React.Component {
             </Grid>
             <Divider orientation="vertical" flexItem />
             <Grid item md={6}>
-              <Typography variant="h4">Languages known:</Typography>
+              <div className="sub-head-title">
+                <Avatar className="sub-head-icon">
+                  <FontAwesomeIcon icon={["fas", "language"]} />
+                </Avatar>
+                <Typography variant="h4" className="sub-head-text">
+                  Languages Known:
+                </Typography>
+              </div>
               <TableContainer className="padding-top-bottom">
                 <Table>
                   <TableHead>
@@ -130,12 +143,16 @@ export class Skills extends React.Component {
               </TableContainer>
             </Grid>
           </Grid>
-          <Grid item container className="skill-row extra-padded" >
-            <Grid item className="extra-padded" >
+          <Grid item container className="skill-row extra-padded">
+            <Grid item className="extra-padded">
               <Typography variant="h4">Technical Skills:</Typography>
             </Grid>
-            <Divider variant="fullWidth" orientation="horizontal" className="skill-divider" />
-            <Grid item className="extra-padded" >
+            <Divider
+              variant="fullWidth"
+              orientation="horizontal"
+              className="skill-divider"
+            />
+            <Grid item className="extra-padded">
               <SkillChip />
             </Grid>
           </Grid>

@@ -13,7 +13,9 @@ const chipStyles = [
 ];
 
 let chips: React.ReactElement[] = [];
+
 let i = 0;
+
 faskills.forEach((value, index) => {
   if (value.include) {
     let x = i % 6;
