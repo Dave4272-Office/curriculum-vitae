@@ -2,8 +2,9 @@ import { Typography } from "@material-ui/core";
 import { Timeline } from "@material-ui/lab";
 import React from "react";
 import { workDetails } from "./data/work";
+import "./experience.sass";
 
-export class Work extends React.Component {
+export class Experience extends React.Component {
   render() {
     return (
       <>

@@ -1,5 +1,6 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faAt,
   faBriefcase,
   faGraduationCap,
   faLanguage,
@@ -69,5 +70,6 @@ library.add(
   faHackerrank,
   faJenkins,
   faLanguage,
-  faBriefcase
+  faBriefcase,
+  faAt
 );

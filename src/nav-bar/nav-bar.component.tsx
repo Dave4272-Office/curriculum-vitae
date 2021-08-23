@@ -22,7 +22,7 @@ export class NavBar extends React.Component {
           <Divider />
           <Item to="/edu" label="Education" />
           <Divider />
-          <Item to="/work" label="Work Experience" />
+          <Item to="/exp" label="Experience" />
           <Divider />
           <Item to="/certs" label="Certifications" />
           <Divider />

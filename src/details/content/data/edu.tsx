@@ -73,7 +73,7 @@ eduList.reverse().forEach((value, index) => {
         />
       </TimelineSeparator>
       <TimelineContent>
-        <Card>
+        <Card className="edu-card">
           <CardContent>
             <Grid container>
               <Grid item sm={12} md={9}>
@@ -81,7 +81,7 @@ eduList.reverse().forEach((value, index) => {
                   {value.qualexam}
                 </Typography>
               </Grid>
-              <Grid item sm={12} md={3} container direction="column">
+              <Grid item sm={12} md={3} id="score" container direction="column">
                 <Grid item xs>
                   <Typography variant="subtitle2">Score :</Typography>
                 </Grid>

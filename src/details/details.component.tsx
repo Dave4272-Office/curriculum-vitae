@@ -3,10 +3,10 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Certs } from "./content/certs.component";
 import { Education } from "./content/education.component";
+import { Experience } from "./content/experience.component";
 import { Home } from "./content/home.component";
 import { Interests } from "./content/interests.component";
 import { Skills } from "./content/skills.component";
-import { Work } from "./content/work.component";
 import "./Details.sass";
 
 export class Details extends React.Component {
@@ -21,8 +21,8 @@ export class Details extends React.Component {
           <Route path="/edu">
             <Education />
           </Route>
-          <Route path="/work">
-            <Work />
+          <Route path="/exp">
+            <Experience />
           </Route>
           <Route path="/certs">
             <Certs />
