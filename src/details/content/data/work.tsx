@@ -1,5 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Divider,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import {
   TimelineConnector,
   TimelineContent,
@@ -31,7 +38,7 @@ const work: WorkItem[] = [
     to: null,
     organization: "Wipro Limited",
     emptype: "Full Time",
-    desc: "",
+    desc: "My first work.",
   },
 ];
 
@@ -81,48 +88,49 @@ workinclude.reverse().forEach((value, index) => {
         />
       </TimelineSeparator>
       <TimelineContent>
-        <Card>
+        <Card className="work-card">
           <CardContent>
-            <Grid container>
-              <Grid item sm={12} md>
-                <Typography variant="h5" gutterBottom>
-                  {value.designation}
-                </Typography>
-              </Grid>
-              <Grid item sm={12} md={4} container direction="column">
-                <Grid item xs>
-                  <Typography variant="body1" gutterBottom>
-                    {value.from.toFormat("MMMM d, yyyy")} -{" "}
-                    {value.to === null
-                      ? "Present"
-                      : value.to.toFormat("MMMM d, yyyy")}
-                  </Typography>
+            <Grid container id="work-item">
+              <Grid container>
+                <Grid item container xs id="work-detail">
+                  <Grid item>
+                    <Typography variant="h4" gutterBottom>
+                      {value.designation}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h6" gutterBottom>
+                      <FontAwesomeIcon icon={["fas", "at"]} color="#75e900" />
+                      &nbsp;&nbsp;{value.organization}&nbsp;&nbsp;&nbsp;&bull;
+                      &nbsp;&nbsp;{value.emptype}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body1" gutterBottom>
+                      {value.from.toFormat("MMMM d, yyyy")} &mdash;{" "}
+                      {value.to === null
+                        ? "Present"
+                        : value.to.toFormat("MMMM d, yyyy")}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body1" gutterBottom>
+                      {durationout}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs>
-                  <Typography variant="body1" gutterBottom>
-                    {durationout}
-                  </Typography>
+                <Divider
+                  orientation="vertical"
+                  flexItem
+                  id="work-logo-divider"
+                />
+                <Grid item xs className="work-org-icon">
+                  <Avatar src="Wipro.png"></Avatar>
                 </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Typography variant="subtitle2"></Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom>
-                  @ {value.organization} - {value.emptype}
-                </Typography>
-              </Grid>
+              <Divider variant="fullWidth" id="work-desc-divider" />
               <Grid item xs={12}>
                 <Typography variant="subtitle2">{value.desc}</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom></Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="subtitle2"></Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom></Typography>
               </Grid>
             </Grid>
           </CardContent>

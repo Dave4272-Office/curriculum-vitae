@@ -25,7 +25,7 @@ export class Skills extends React.Component {
           Skills
         </Typography>
         <Grid container spacing={3}>
-          <Grid item container className="grid-coloumns">
+          <Grid item container className="grid-columns">
             <Grid item md={5}>
               <div className="sub-head-title">
                 <Avatar className="sub-head-icon skill-text">S</Avatar>
@@ -71,11 +71,7 @@ export class Skills extends React.Component {
             <Grid item className="extra-padded">
               <Typography variant="h4">Technical Skills:</Typography>
             </Grid>
-            <Divider
-              variant="fullWidth"
-              orientation="horizontal"
-              className="skill-divider"
-            />
+            <Divider orientation="horizontal" className="skill-divider" />
             <Grid item className="extra-padded">
               <SkillChip />
             </Grid>
