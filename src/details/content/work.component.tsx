@@ -1,11 +1,17 @@
+import { Typography } from "@material-ui/core";
+import { Timeline } from "@material-ui/lab";
 import React from "react";
+import { workDetails } from "./data/work";
 
 export class Work extends React.Component {
-    render() {
+  render() {
     return (
-      <div>
-        <h2>Work</h2>
-      </div>
+      <>
+        <Typography variant="h2" gutterBottom className="extra-padded">
+          Experience
+        </Typography>
+        <Timeline>{workDetails}</Timeline>
+      </>
     );
   }
 }

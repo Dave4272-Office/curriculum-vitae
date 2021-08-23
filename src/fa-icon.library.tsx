@@ -1,5 +1,9 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faGraduationCap, faLanguage } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBriefcase,
+  faGraduationCap,
+  faLanguage,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faAndroid,
   faAngular,
@@ -64,5 +68,6 @@ library.add(
   faCodepen,
   faHackerrank,
   faJenkins,
-  faLanguage
+  faLanguage,
+  faBriefcase
 );

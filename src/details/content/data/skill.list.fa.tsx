@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-export const faskills = [
+export const faSkills = [
   {
     include: true,
     faicon: React.createElement(FontAwesomeIcon, {

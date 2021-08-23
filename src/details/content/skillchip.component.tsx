@@ -1,7 +1,7 @@
 import { Chip } from "@material-ui/core";
 import React from "react";
 import "./skillchip.sass";
-import { faskills } from "./skilllist.fa";
+import { faSkills } from "./data/skill.list.fa";
 
 const chipStyles = [
   "chst1",
@@ -16,15 +16,16 @@ let chips: React.ReactElement[] = [];
 
 let i = 0;
 
-faskills.forEach((value, index) => {
+faSkills.forEach((value, index) => {
   if (value.include) {
-    let x = i % 6;
+    let x = i % chipStyles.length;
     if (value.faicon) {
       chips.push(
         <Chip
           avatar={value.faicon}
           className={chipStyles[x]}
           label={value.label}
+          key={value.label}
         />
       );
     }

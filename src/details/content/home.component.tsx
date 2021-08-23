@@ -14,7 +14,7 @@ export class Home extends React.Component {
           alignItems="center"
         >
           <Grid item xs={6}>
-          <Avatar src="profile-dave.jpg" className="avatar-large" />
+            <Avatar src="profile-dave.jpg" className="avatar-large" />
           </Grid>
           <Grid item xs={6}>
             <h3>Helllloooo</h3>
