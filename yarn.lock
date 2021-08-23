@@ -2795,6 +2795,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/luxon@npm:^2":
+  version: 2.0.0
+  resolution: "@types/luxon@npm:2.0.0"
+  checksum: 8b850e4440db1cbf1ab050d02540fc2a9f6a1c927233d153a8f569bc35a6c7cf8fb3c21d0c400a4f1b923b2ad433eef09c9acb603a1dbe88c7c428eb5c52ae88
+  languageName: node
+  linkType: hard
+
 "@types/material-ui@npm:^0.21.9":
   version: 0.21.9
   resolution: "@types/material-ui@npm:0.21.9"
@@ -5921,6 +5928,7 @@ __metadata:
     "@testing-library/user-event": ^12.1.10
     "@types/eslint": ^7.28.0
     "@types/jest": ^26.0.15
+    "@types/luxon": ^2
     "@types/material-ui": ^0.21.9
     "@types/node": ^12.0.0
     "@types/node-sass": ^4.11.2
@@ -5943,6 +5951,7 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-react: ^7.24.0
     eslint-plugin-react-hooks: ^4.2.0
+    luxon: ^2.0.2
     node-sass: ^6.0.1
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -10456,6 +10465,13 @@ fsevents@^1.2.7:
   dependencies:
     yallist: ^4.0.0
   checksum: f97f499f898f23e4585742138a22f22526254fdba6d75d41a1c2526b3b6cc5747ef59c5612ba7375f42aca4f8461950e925ba08c991ead0651b4918b7c978297
+  languageName: node
+  linkType: hard
+
+"luxon@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "luxon@npm:2.0.2"
+  checksum: eb2e366cf41a129704ae3213e0aea3e1504390af2a84322a5bbb6a22c92d96c7cb70e58b941a109c5e1bfbed51784d08130278feeee6cdf169940af90a68ded5
   languageName: node
   linkType: hard
 
