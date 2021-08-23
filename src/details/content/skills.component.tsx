@@ -1,11 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  ListItemAvatar,
-  ListItemText,
   Avatar,
   Grid,
   List,
-  ListItem,
   TableContainer,
   Table,
   TableHead,
@@ -16,6 +13,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import React from "react";
+import { langSkill, softSkill } from "./data/skills.soft-lang";
 import { SkillChip } from "./skillchip.component";
 import "./skills.sass";
 
@@ -35,38 +33,7 @@ export class Skills extends React.Component {
                   Soft Skills:
                 </Typography>
               </div>
-              <List>
-                <ListItem divider>
-                  <ListItemAvatar>
-                    <Avatar className="soft-skill-list-icon">1</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText>
-                    <Typography variant="body1">
-                      Good Organizing Skills.
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-                <ListItem divider>
-                  <ListItemAvatar>
-                    <Avatar className="soft-skill-list-icon">2</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText>
-                    <Typography variant="body1">
-                      Team work &amp; team management.
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-                <ListItem divider>
-                  <ListItemAvatar>
-                    <Avatar className="soft-skill-list-icon">3</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText>
-                    <Typography variant="body1">
-                      Good communication skills.
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-              </List>
+              <List>{softSkill}</List>
             </Grid>
             <Divider orientation="vertical" flexItem />
             <Grid item md={6}>
@@ -95,50 +62,7 @@ export class Skills extends React.Component {
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody>
-                    <TableRow
-                      key="English"
-                      className="padding-top-bottom padding-left-right"
-                    >
-                      <TableCell>
-                        <Typography variant="body1">English</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body1">Fluent</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body1">Fluent</Typography>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow
-                      key="Bengali"
-                      className="padding-top-bottom padding-left-right"
-                    >
-                      <TableCell>
-                        <Typography variant="body1">Bengali</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body1">Intermediate</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body1">Native Fluent</Typography>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow
-                      key="Hindi"
-                      className="padding-top-bottom padding-left-right"
-                    >
-                      <TableCell>
-                        <Typography variant="body1">Hindi</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body1">Basic</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body1">Fluent</Typography>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
+                  <TableBody>{langSkill}</TableBody>
                 </Table>
               </TableContainer>
             </Grid>
