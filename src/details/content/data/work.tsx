@@ -26,6 +26,7 @@ type WorkItem = {
   from: DateTime;
   to: null | DateTime;
   organization: string;
+  organizationicon: string;
   emptype: string;
   desc: string;
 };
@@ -37,6 +38,7 @@ const work: WorkItem[] = [
     from: DateTime.local(2020, 9, 28),
     to: null,
     organization: "Wipro Limited",
+    organizationicon: "static/logos/third-party/Wipro.png",
     emptype: "Full Time",
     desc: "My first work.",
   },
@@ -73,7 +75,7 @@ workinclude.reverse().forEach((value, index) => {
   }
 
   workDetails.push(
-    <TimelineItem key={index.toString()}>
+    <TimelineItem key={index.toString()} className="work-edu-container">
       <TimelineOppositeContent className="timeline-opp-container"></TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineConnector className={index === 0 ? "hide" : ""} />
@@ -87,12 +89,12 @@ workinclude.reverse().forEach((value, index) => {
           className={index === workinclude.length - 1 ? "hide" : ""}
         />
       </TimelineSeparator>
-      <TimelineContent>
-        <Card className="work-card">
+      <TimelineContent className="work-card">
+        <Card>
           <CardContent>
-            <Grid container id="work-item">
+            <Grid container className="work-item">
               <Grid container>
-                <Grid item container xs id="work-detail">
+                <Grid item container xs className="work-detail">
                   <Grid item>
                     <Typography variant="h4" gutterBottom>
                       {value.designation}
@@ -122,13 +124,13 @@ workinclude.reverse().forEach((value, index) => {
                 <Divider
                   orientation="vertical"
                   flexItem
-                  id="work-logo-divider"
+                  className="work-logo-divider"
                 />
                 <Grid item xs className="work-org-icon">
-                  <Avatar src="Wipro.png"></Avatar>
+                  <Avatar src={value.organizationicon}></Avatar>
                 </Grid>
               </Grid>
-              <Divider variant="fullWidth" id="work-desc-divider" />
+              <Divider variant="fullWidth" className="work-desc-divider" />
               <Grid item xs={12}>
                 <Typography variant="subtitle2">{value.desc}</Typography>
               </Grid>

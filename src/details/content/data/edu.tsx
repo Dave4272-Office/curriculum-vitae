@@ -54,7 +54,7 @@ const eduList = [
 
 eduList.reverse().forEach((value, index) => {
   educationDetails.push(
-    <TimelineItem key={index.toString()}>
+    <TimelineItem key={index.toString()} className="work-edu-container">
       <TimelineOppositeContent className="timeline-opp-container">
         <Typography variant="h6" gutterBottom>
           {value.from} - {value.to}
