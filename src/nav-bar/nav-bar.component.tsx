@@ -1,34 +1,36 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-
 import {
   List,
   ListItem,
   ListItemText,
   Divider,
-  Toolbar,
 } from "@material-ui/core";
-
 import "./NavBar.sass";
 
-export class NavBar extends React.Component {
+type PropType = {
+  toolbar: React.ReactElement;
+  clickHandler?: () => void;
+}
+
+export class NavBar extends React.Component<PropType> {
   render() {
     return (
       <div className="Navbar">
-        <Toolbar />
+        {this.props.toolbar}
         <List>
           <Divider />
-          <Item activeOnlyWhenExact={true} to="/" label="Home" />
+          <Item activeOnlyWhenExact={true} to="/" label="Home" clickHandler={this.props.clickHandler} />
           <Divider />
-          <Item to="/edu" label="Education" />
+          <Item to="/edu" label="Education" clickHandler={this.props.clickHandler} />
           <Divider />
-          <Item to="/exp" label="Experience" />
+          <Item to="/exp" label="Experience" clickHandler={this.props.clickHandler} />
           <Divider />
-          <Item to="/certs" label="Certifications" />
+          <Item to="/certs" label="Certifications" clickHandler={this.props.clickHandler} />
           <Divider />
-          <Item to="/skills" label="Skills" />
+          <Item to="/skills" label="Skills" clickHandler={this.props.clickHandler} />
           <Divider />
-          <Item to="/interests" label="Interests" />
+          <Item to="/interests" label="Interests" clickHandler={this.props.clickHandler} />
           <Divider />
         </List>
       </div>
@@ -36,16 +38,17 @@ export class NavBar extends React.Component {
   }
 }
 
-function Item({
-  label,
-  to,
-  activeOnlyWhenExact = false,
-}: {
-  [key: string]: any;
-}) {
+type ItemProps = {
+  label: string;
+  to: string;
+  activeOnlyWhenExact?: boolean;
+  clickHandler?: () => void;
+};
+
+function Item(props: ItemProps) {
   let match = useRouteMatch({
-    path: to,
-    exact: activeOnlyWhenExact,
+    path: props.to,
+    exact: props.activeOnlyWhenExact,
   });
 
   let x = () => {
@@ -54,8 +57,8 @@ function Item({
   };
 
   return (
-    <ListItem button component={Link} to={to} selected={x()}>
-      <ListItemText primary={label} />
+    <ListItem button onClick={props.clickHandler} component={Link} to={props.to} selected={x()}>
+      <ListItemText primary={props.label} />
     </ListItem>
   );
 }

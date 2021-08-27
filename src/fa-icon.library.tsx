@@ -4,7 +4,9 @@ import {
   faAward,
   faBriefcase,
   faCertificate,
+  faChevronCircleLeft,
   faGraduationCap,
+  faHamburger,
   faLanguage,
   faMedal,
 } from "@fortawesome/free-solid-svg-icons";
@@ -77,5 +79,7 @@ library.add(
   faAt,
   faCertificate,
   faAward,
-  faMedal
+  faMedal,
+  faHamburger,
+  faChevronCircleLeft
 );
