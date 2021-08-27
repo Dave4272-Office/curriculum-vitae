@@ -10,55 +10,56 @@ import { DrawerToolbar } from "./nav-bar/toolbar.component";
 
 type StateType = {
   ariaHidden: boolean;
-  secondDrawerClassName: HamDrawerClassName;
 };
-
-type HamDrawerClassName = "Ham-Drawer" | "Ham-Drawer-visible";
 
 export class App extends React.Component<any, StateType> {
   constructor(props: any) {
     super(props);
     this.state = {
       ariaHidden: false,
-      secondDrawerClassName: "Ham-Drawer",
     };
   }
 
   onHamburgerClick = () => {
-    this.setState((state) => {
-      return {
-        ariaHidden: true,
-        secondDrawerClassName: "Ham-Drawer-visible",
-      };
+    console.log("ham click");
+    this.setState({
+      ariaHidden: true,
     });
   };
 
   onChevronClick = () => {
-    this.setState((state) => {
-      return {
-        ariaHidden: false,
-        secondDrawerClassName: "Ham-Drawer",
-      };
+    console.log("chev click");
+    this.setState({
+      ariaHidden: false,
     });
   };
 
   render() {
     return (
       <>
-        <div className="App" aria-hidden={this.state.ariaHidden}>
+        <div className="App">
           <Header hamClick={this.onHamburgerClick.bind(this)} />
-          <Drawer variant="permanent" className="Drawer">
+          <Drawer anchor="left" variant="permanent" className="Drawer">
             <NavBar toolbar={<DrawerToolbar />} />
           </Drawer>
           <Details />
           <Footer />
+          <Drawer
+            anchor="left"
+            variant="persistent"
+            className="second-drawer"
+            open={this.state.ariaHidden.valueOf()}
+            onClose={this.onChevronClick}
+            PaperProps={{ className: "custom-elevation" }}
+          >
+            <NavBar
+              toolbar={
+                <DrawerToolbar handler={this.onChevronClick.bind(this)} />
+              }
+              clickHandler={this.onChevronClick.bind(this)}
+            />
+          </Drawer>
         </div>
-        <Drawer
-          variant="permanent"
-          className={"second-drawer " + this.state.secondDrawerClassName}
-        >
-          <NavBar toolbar={<DrawerToolbar handler={this.onChevronClick.bind(this)} />} clickHandler={this.onChevronClick.bind(this)} />
-        </Drawer>
       </>
     );
   }

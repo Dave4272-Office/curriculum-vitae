@@ -10,16 +10,19 @@ export class DrawerToolbar extends React.Component<PropType> {
   render() {
     if (!this.props.handler) {
       return (
-        <Toolbar>
+        <Toolbar disableGutters>
           <Box>Image</Box>
         </Toolbar>
       );
     } else {
       return (
-        <Toolbar>
+        <Toolbar disableGutters>
           <Box>Image</Box>
-          <IconButton onClick={this.props.handler} >
-            <FontAwesomeIcon icon={["fas", "chevron-circle-left"]} />
+          <IconButton onClick={this.props.handler}>
+            <FontAwesomeIcon
+              icon={["fas", "chevron-circle-left"]}
+              color="pink"
+            />
           </IconButton>
         </Toolbar>
       );

@@ -20,8 +20,8 @@ type Certificate = {
   issuer: string;
   issuericon: string;
   issuedate: DateTime;
-  expirydate: null | DateTime;
-  certid: null | string;
+  expirydate?: DateTime;
+  certid?: string;
   credurl: string;
 };
 
@@ -32,8 +32,6 @@ const certList: Certificate[] = [
     issuer: "Microsoft",
     issuericon: "static/logos/third-party/Microsoft.png",
     issuedate: DateTime.local(2018, 1, 11),
-    expirydate: null,
-    certid: null,
     credurl:
       "https://www.credly.com/badges/ce98fb09-d34f-4d38-b10d-f0f996a83c50/public_url",
   },
@@ -43,7 +41,6 @@ const certList: Certificate[] = [
     issuer: "DataCamp",
     issuericon: "static/logos/third-party/DataCamp.png",
     issuedate: DateTime.local(2018, 6, 7),
-    expirydate: null,
     certid: "5208174",
     credurl:
       "https://www.datacamp.com/statement-of-accomplishment/course/2288a86bccc6dac87de35445a748344c1a5cd44b",
@@ -54,8 +51,6 @@ const certList: Certificate[] = [
     issuer: "IBM",
     issuericon: "static/logos/third-party/IBM.png",
     issuedate: DateTime.local(2019, 4, 3),
-    expirydate: null,
-    certid: null,
     credurl:
       "https://www.credly.com/badges/75bbe476-8227-475c-9bb9-042a4356404e/public_url",
   },
@@ -65,8 +60,6 @@ const certList: Certificate[] = [
     issuer: "Microsoft",
     issuericon: "static/logos/third-party/Microsoft.png",
     issuedate: DateTime.local(2019, 7, 13),
-    expirydate: null,
-    certid: null,
     credurl:
       "https://www.credly.com/badges/073eaa44-09ba-41f0-81d1-1a5b00ec2677/public_url",
   },
@@ -79,7 +72,7 @@ certList
   .reverse()
   .forEach((value, index) => {
     certDetails.push(
-      <Box width={520} height={270} key={index} >
+      <Box width={520} height={270} key={index}>
         <Card className="cert-card">
           <CardContent className="cert-content">
             <Grid container className="cert-item">
@@ -100,12 +93,19 @@ certList
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="body1" gutterBottom>
+                    <Typography
+                      variant="body1"
+                      gutterBottom={value.expirydate ? true : false}
+                    >
                       {value.issuedate.toFormat("MMMM d, yyyy")}
-                      {value.expirydate === null
-                        ? ""
-                        : " — " + value.expirydate.toFormat("MMMM d, yyyy")}
                     </Typography>
+                    {!value.expirydate ? (
+                      ""
+                    ) : (
+                      <Typography variant="body1" gutterBottom>
+                        {value.expirydate.toFormat("MMMM d, yyyy")}
+                      </Typography>
+                    )}
                   </Grid>
                   <CertID value={value} />
                 </Grid>
@@ -137,10 +137,12 @@ certList
   });
 
 function CertID(props: { value: Certificate }) {
-  if (props.value.certid !== null) {
+  if (props.value.certid) {
     return (
       <Grid item>
-        <Typography variant="body1" gutterBottom>ID : {props.value.certid}</Typography>
+        <Typography variant="body1" gutterBottom>
+          ID : {props.value.certid}
+        </Typography>
       </Grid>
     );
   } else {

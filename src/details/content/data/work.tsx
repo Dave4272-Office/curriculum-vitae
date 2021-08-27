@@ -24,11 +24,11 @@ type WorkItem = {
   include: boolean;
   designation: string;
   from: DateTime;
-  to: null | DateTime;
+  to?: DateTime;
   organization: string;
   organizationicon: string;
   emptype: string;
-  desc: string;
+  desc: React.ReactElement;
 };
 
 const work: WorkItem[] = [
@@ -36,11 +36,27 @@ const work: WorkItem[] = [
     include: true,
     designation: "Project Engineer",
     from: DateTime.local(2020, 9, 28),
-    to: null,
     organization: "Wipro Limited",
     organizationicon: "static/logos/third-party/Wipro.png",
     emptype: "Full Time",
-    desc: "My first work.",
+    desc: (
+      <ul>
+        <li>Worked in Agile project in finance sector.</li>
+        <li>
+          Developed critical application modules related to foreign currency
+          exchange.
+        </li>
+        <li>Handled deployments to production.</li>
+        <li>Technologies used:</li>
+        <ul>
+          <li>Java</li>
+          <li>Spring Boot</li>
+          <li>Redis</li>
+          <li>PCF</li>
+          <li>Oracle Database</li>
+        </ul>
+      </ul>
+    ),
   },
 ];
 
@@ -52,7 +68,7 @@ workinclude.reverse().forEach((value, index) => {
   let duration: Duration;
   let durationout = "";
 
-  if (value.to === null) {
+  if (!value.to) {
     duration = DateTime.now().diff(value.from, ["year", "months", "day"], {
       conversionAccuracy: "longterm",
     });
@@ -109,8 +125,9 @@ workinclude.reverse().forEach((value, index) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" gutterBottom>
-                      {value.from.toFormat("MMMM d, yyyy")} <span className="hyphen-hide">&mdash;</span>{" "}
-                      {value.to === null
+                      {value.from.toFormat("MMMM d, yyyy")}{" "}
+                      <span className="hyphen-hide">&mdash;</span>{" "}
+                      {!value.to
                         ? "Present"
                         : value.to.toFormat("MMMM d, yyyy")}
                     </Typography>

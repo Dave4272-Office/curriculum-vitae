@@ -7,6 +7,7 @@ $textdrawer: #ffffff
 
 .Drawer
   flex-shrink: 0
+  width: $drawerWidth
 
 .MuiDrawer-paper
   width: $drawerWidth
@@ -14,6 +15,9 @@ $textdrawer: #ffffff
 .Drawer .MuiPaper-root
   background-color: $bgcolor !important
   color: $textdrawer !important
+
+.Drawer .Navbar > div
+  justify-content: center
 
 @media (min-width: 880px)
   .Drawer
@@ -23,11 +27,9 @@ $textdrawer: #ffffff
   .Drawer
     display: none
 
-.Ham-Drawer
-  visibility: hidden
-
-.Ham-Drawer-visible
-  visibility: visible
+@media (min-width: 880px)
+  .second-drawer
+    display: none
 
 .second-drawer .MuiPaper-root
   background-color: $bgcolor !important
@@ -35,4 +37,7 @@ $textdrawer: #ffffff
   width: $drawerWidth
 
 .second-drawer .Navbar > div
-    justify-content: space-between
+  justify-content: space-between
+
+.custom-elevation
+  box-shadow: 41px 0px 35px 18px rgba(0,0,0,0.48) !important
