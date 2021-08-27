@@ -7,6 +7,7 @@ import {
   faChevronCircleLeft,
   faGraduationCap,
   faHamburger,
+  faKey,
   faLanguage,
   faMedal,
 } from "@fortawesome/free-solid-svg-icons";
@@ -30,14 +31,18 @@ import {
   faJava,
   faJenkins,
   faJs,
+  faKeybase,
   faMarkdown,
   faNodeJs,
   faNpm,
   faPhp,
   faPython,
   faReact,
+  faRedditAlien,
   faSass,
   faSourcetree,
+  faTelegramPlane,
+  faTwitter,
   faWordpress,
   faYarn,
 } from "@fortawesome/free-brands-svg-icons";
@@ -81,5 +86,10 @@ library.add(
   faAward,
   faMedal,
   faHamburger,
-  faChevronCircleLeft
+  faChevronCircleLeft,
+  faKeybase,
+  faTelegramPlane,
+  faTwitter,
+  faRedditAlien,
+  faKey
 );
