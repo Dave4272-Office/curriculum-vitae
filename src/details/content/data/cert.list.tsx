@@ -79,7 +79,7 @@ certList
   .reverse()
   .forEach((value, index) => {
     certDetails.push(
-      <Box width={520} height={270}>
+      <Box width={520} height={270} key={index} >
         <Card className="cert-card">
           <CardContent className="cert-content">
             <Grid container className="cert-item">

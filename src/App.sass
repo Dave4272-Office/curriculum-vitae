@@ -6,7 +6,6 @@ $textdrawer: #ffffff
   display: flex
 
 .Drawer
-  width: $drawerWidth
   flex-shrink: 0
 
 .MuiDrawer-paper
@@ -15,3 +14,25 @@ $textdrawer: #ffffff
 .Drawer .MuiPaper-root
   background-color: $bgcolor !important
   color: $textdrawer !important
+
+@media (min-width: 880px)
+  .Drawer
+    width: $drawerWidth
+
+@media (max-width: 879px)
+  .Drawer
+    display: none
+
+.Ham-Drawer
+  visibility: hidden
+
+.Ham-Drawer-visible
+  visibility: visible
+
+.second-drawer .MuiPaper-root
+  background-color: $bgcolor !important
+  color: $textdrawer !important
+  width: $drawerWidth
+
+.second-drawer .Navbar > div
+    justify-content: space-between

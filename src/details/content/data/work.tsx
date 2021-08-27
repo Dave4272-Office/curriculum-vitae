@@ -109,7 +109,7 @@ workinclude.reverse().forEach((value, index) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" gutterBottom>
-                      {value.from.toFormat("MMMM d, yyyy")} &mdash;{" "}
+                      {value.from.toFormat("MMMM d, yyyy")} <span className="hyphen-hide">&mdash;</span>{" "}
                       {value.to === null
                         ? "Present"
                         : value.to.toFormat("MMMM d, yyyy")}

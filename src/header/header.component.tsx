@@ -1,13 +1,22 @@
 import React from "react";
-import { AppBar, Toolbar } from "@material-ui/core";
-
+import { AppBar, IconButton, Toolbar } from "@material-ui/core";
 import "./Header.sass";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export class Header extends React.Component {
+type PropType = {
+  hamClick: () => void;
+};
+
+export class Header extends React.Component<PropType> {
   render() {
     return (
       <AppBar position="fixed" className="AppBar">
-        <Toolbar>Hello</Toolbar>
+        <Toolbar>
+          <IconButton onClick={this.props.hamClick} className="ham-icon" >
+            <FontAwesomeIcon icon={["fas", "hamburger"]} color="white" />
+          </IconButton>
+          Hello
+        </Toolbar>
       </AppBar>
     );
   }

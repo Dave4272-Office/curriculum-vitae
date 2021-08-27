@@ -1,6 +1,14 @@
-$zindexAppBar: 1201
 $bgcolor: #1f0085
+$drawerWidth: 250px
 
 .AppBar
-    z-index: $zindexAppBar !important
     background-color: $bgcolor !important
+    left: 0px !important
+
+@media (min-width: 880px)
+    .AppBar
+        margin-left: $drawerWidth
+
+@media (min-width: 880px)
+    .ham-icon
+        display: none !important
