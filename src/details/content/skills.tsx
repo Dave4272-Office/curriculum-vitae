@@ -13,8 +13,8 @@ import {
   Divider,
 } from "@material-ui/core";
 import React from "react";
-import { langSkill, softSkill } from "./items/skills.soft-lang";
-import { SkillChip } from "./items/skillchip";
+import { langSkills, softSkills } from "./items/skills.soft-lang";
+import { SkillChipsBlock } from "./items/skill.chip";
 import "./skills.sass";
 import "./skillchip.sass";
 
@@ -34,7 +34,7 @@ export class Skills extends React.Component {
                   Soft Skills:
                 </Typography>
               </div>
-              <List>{softSkill}</List>
+              <List>{softSkills}</List>
             </Grid>
             <Divider orientation="vertical" flexItem />
             <Grid item md={6}>
@@ -63,7 +63,7 @@ export class Skills extends React.Component {
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody>{langSkill}</TableBody>
+                  <TableBody>{langSkills}</TableBody>
                 </Table>
               </TableContainer>
             </Grid>
@@ -74,7 +74,7 @@ export class Skills extends React.Component {
             </Grid>
             <Divider orientation="horizontal" className="skill-divider" />
             <Grid item className="extra-padded">
-              <SkillChip />
+              <SkillChipsBlock />
             </Grid>
           </Grid>
         </Grid>
