@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
-import { certDetails } from "./items/cert.list";
+import { certCards } from "./items/cert.card";
 import "./certificates.sass";
 export class Certs extends React.Component {
   render() {
@@ -9,7 +9,7 @@ export class Certs extends React.Component {
         <Typography variant="h2" gutterBottom className="extra-padded">
           Certifications
         </Typography>
-        <div className="creds-container">{certDetails}</div>
+        <div className="creds-container">{certCards}</div>
       </>
     );
   }

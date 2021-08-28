@@ -1,6 +1,6 @@
 import { Chip } from "@material-ui/core";
 import React from "react";
-import { faSkills } from "./skill.list.fa";
+import { faSkills } from "./data/skill.list.fa";
 
 const chipStyles = [
   "chst1",
@@ -32,7 +32,7 @@ faSkills.forEach((value, index) => {
   }
 });
 
-export class SkillChip extends React.Component {
+export class SkillChipsBlock extends React.Component {
   render() {
     return <div className="skillchip-container">{chips}</div>;
   }

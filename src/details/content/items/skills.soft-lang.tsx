@@ -8,36 +8,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import { langSkillList, softSkillList } from "./data/soft-lang.list";
 
-export let softSkill: React.ReactElement[] = [];
-export let langSkill: React.ReactElement[] = [];
-
-const softSkillList = [
-  "Good Organizing Skills.",
-  "Team work & team management.",
-  "Good communication skills.",
-];
-
-const langSkillList = [
-  {
-    language: "English",
-    readwrite: "Fluent",
-    listeningspeaking: "Fluent",
-  },
-  {
-    language: "Bengali",
-    readwrite: "Intermediate",
-    listeningspeaking: "Native Fluent",
-  },
-  {
-    language: "Hindi",
-    readwrite: "Basic",
-    listeningspeaking: "Fluent",
-  },
-];
+export let softSkills: React.ReactElement[] = [];
+export let langSkills: React.ReactElement[] = [];
 
 softSkillList.forEach((value, index) => {
-  softSkill.push(
+  softSkills.push(
     <ListItem divider key={index.toString()}>
       <ListItemAvatar>
         <Avatar className="soft-skill-list-icon">{index + 1}</Avatar>
@@ -50,7 +27,7 @@ softSkillList.forEach((value, index) => {
 });
 
 langSkillList.forEach((value, index) => {
-  langSkill.push(
+  langSkills.push(
     <TableRow
       key={value.language}
       className="padding-top-bottom padding-left-right"

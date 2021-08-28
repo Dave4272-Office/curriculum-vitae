@@ -17,50 +17,11 @@ import {
 } from "@material-ui/lab";
 import React from "react";
 import { DateTime, Duration } from "luxon";
+import { workList } from "./data/work";
 
-export let workDetails: React.ReactElement[] = [];
+export let workCards: React.ReactElement[] = [];
 
-type WorkItem = {
-  include: boolean;
-  designation: string;
-  from: DateTime;
-  to?: DateTime;
-  organization: string;
-  organizationicon: string;
-  emptype: string;
-  desc: React.ReactElement;
-};
-
-const work: WorkItem[] = [
-  {
-    include: true,
-    designation: "Project Engineer",
-    from: DateTime.local(2020, 9, 28),
-    organization: "Wipro Limited",
-    organizationicon: "static/logos/third-party/Wipro.png",
-    emptype: "Full Time",
-    desc: (
-      <ul>
-        <li>Working in Agile project in finance sector.</li>
-        <li>
-          Developed critical application modules related to foreign currency
-          exchange.
-        </li>
-        <li>Handled deployments to production.</li>
-        <li>Technologies used:</li>
-        <ul>
-          <li>Java</li>
-          <li>Spring Boot</li>
-          <li>Redis</li>
-          <li>PCF</li>
-          <li>Oracle Database</li>
-        </ul>
-      </ul>
-    ),
-  },
-];
-
-const workinclude = work.filter((value) => {
+const workinclude = workList.filter((value) => {
   return value.include;
 });
 
@@ -90,7 +51,7 @@ workinclude.reverse().forEach((value, index) => {
     durationout += duration.days.toFixed(0) + " dy";
   }
 
-  workDetails.push(
+  workCards.push(
     <TimelineItem key={index.toString()} className="work-edu-container">
       <TimelineOppositeContent className="timeline-opp-container"></TimelineOppositeContent>
       <TimelineSeparator>
