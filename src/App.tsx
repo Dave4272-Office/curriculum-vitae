@@ -21,14 +21,12 @@ export class App extends React.Component<any, StateType> {
   }
 
   onHamburgerClick = () => {
-    console.log("ham click");
     this.setState({
       ariaHidden: true,
     });
   };
 
   onChevronClick = () => {
-    console.log("chev click");
     this.setState({
       ariaHidden: false,
     });

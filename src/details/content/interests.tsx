@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import React from "react";
 
 export class Interests extends React.Component {
@@ -9,10 +10,6 @@ export class Interests extends React.Component {
         </Typography>
         Hobbies &amp; Interests: 1. Learning New Things 2. Reading Novels 3.
         Sketching 4. Listening music
-        <hr />
-        <hr />
-        <hr />
-        <Test />
       </>
     );
   }
