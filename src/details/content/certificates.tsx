@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
-import { certDetails } from "./data/cert.list";
-import "./certs.sass";
+import { certDetails } from "./items/cert.list";
+import "./certificates.sass";
 export class Certs extends React.Component {
   render() {
     return (

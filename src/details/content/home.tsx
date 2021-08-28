@@ -12,11 +12,15 @@ export class Home extends React.Component {
         <Grid
           container
           direction="row"
-          justifyContent="space-evenly"
+          justifyContent="space-around"
           alignItems="center"
         >
           <Grid item xs>
-            <Avatar src="profile-dave.jpg" className="avatar-large" />
+            <div className="profile-frame">
+              <div>
+                <Avatar src="profile-dave.jpg" className="profile-img" />
+              </div>
+            </div>
           </Grid>
           <Grid item xs>
             <h3>Helllloooo</h3>

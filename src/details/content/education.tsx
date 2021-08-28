@@ -1,17 +1,17 @@
 import { Typography } from "@material-ui/core";
 import { Timeline } from "@material-ui/lab";
 import React from "react";
-import { workDetails } from "./data/work";
-import "./experience.sass";
+import { educationDetails } from "./items/edu";
+import "./education.sass"
 
-export class Experience extends React.Component {
+export class Education extends React.Component {
   render() {
     return (
       <>
         <Typography variant="h2" gutterBottom className="extra-padded">
-          Experience
+          Education
         </Typography>
-        <Timeline>{workDetails}</Timeline>
+        <Timeline>{educationDetails}</Timeline>
       </>
     );
   }

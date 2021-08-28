@@ -32,6 +32,7 @@ import {
   faJenkins,
   faJs,
   faKeybase,
+  faLinkedinIn,
   faMarkdown,
   faNodeJs,
   faNpm,
@@ -91,5 +92,6 @@ library.add(
   faTelegramPlane,
   faTwitter,
   faRedditAlien,
-  faKey
+  faKey,
+  faLinkedinIn
 );

@@ -1,12 +1,12 @@
 import React from "react";
 import { Drawer } from "@material-ui/core";
-import { NavBar } from "./nav-bar/nav-bar.component";
-import { Details } from "./details/details.component";
+import { NavBar } from "./nav-bar/nav-bar";
+import { Details } from "./details/details";
 import "./App.sass";
-import { Header } from "./header/header.component";
+import { Header } from "./header/header";
 import "./fa-icon.library";
-import { Footer } from "./footer/footer.component";
-import { DrawerToolbar } from "./nav-bar/toolbar.component";
+import { Footer } from "./footer/footer";
+import { DrawerToolbar } from "./nav-bar/toolbar";
 
 type StateType = {
   ariaHidden: boolean;

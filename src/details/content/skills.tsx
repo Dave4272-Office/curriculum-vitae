@@ -13,9 +13,10 @@ import {
   Divider,
 } from "@material-ui/core";
 import React from "react";
-import { langSkill, softSkill } from "./data/skills.soft-lang";
-import { SkillChip } from "./skillchip.component";
+import { langSkill, softSkill } from "./items/skills.soft-lang";
+import { SkillChip } from "./items/skillchip";
 import "./skills.sass";
+import "./skillchip.sass";
 
 export class Skills extends React.Component {
   render() {
