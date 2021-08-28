@@ -1,7 +1,6 @@
 import { Chip } from "@material-ui/core";
 import React from "react";
-import "./skillchip.sass";
-import { faSkills } from "./data/skill.list.fa";
+import { faSkills } from "./skill.list.fa";
 
 const chipStyles = [
   "chst1",

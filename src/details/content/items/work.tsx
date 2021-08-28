@@ -41,7 +41,7 @@ const work: WorkItem[] = [
     emptype: "Full Time",
     desc: (
       <ul>
-        <li>Worked in Agile project in finance sector.</li>
+        <li>Working in Agile project in finance sector.</li>
         <li>
           Developed critical application modules related to foreign currency
           exchange.
