@@ -17,14 +17,17 @@ export const workList: WorkItem[] = [
           exchange.
         </li>
         <li>Handled deployments to production.</li>
-        <li>Technologies used:</li>
-        <ul>
-          <li>Java</li>
-          <li>Spring Boot</li>
-          <li>Redis</li>
-          <li>PCF</li>
-          <li>Oracle Database</li>
-        </ul>
+        <li>
+          Technologies used:
+          <br />
+          <ul>
+            <li>Java</li>
+            <li>Spring Boot</li>
+            <li>Redis</li>
+            <li>PCF</li>
+            <li>Oracle Database</li>
+          </ul>
+        </li>
       </ul>
     ),
   },

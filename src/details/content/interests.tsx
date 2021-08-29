@@ -14,4 +14,3 @@ export class Interests extends React.Component {
     );
   }
 }
-

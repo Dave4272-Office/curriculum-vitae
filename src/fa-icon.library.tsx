@@ -5,6 +5,7 @@ import {
   faBriefcase,
   faCertificate,
   faChevronCircleLeft,
+  faClock,
   faGraduationCap,
   faHamburger,
   faKey,
@@ -93,5 +94,6 @@ library.add(
   faTwitter,
   faRedditAlien,
   faKey,
-  faLinkedinIn
+  faLinkedinIn,
+  faClock
 );

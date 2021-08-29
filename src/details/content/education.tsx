@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import { Timeline } from "@material-ui/lab";
 import React from "react";
 import { educationCards } from "./items/edu.card";
-import "./education.sass"
+import "./education.sass";
 
 export class Education extends React.Component {
   render() {

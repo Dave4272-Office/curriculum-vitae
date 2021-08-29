@@ -25,57 +25,68 @@ certList
       <Box width={520} height={270} key={index}>
         <Card className="cert-card">
           <CardContent className="cert-content">
-            <Grid container className="cert-item">
-              <Grid container>
-                <Grid item container xs className="cert-detail">
-                  <Grid item>
-                    <Typography variant="h5" align="center" gutterBottom>
-                      {value.name}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="h6" gutterBottom>
-                      <FontAwesomeIcon
-                        icon={["fas", "certificate"]}
-                        color="#75e900"
-                      />
-                      &nbsp;&nbsp;{value.issuer}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography
-                      variant="body1"
-                      gutterBottom={value.expirydate ? true : false}
-                    >
-                      {value.issuedate.toFormat("MMMM d, yyyy")}
-                    </Typography>
-                    {!value.expirydate ? (
-                      ""
-                    ) : (
-                      <Typography variant="body1" gutterBottom>
-                        {value.expirydate.toFormat("MMMM d, yyyy")}
+            <Grid container>
+              <Grid container className="cert-item">
+                <Grid container>
+                  <Grid item container xs className="cert-detail">
+                    <Grid item>
+                      <Typography
+                        variant="h5"
+                        component="h3"
+                        align="center"
+                        gutterBottom
+                      >
+                        {value.name}
                       </Typography>
-                    )}
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="h6" component="h4" gutterBottom>
+                        <FontAwesomeIcon
+                          icon={["fas", "certificate"]}
+                          color="#75e900"
+                        />
+                        &nbsp;&nbsp;{value.issuer}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" align="center" gutterBottom>
+                        {value.issuedate.toFormat("MMMM d, yyyy")}
+                        {!value.expirydate ? (
+                          ""
+                        ) : (
+                          <>
+                            <br />
+                            {value.expirydate.toFormat("MMMM d, yyyy")}
+                          </>
+                        )}
+                      </Typography>
+                    </Grid>
+                    <CertID value={value} />
                   </Grid>
-                  <CertID value={value} />
+                </Grid>
+                <Divider variant="fullWidth" className="cert-desc-divider" />
+                <Grid item className="cred-chip">
+                  <Chip
+                    label="Credential"
+                    variant="outlined"
+                    color="secondary"
+                    clickable
+                    component="a"
+                    href={value.credurl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="cred-url"
+                  />
                 </Grid>
               </Grid>
-              <Divider variant="fullWidth" className="cert-desc-divider" />
-              <Grid item className="cred-chip">
-                <Chip
-                  label="Credential"
-                  variant="outlined"
-                  color="secondary"
-                  clickable
-                  component="a"
-                  href={value.credurl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                />
-              </Grid>
+              <Divider
+                orientation="vertical"
+                flexItem
+                className="cert-logo-divider"
+              />
+              <CardMedia image={value.issuericon} className="cert-org-icon" />
             </Grid>
           </CardContent>
-          <CardMedia image={value.issuericon} className="cert-org-icon" />
         </Card>
         <FontAwesomeIcon
           icon={["fas", "award"]}

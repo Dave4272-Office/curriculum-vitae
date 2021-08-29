@@ -17,7 +17,7 @@ eduList.reverse().forEach((value, index) => {
   educationCards.push(
     <TimelineItem key={index.toString()} className="work-edu-container">
       <TimelineOppositeContent className="timeline-opp-container">
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" component="h3" gutterBottom>
           {value.from} - {value.to}
         </Typography>
       </TimelineOppositeContent>
@@ -38,47 +38,49 @@ eduList.reverse().forEach((value, index) => {
           <CardContent>
             <Grid container>
               <Grid item sm={12} md={9}>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" component="h3" gutterBottom>
                   {value.qualexam}
                 </Typography>
               </Grid>
               <Grid item sm={12} md={3} id="score" container direction="column">
                 <Grid item xs>
-                  <Typography variant="subtitle2">Score :</Typography>
+                  <Typography variant="subtitle2" component="h3">
+                    Score :
+                  </Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography variant="body1" gutterBottom>
+                  <Typography variant="body1" component="span" gutterBottom>
                     {value.score}
                   </Typography>
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="subtitle2">
+                <Typography variant="subtitle2" component="h3">
                   {value.certauthtype} :
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" component="span" gutterBottom>
                   {value.certauthname}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="subtitle2">
+                <Typography variant="subtitle2" component="h3">
                   {value.institutetype} :
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" component="span" gutterBottom>
                   {value.institutename}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="subtitle2">
+                <Typography variant="subtitle2" component="h3">
                   {value.qualspectype} :
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" component="span" gutterBottom>
                   {value.qualspec}
                 </Typography>
               </Grid>
