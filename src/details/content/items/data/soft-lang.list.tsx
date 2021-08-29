@@ -1,10 +1,12 @@
-export const softSkillList = [
+import { Language } from "./types/Language";
+
+export const softSkillList: string[] = [
   "Good Organizing Skills.",
   "Team work & team management.",
   "Good communication skills.",
 ];
 
-export const langSkillList = [
+export const langSkillList: Language[] = [
   {
     language: "English",
     readwrite: "Fluent",

@@ -1,11 +1,11 @@
 import { Chip } from "@material-ui/core";
 import React from "react";
-import { faSkills } from "./data/skill.list.fa";
+import { techSkills } from "./data/skill.list";
 
 const chipStyles = [
   "chst1",
   "MuiChip-colorPrimary chst2",
-  "MuiChip-colorSecondary chst3",
+  "MuiChip-colorSecondary chst3 chst3-span",
   "MuiChip-outlined chst1",
   "MuiChip-outlined MuiChip-outlinedPrimary chst2",
   "MuiChip-outlined MuiChip-outlinedSecondary chst3",
@@ -15,19 +15,17 @@ let chips: React.ReactElement[] = [];
 
 let i = 0;
 
-faSkills.forEach((value, index) => {
+techSkills.forEach((value, index) => {
   if (value.include) {
     let x = i % chipStyles.length;
-    if (value.faicon) {
-      chips.push(
-        <Chip
-          avatar={value.faicon}
-          className={chipStyles[x]}
-          label={value.label}
-          key={value.label}
-        />
-      );
-    }
+    chips.push(
+      <Chip
+        avatar={value.icon}
+        className={chipStyles[x]}
+        label={value.label}
+        key={value.label}
+      />
+    );
     i = i + 1;
   }
 });

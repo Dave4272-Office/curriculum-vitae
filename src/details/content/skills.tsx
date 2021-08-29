@@ -30,7 +30,11 @@ export class Skills extends React.Component {
             <Grid item md={5}>
               <div className="sub-head-title">
                 <Avatar className="sub-head-icon skill-text">S</Avatar>
-                <Typography variant="h4" className="sub-head-text">
+                <Typography
+                  variant="h4"
+                  component="h3"
+                  className="sub-head-text"
+                >
                   Soft Skills:
                 </Typography>
               </div>
@@ -42,7 +46,11 @@ export class Skills extends React.Component {
                 <Avatar className="sub-head-icon">
                   <FontAwesomeIcon icon={["fas", "language"]} />
                 </Avatar>
-                <Typography variant="h4" className="sub-head-text">
+                <Typography
+                  variant="h4"
+                  component="h3"
+                  className="sub-head-text"
+                >
                   Languages Known:
                 </Typography>
               </div>
@@ -51,14 +59,18 @@ export class Skills extends React.Component {
                   <TableHead>
                     <TableRow className="padding-left-right">
                       <TableCell className="padding-top-bottom-imp">
-                        <Typography variant="h6">Language</Typography>
+                        <Typography variant="h6" component="h4">
+                          Language
+                        </Typography>
                       </TableCell>
                       <TableCell className="padding-top-bottom-imp">
-                        <Typography variant="h6">Reading / Writing</Typography>
+                        <Typography variant="h6" component="h4">
+                          Reading &amp; Writing
+                        </Typography>
                       </TableCell>
                       <TableCell className="padding-top-bottom-imp">
-                        <Typography variant="h6">
-                          Listening / Speaking
+                        <Typography variant="h6" component="h4">
+                          Listening &amp; Speaking
                         </Typography>
                       </TableCell>
                     </TableRow>

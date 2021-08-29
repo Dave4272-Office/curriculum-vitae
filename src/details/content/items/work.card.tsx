@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Avatar,
   Card,
   CardContent,
+  CardMedia,
   Divider,
   Grid,
   Typography,
@@ -73,30 +73,37 @@ workinclude.reverse().forEach((value, index) => {
               <Grid container>
                 <Grid item container xs className="work-detail">
                   <Grid item>
-                    <Typography variant="h4" gutterBottom>
+                    <Typography variant="h4" component="h3">
                       {value.designation}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h5" component="h4">
                       <FontAwesomeIcon icon={["fas", "at"]} color="#75e900" />
-                      &nbsp;&nbsp;{value.organization}&nbsp;&nbsp;&nbsp;&bull;
+                      &nbsp;&nbsp;{value.organization}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h6" component="h5">
+                      <FontAwesomeIcon
+                        icon={["fas", "clock"]}
+                        color="#75e900"
+                      />
                       &nbsp;&nbsp;{value.emptype}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="body1" gutterBottom>
-                      {value.from.toFormat("MMMM d, yyyy")}{" "}
-                      <span className="hyphen-hide">&mdash;</span>{" "}
+                    <Typography variant="body1" align="center">
+                      From : {value.from.toFormat("MMMM d, yyyy")}
+                      <br />
+                      To :{" "}
                       {!value.to
                         ? "Present"
                         : value.to.toFormat("MMMM d, yyyy")}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="body1" gutterBottom>
-                      {durationout}
-                    </Typography>
+                    <Typography variant="body1">{durationout}</Typography>
                   </Grid>
                 </Grid>
                 <Divider
@@ -104,13 +111,20 @@ workinclude.reverse().forEach((value, index) => {
                   flexItem
                   className="work-logo-divider"
                 />
-                <Grid item xs className="work-org-icon">
-                  <Avatar src={value.organizationicon}></Avatar>
-                </Grid>
+                <CardMedia
+                  image={value.organizationicon}
+                  className="work-org-icon"
+                />
               </Grid>
               <Divider variant="fullWidth" className="work-desc-divider" />
               <Grid item xs={12}>
-                <Typography variant="subtitle2">{value.desc}</Typography>
+                <Typography
+                  variant="subtitle2"
+                  component="div"
+                  title="Work Description"
+                >
+                  {value.desc}
+                </Typography>
               </Grid>
             </Grid>
           </CardContent>

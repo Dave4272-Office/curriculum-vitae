@@ -1,4 +1,6 @@
-export const eduList = [
+import { AcademicRecord } from "./types/AcademicRecord";
+
+export const eduList: AcademicRecord[] = [
   {
     from: "2009",
     to: "2014",
