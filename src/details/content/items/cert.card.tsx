@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Box,
   Card,
   CardContent,
   CardMedia,
@@ -15,15 +14,38 @@ import { Certificate } from "./data/types/Certificate";
 
 export let certCards: React.ReactElement[] = [];
 
-certList
-  .filter((value) => {
-    return value.include;
-  })
-  .reverse()
-  .forEach((value, index) => {
-    certCards.push(
-      <Box width={520} height={270} key={index}>
-        <Card className="cert-card">
+type PropType = {
+  index: number;
+  value: Certificate;
+  length: number;
+};
+
+type StateType = {
+  height: number[];
+};
+
+class CertCont extends React.Component<PropType, StateType> {
+  textInput: React.RefObject<any>;
+
+  constructor(props: PropType | Readonly<PropType>) {
+    super(props);
+
+    this.textInput = React.createRef();
+  }
+
+  componentDidMount() {
+    let dom = document.getElementById("certificate" + this.props.index)
+    if(dom){
+      dom.style.height = Number(this.textInput.current.clientHeight).toString() + "px";
+    }
+    console.log(this.textInput.current.clientHeight);
+  }
+
+  render() {
+    let value = this.props.value;
+    return (
+      <div id={"certificate" + this.props.index} key={this.props.index} className="certificate">
+        <Card className="cert-card" ref={this.textInput}>
           <CardContent className="cert-content">
             <Grid container>
               <Grid container className="cert-item">
@@ -93,9 +115,20 @@ certList
           color="red"
           className="cert-icon"
         />
-      </Box>
+      </div>
     );
-  });
+  }
+}
+
+let filteredCertList = certList.filter((value) => {
+  return value.include;
+});
+
+filteredCertList.reverse().forEach((value, index) => {
+  certCards.push(
+    <CertCont length={filteredCertList.length} value={value} index={index} key={index} />
+  );
+});
 
 function CertID(props: { value: Certificate }) {
   if (props.value.certid) {
