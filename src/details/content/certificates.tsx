@@ -6,6 +6,7 @@ import Masonry from "masonry-layout";
 
 export class Certs extends React.Component {
   componentDidMount(){
+    // eslint-disable-next-line
     var msnry = new Masonry( '.creds-container', {
       columnWidth: 520,
       itemSelector: ".certificate",
