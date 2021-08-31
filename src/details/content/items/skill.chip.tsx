@@ -7,8 +7,8 @@ const chipStyles = [
   "MuiChip-colorPrimary chst2",
   "MuiChip-colorSecondary chst3 chst3-span",
   "MuiChip-outlined chst1",
-  "MuiChip-outlined MuiChip-outlinedPrimary chst2",
-  "MuiChip-outlined MuiChip-outlinedSecondary chst3",
+  "MuiChip-outlined chst2",
+  "MuiChip-outlined chst3",
 ];
 
 let chips: React.ReactElement[] = [];

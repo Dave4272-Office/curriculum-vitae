@@ -5,6 +5,24 @@ $sub-headtitlepadd: 0px 10px
 $sub-headicnsize: 32px
 $sub-headiconlinesize: 50px
 
+.sub-head-title
+    display: flex
+    align-items: center
+
+.sub-head-icon
+    width: $sub-headiconlinesize !important
+    height: $sub-headiconlinesize !important
+    background-color: #f50057 !important
+    svg
+        height: $sub-headicnsize !important
+        width: unset !important
+
+.skill-text
+    font-size: xx-large !important
+
+.sub-head-text
+    padding: $sub-headtitlepadd
+
 .padding-top-bottom
     padding-top: $paddtopbottom
     padding-bottom: $paddtopbottom
@@ -23,25 +41,6 @@ $sub-headiconlinesize: 50px
 
 .skill-divider
     width: $dividerwidth
-
-.sub-head-title
-    display: flex
-    align-items: center
-
-.sub-head-text
-    padding: $sub-headtitlepadd
-
-.sub-head-icon svg
-    height: $sub-headicnsize !important
-    width: unset !important
-
-.sub-head-icon
-    width: $sub-headiconlinesize !important
-    height: $sub-headiconlinesize !important
-    background-color: #f50057 !important
-
-.skill-text
-    font-size: xx-large !important
 
 .soft-skill-list-icon
     background-color: #ff9e22 !important
