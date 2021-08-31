@@ -8,16 +8,14 @@ $textdrawer: #ffffff
 .Drawer
   flex-shrink: 0
   width: $drawerWidth
+  .MuiPaper-root
+    background-color: $bgcolor !important
+    color: $textdrawer !important
+  .Navbar > div
+    justify-content: center
 
 .MuiDrawer-paper
   width: $drawerWidth
-
-.Drawer .MuiPaper-root
-  background-color: $bgcolor !important
-  color: $textdrawer !important
-
-.Drawer .Navbar > div
-  justify-content: center
 
 @media (min-width: 880px)
   .Drawer
@@ -31,13 +29,13 @@ $textdrawer: #ffffff
   .second-drawer
     display: none
 
-.second-drawer .MuiPaper-root
-  background-color: $bgcolor !important
-  color: $textdrawer !important
-  width: $drawerWidth
-
-.second-drawer .Navbar > div
-  justify-content: space-between
+.second-drawer
+  .MuiPaper-root
+    background-color: $bgcolor !important
+    color: $textdrawer !important
+    width: $drawerWidth
+  .Navbar > div
+    justify-content: space-between
 
 .custom-elevation
   box-shadow: 41px 0px 35px 18px rgba(0,0,0,0.48) !important
