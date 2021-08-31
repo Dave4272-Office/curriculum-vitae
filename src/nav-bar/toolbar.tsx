@@ -17,7 +17,7 @@ export class DrawerToolbar extends React.Component<PropType> {
     } else {
       return (
         <Toolbar disableGutters>
-          <Box>Image</Box>
+          <Box className="drawer-logo-container" >Image</Box>
           <IconButton onClick={this.props.handler}>
             <FontAwesomeIcon
               icon={["fas", "chevron-circle-left"]}

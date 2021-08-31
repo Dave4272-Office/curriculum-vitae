@@ -22,7 +22,7 @@ export class App extends React.Component<any, StateType> {
 
   onHamburgerClick = () => {
     this.setState({
-      ariaHidden: true,
+      ariaHidden: !this.state.ariaHidden,
     });
   };
 
