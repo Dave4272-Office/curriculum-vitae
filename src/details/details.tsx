@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import { Certs } from "./content/certificates";
 import { Education } from "./content/education";
 import { Experience } from "./content/experience";
-import { Home } from "./content/home";
+import { Welcome } from "./content/welcome";
 import { Interests } from "./content/interests";
 import { Skills } from "./content/skills";
 import "./Details.sass";
@@ -16,7 +16,7 @@ export class Details extends React.Component {
         <Toolbar />
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Welcome />
           </Route>
           <Route path="/edu">
             <Education />

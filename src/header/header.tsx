@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Container, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Container, IconButton, Toolbar } from "@material-ui/core";
 import "./Header.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
