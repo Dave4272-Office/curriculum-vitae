@@ -1,0 +1,30 @@
+@import "./loading-bar"
+
+.cd-intro
+    width: 90%
+    text-align: center
+
+.cd-words-wrapper
+    display: inline-block
+    position: relative
+    text-align: left
+
+    b
+        display: inline-block
+        position: absolute
+        white-space: nowrap
+        left: 0
+        top: 0
+        font: inherit
+
+        &.is-visible
+            position: relative
+
+        i
+            font: inherit
+
+    .no-js & b
+        opacity: 0
+
+        &.is-visible
+            opacity: 1

@@ -1,9 +1,14 @@
 import { Avatar, Divider, Grid, Typography } from "@material-ui/core";
 import React from "react";
-import { AnimatedHeadline } from "./items/animated.headline";
+import { AnimatedHeadline } from "./animated-headline";
+import { Animate } from "./animated-headline/animate";
 import "./welcome.sass";
 
 export class Welcome extends React.Component {
+  componentDidMount() {
+    Animate();
+  }
+
   render() {
     return (
       <>
@@ -35,7 +40,15 @@ export class Welcome extends React.Component {
               </Grid>
               <Grid item>
                 <Typography variant="h4" gutterBottom className="extra-padded">
-                  Developer | Learner | Full Stack | Linux | Open Source
+                  <AnimatedHeadline
+                    values={[
+                      "Developer",
+                      "Learner",
+                      "Full Stack",
+                      "Linux",
+                      "Open Source",
+                    ]}
+                  />
                 </Typography>
               </Grid>
               <Grid item>
@@ -54,7 +67,9 @@ export class Welcome extends React.Component {
               </Grid>
             </Grid>
           </Grid>
-          <Divider orientation="horizontal" className="home-divider" />
+          <Grid item className="home-divider">
+            <Divider orientation="horizontal" />
+          </Grid>
           <Grid item>
             <Typography variant="h6" className="extra-gutter">
               I am focused on learning anything related to technology, with a
