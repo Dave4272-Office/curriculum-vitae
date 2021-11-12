@@ -1,17 +1,12 @@
 $largePhoto: 300px
 
-.profile-img
-    width: $largePhoto !important
-    height: $largePhoto !important
-    > img
-        width: unset
-        height: 100%
-        position: relative
-        // always adjust position for new image
-        left: 12px
-        right: 0px
-        top: 0px
-        bottom: 0px
+.profile-card
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 10px
+    .profile-card-container
+        margin: 26px
 
 .profile-frame
     background-color: gold
@@ -28,7 +23,43 @@ $largePhoto: 300px
         border-radius: 50%
         border: 2px solid green
         background-color: white
+        .profile-img
+            width: $largePhoto !important
+            height: $largePhoto !important
+            > img
+                width: unset
+                height: 100%
+                position: relative
+                // always adjust position for new image
+                left: 12px
+                right: 0px
+                top: 0px
+                bottom: 0px
 
-.home-divider
-    margin: 10px !important
-    width: 80% !important
+.bio-card
+    display: flex
+    flex-grow: 1
+    justify-content: center
+    align-items: center
+    margin: 10px
+
+.goal-card
+    margin: 10px
+    display: flex
+    flex-grow: 1
+    align-items: center
+    justify-content: center
+
+.social-card
+    margin: 10px
+    display: flex
+    flex-grow: 1
+    justify-content: center
+    align-items: center
+
+.tech-card
+    margin: 10px
+    display: flex
+    flex-grow: 1
+    justify-content: center
+    align-items: center
