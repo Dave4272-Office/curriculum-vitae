@@ -6057,7 +6057,6 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-react: ^7.24.0
     eslint-plugin-react-hooks: ^4.2.0
-    imagekitio-react: ^1.0.10
     luxon: ^2.0.2
     masonry-layout: ^4.2.2
     node-sass: ^6.0.1
@@ -8758,26 +8757,6 @@ fsevents@^1.2.7:
   version: 5.1.8
   resolution: "ignore@npm:5.1.8"
   checksum: 967abadb61e2cb0e5c5e8c4e1686ab926f91bc1a4680d994b91947d3c65d04c3ae126dcdf67f08e0feeb8ff8407d453e641aeeddcc47a3a3cca359f283cf6121
-  languageName: node
-  linkType: hard
-
-"imagekit-javascript@npm:^1.3.6":
-  version: 1.4.0
-  resolution: "imagekit-javascript@npm:1.4.0"
-  checksum: 46c04e753d2007542ee9091ad8a7d96c46b2daf39997c3ca8d04d17f502c1f86594be21bcbf9de5f3a19847466ac3a9e3dad5c858d3c0e635a40dad221c596e4
-  languageName: node
-  linkType: hard
-
-"imagekitio-react@npm:^1.0.10":
-  version: 1.0.10
-  resolution: "imagekitio-react@npm:1.0.10"
-  dependencies:
-    imagekit-javascript: ^1.3.6
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
-  checksum: e79dbabc1c96d86a64cd11fdc5c11a0e5c803eeeb1f7980a18b36f0ad28f6b911a1c868363bcf37b3bd08a71733de20ed0f5405f82136e44366be1861d17df18
   languageName: node
   linkType: hard
 
