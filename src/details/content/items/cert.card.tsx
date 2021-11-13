@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaCertificate, FaAward } from "react-icons/fa";
 import {
   Card,
   CardContent,
@@ -34,9 +34,10 @@ class CertCont extends React.Component<PropType, StateType> {
   }
 
   componentDidMount() {
-    let dom = document.getElementById("certificate" + this.props.index)
-    if(dom){
-      dom.style.height = Number(this.textInput.current.clientHeight).toString() + "px";
+    let dom = document.getElementById("certificate" + this.props.index);
+    if (dom) {
+      dom.style.height =
+        Number(this.textInput.current.clientHeight).toString() + "px";
     }
     console.log(this.textInput.current.clientHeight);
   }
@@ -44,7 +45,11 @@ class CertCont extends React.Component<PropType, StateType> {
   render() {
     let value = this.props.value;
     return (
-      <div id={"certificate" + this.props.index} key={this.props.index} className="certificate">
+      <div
+        id={"certificate" + this.props.index}
+        key={this.props.index}
+        className="certificate"
+      >
         <Card className="cert-card" ref={this.textInput}>
           <CardContent className="cert-content">
             <Grid container>
@@ -63,10 +68,7 @@ class CertCont extends React.Component<PropType, StateType> {
                     </Grid>
                     <Grid item>
                       <Typography variant="h6" component="h4" gutterBottom>
-                        <FontAwesomeIcon
-                          icon={["fas", "certificate"]}
-                          color="#75e900"
-                        />
+                        <FaCertificate color="#75e900" />
                         &nbsp;&nbsp;{value.issuer}
                       </Typography>
                     </Grid>
@@ -110,11 +112,7 @@ class CertCont extends React.Component<PropType, StateType> {
             </Grid>
           </CardContent>
         </Card>
-        <FontAwesomeIcon
-          icon={["fas", "award"]}
-          color="red"
-          className="cert-icon"
-        />
+        <FaAward color="red" className="cert-icon" />
       </div>
     );
   }
@@ -126,7 +124,12 @@ let filteredCertList = certList.filter((value) => {
 
 filteredCertList.reverse().forEach((value, index) => {
   certCards.push(
-    <CertCont length={filteredCertList.length} value={value} index={index} key={index} />
+    <CertCont
+      length={filteredCertList.length}
+      value={value}
+      index={index}
+      key={index}
+    />
   );
 });
 

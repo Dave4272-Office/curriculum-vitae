@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Avatar,
   Card,
@@ -8,6 +7,14 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import {
+  FaGithub,
+  FaInstagram,
+  FaKeybase,
+  FaLinkedin,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa";
 import { AnimatedHeadline } from "./animated-headline";
 import { Animate } from "./animated-headline/animate";
 import "./welcome.sass";
@@ -114,10 +121,7 @@ export class Welcome extends React.Component {
                         rel="noreferrer noopener"
                         size="large"
                       >
-                        <FontAwesomeIcon
-                          color="#1d9bf0"
-                          icon={["fab", "twitter"]}
-                        />
+                        <FaTwitter color="#1d9bf0" />
                       </IconButton>
                     </Grid>
                     <Grid item xs>
@@ -128,10 +132,7 @@ export class Welcome extends React.Component {
                         rel="noreferrer noopener"
                         size="large"
                       >
-                        <FontAwesomeIcon
-                          color="#0a66c2"
-                          icon={["fab", "linkedin"]}
-                        />
+                        <FaLinkedin color="#0a66c2" />
                       </IconButton>
                     </Grid>
                     <Grid item xs>
@@ -142,10 +143,7 @@ export class Welcome extends React.Component {
                         rel="noreferrer noopener"
                         size="large"
                       >
-                        <FontAwesomeIcon
-                          color="#d80f68"
-                          icon={["fab", "instagram"]}
-                        />
+                        <FaInstagram color="#d80f68" />
                       </IconButton>
                     </Grid>
                     <Grid item xs>
@@ -157,10 +155,7 @@ export class Welcome extends React.Component {
                         disabled
                         size="large"
                       >
-                        <FontAwesomeIcon
-                          color="#ff0000"
-                          icon={["fab", "youtube"]}
-                        />
+                        <FaYoutube color="#ff0000" />
                       </IconButton>
                     </Grid>
                   </Grid>
@@ -179,10 +174,7 @@ export class Welcome extends React.Component {
                         rel="noreferrer noopener"
                         size="large"
                       >
-                        <FontAwesomeIcon
-                          color="#000000"
-                          icon={["fab", "github"]}
-                        />
+                        <FaGithub color="#000000" />
                       </IconButton>
                     </Grid>
                     <Grid item xs>
@@ -193,10 +185,7 @@ export class Welcome extends React.Component {
                         rel="noreferrer noopener"
                         size="large"
                       >
-                        <FontAwesomeIcon
-                          color="#ff6f21"
-                          icon={["fab", "keybase"]}
-                        />
+                        <FaKeybase color="#ff6f21" />
                       </IconButton>
                     </Grid>
                   </Grid>

@@ -4,7 +4,6 @@ import { NavBar } from "./nav-bar/nav-bar";
 import { Details } from "./details/details";
 import "./App.sass";
 import { Header } from "./header/header";
-import "./fa-icon.library";
 import { Footer } from "./footer/footer";
 import { DrawerToolbar } from "./nav-bar/toolbar";
 

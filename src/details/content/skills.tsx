@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Avatar,
   Grid,
@@ -19,6 +18,7 @@ import { langSkills, softSkills } from "./items/skills.soft-lang";
 import { SkillChipsBlock } from "./items/skill.chip";
 import "./skills.sass";
 import "./skillchip.sass";
+import { FaLanguage } from "react-icons/fa";
 
 export class Skills extends React.Component {
   render() {
@@ -51,7 +51,7 @@ export class Skills extends React.Component {
                 <CardContent>
                   <div className="sub-head-title">
                     <Avatar className="sub-head-icon">
-                      <FontAwesomeIcon icon={["fas", "language"]} />
+                      <FaLanguage />
                     </Avatar>
                     <Typography
                       variant="h4"
