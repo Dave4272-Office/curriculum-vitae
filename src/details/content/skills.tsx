@@ -11,6 +11,8 @@ import {
   TableBody,
   Typography,
   Divider,
+  Card,
+  CardContent,
 } from "@mui/material";
 import React from "react";
 import { langSkills, softSkills } from "./items/skills.soft-lang";
@@ -25,69 +27,82 @@ export class Skills extends React.Component {
         <Typography variant="h2" className="extra-padded">
           Skills
         </Typography>
-        <Grid container spacing={3}>
-          <Grid item container className="grid-columns">
-            <Grid item md={5}>
-              <div className="sub-head-title">
-                <Avatar className="sub-head-icon skill-text">S</Avatar>
-                <Typography
-                  variant="h4"
-                  component="h3"
-                  className="sub-head-text"
-                >
-                  Soft Skills:
-                </Typography>
-              </div>
-              <List>{softSkills}</List>
+        <Grid container direction="column" alignItems="center">
+          <Grid item container>
+            <Grid item container xs={12} md={5} justifyContent="center">
+              <Card className="soft-card">
+                <CardContent>
+                  <div className="sub-head-title">
+                    <Avatar className="sub-head-icon skill-text">S</Avatar>
+                    <Typography
+                      variant="h4"
+                      component="h3"
+                      className="sub-head-text"
+                    >
+                      Soft Skills:
+                    </Typography>
+                  </div>
+                  <List>{softSkills}</List>
+                </CardContent>
+              </Card>
             </Grid>
-            <Divider orientation="vertical" flexItem />
-            <Grid item md={6}>
-              <div className="sub-head-title">
-                <Avatar className="sub-head-icon">
-                  <FontAwesomeIcon icon={["fas", "language"]} />
-                </Avatar>
-                <Typography
-                  variant="h4"
-                  component="h3"
-                  className="sub-head-text"
-                >
-                  Languages Known:
-                </Typography>
-              </div>
-              <TableContainer className="padding-top-bottom">
-                <Table>
-                  <TableHead>
-                    <TableRow className="padding-left-right">
-                      <TableCell className="padding-top-bottom-imp">
-                        <Typography variant="h6" component="h4">
-                          Language
-                        </Typography>
-                      </TableCell>
-                      <TableCell className="padding-top-bottom-imp">
-                        <Typography variant="h6" component="h4">
-                          Reading &amp; Writing
-                        </Typography>
-                      </TableCell>
-                      <TableCell className="padding-top-bottom-imp">
-                        <Typography variant="h6" component="h4">
-                          Listening &amp; Speaking
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>{langSkills}</TableBody>
-                </Table>
-              </TableContainer>
+            <Grid item xs={12} md justifyContent="center">
+              <Card className="lang-card">
+                <CardContent>
+                  <div className="sub-head-title">
+                    <Avatar className="sub-head-icon">
+                      <FontAwesomeIcon icon={["fas", "language"]} />
+                    </Avatar>
+                    <Typography
+                      variant="h4"
+                      component="h3"
+                      className="sub-head-text"
+                    >
+                      Languages Known:
+                    </Typography>
+                  </div>
+                  <TableContainer className="padding-top-bottom">
+                    <Table>
+                      <TableHead>
+                        <TableRow className="padding-left-right">
+                          <TableCell className="padding-top-bottom-imp">
+                            <Typography variant="h6" component="h4">
+                              Language
+                            </Typography>
+                          </TableCell>
+                          <TableCell className="padding-top-bottom-imp">
+                            <Typography variant="h6" component="h4">
+                              Reading &amp; Writing
+                            </Typography>
+                          </TableCell>
+                          <TableCell className="padding-top-bottom-imp">
+                            <Typography variant="h6" component="h4">
+                              Listening &amp; Speaking
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>{langSkills}</TableBody>
+                    </Table>
+                  </TableContainer>
+                </CardContent>
+              </Card>
             </Grid>
           </Grid>
-          <Grid item container className="skill-row extra-padded">
-            <Grid item className="extra-padded">
-              <Typography variant="h4">Technical Skills:</Typography>
-            </Grid>
-            <Divider orientation="horizontal" className="skill-divider" />
-            <Grid item className="extra-padded">
-              <SkillChipsBlock />
-            </Grid>
+          <Grid item container justifyContent="center" alignItems="center">
+            <Card className="skill-card">
+              <CardContent>
+                <Grid container>
+                  <Grid item className="extra-padded">
+                    <Typography variant="h4">Technical Skills:</Typography>
+                  </Grid>
+                  <Divider orientation="horizontal" className="skill-divider" />
+                  <Grid item className="extra-padded">
+                    <SkillChipsBlock />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </>

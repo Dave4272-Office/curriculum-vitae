@@ -3,6 +3,7 @@ $chipiconsize: 30px
 $outlineborder: 2px
 $containersize: 56px // icon size + padding + extra boundary of 10px
 $padding: 8px
+$container-radius: $containersize / 2
 
 .skillchip-container
     display: flex
@@ -12,7 +13,8 @@ $padding: 8px
         margin: $margin
     .MuiChip-root
         height: $containersize
-        border-radius: ($containersize) / 2
+        border-radius: $container-radius
+
     .MuiChip-label
         font-size: 1rem
         font-weight: 400
