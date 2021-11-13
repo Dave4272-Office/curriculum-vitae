@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 import {
   TimelineConnector,
@@ -10,6 +9,7 @@ import {
 } from "@mui/lab";
 import React from "react";
 import { eduList } from "./data/edu.list";
+import { FaGraduationCap } from "react-icons/fa";
 
 export let educationCards: React.ReactElement[] = [];
 
@@ -24,10 +24,7 @@ eduList.reverse().forEach((value, index) => {
       <TimelineSeparator>
         <TimelineConnector className={index === 0 ? "hide" : ""} />
         <TimelineDot variant="outlined" color="primary">
-          <FontAwesomeIcon
-            icon={["fas", "graduation-cap"]}
-            className="timeline-icons"
-          />
+          <FaGraduationCap className="timeline-icons" />
         </TimelineDot>
         <TimelineConnector
           className={index === eduList.length - 1 ? "hide" : ""}

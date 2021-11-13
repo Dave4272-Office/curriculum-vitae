@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Card,
   CardContent,
@@ -18,6 +17,7 @@ import {
 import React from "react";
 import { DateTime, Duration } from "luxon";
 import { workList } from "./data/work";
+import { FaAt, FaBriefcase, FaClock } from "react-icons/fa";
 
 export let workCards: React.ReactElement[] = [];
 
@@ -57,10 +57,7 @@ workinclude.reverse().forEach((value, index) => {
       <TimelineSeparator>
         <TimelineConnector className={index === 0 ? "hide" : ""} />
         <TimelineDot variant="outlined" color="primary">
-          <FontAwesomeIcon
-            icon={["fas", "briefcase"]}
-            className="timeline-icons"
-          />
+          <FaBriefcase className="timeline-icons" />
         </TimelineDot>
         <TimelineConnector
           className={index === workinclude.length - 1 ? "hide" : ""}
@@ -79,16 +76,13 @@ workinclude.reverse().forEach((value, index) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="h5" component="h4">
-                      <FontAwesomeIcon icon={["fas", "at"]} color="#75e900" />
+                      <FaAt color="#75e900" />
                       &nbsp;&nbsp;{value.organization}
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Typography variant="h6" component="h5">
-                      <FontAwesomeIcon
-                        icon={["fas", "clock"]}
-                        color="#75e900"
-                      />
+                      <FaClock color="#75e900" />
                       &nbsp;&nbsp;{value.emptype}
                     </Typography>
                   </Grid>
