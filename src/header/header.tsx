@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Container, IconButton, Toolbar } from "@material-ui/core";
+import { AppBar, Container, IconButton, Toolbar } from "@mui/material";
 import "./Header.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -15,7 +15,7 @@ export class Header extends React.Component<PropType> {
           <Container className="header-details" >
           Curriculum Vitae
           </Container>
-          <IconButton onClick={this.props.hamClick} className="ham-icon">
+          <IconButton onClick={this.props.hamClick} className="ham-icon" size="large">
             <FontAwesomeIcon icon={["fas", "hamburger"]} color="white" />
           </IconButton>
         </Toolbar>

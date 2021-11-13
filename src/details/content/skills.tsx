@@ -11,7 +11,7 @@ import {
   TableBody,
   Typography,
   Divider,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { langSkills, softSkills } from "./items/skills.soft-lang";
 import { SkillChipsBlock } from "./items/skill.chip";

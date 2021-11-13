@@ -1,5 +1,5 @@
-import { Typography } from "@material-ui/core";
-import { Timeline } from "@material-ui/lab";
+import { Typography } from "@mui/material";
+import { Timeline } from "@mui/lab";
 import React from "react";
 import { workCards } from "./items/work.card";
 import "./experience.sass";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer } from "@material-ui/core";
+import { Drawer } from "@mui/material";
 import { NavBar } from "./nav-bar/nav-bar";
 import { Details } from "./details/details";
 import "./App.sass";

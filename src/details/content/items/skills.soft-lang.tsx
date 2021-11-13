@@ -6,7 +6,7 @@ import {
   TableCell,
   TableRow,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { langSkillList, softSkillList } from "./data/soft-lang.list";
 
