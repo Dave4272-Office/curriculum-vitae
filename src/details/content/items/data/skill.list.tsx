@@ -5,35 +5,77 @@ import { TechSkill } from "./types/TechSkill";
 export const techSkills: TechSkill[] = [
   {
     include: true,
-    icon: (React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "git-alt"],
-    })),
-    label: "Git",
-    type: "Tool",
+    icon: React.createElement(FontAwesomeIcon, {
+      icon: ["fab", "python"],
+    }),
+    label: "Python",
+    type: "Language",
   },
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "github"],
+      icon: ["fab", "java"],
     }),
-    label: "GitHub",
-    type: "Platform",
+    label: "Java",
+    type: "Language",
+  },
+  {
+    include: true,
+    icon: <></>,
+    label: "C++",
+    type: "Language",
+  },
+  {
+    include: true,
+    icon: <></>,
+    label: "C",
+    type: "Language",
+  },
+  {
+    include: true,
+    icon: <></>,
+    label: "Bash",
+    type: "Language",
   },
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "gitlab"],
+      icon: ["fab", "js"],
     }),
-    label: "GitLab",
-    type: "Platform",
+    label: "JavaScript",
+    type: "Language",
+  },
+  {
+    include: true,
+    icon: <></>,
+    label: "TypeScript",
+    type: "Language",
+  },
+  {
+    include: false,
+    icon: <></>,
+    label: "Kotlin",
+    type: "Language",
+  },
+  {
+    include: false,
+    icon: <></>,
+    label: "Go",
+    type: "Language",
+  },
+  {
+    include: false,
+    icon: <></>,
+    label: "Rust",
+    type: "Language",
   },
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "bitbucket"],
+      icon: ["fab", "php"],
     }),
-    label: "Bitbucket",
-    type: "Platform",
+    label: "php",
+    type: "Language",
   },
   {
     include: true,
@@ -54,34 +96,18 @@ export const techSkills: TechSkill[] = [
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "js"],
+      icon: ["fab", "sass"],
     }),
-    label: "JavaScript",
+    label: "Sass",
     type: "Language",
   },
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "php"],
+      icon: ["fab", "markdown"],
     }),
-    label: "php",
+    label: "Markdown",
     type: "Language",
-  },
-  {
-    include: true,
-    icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "bootstrap"],
-    }),
-    label: "Bootstrap",
-    type: "Framework / Library",
-  },
-  {
-    include: true,
-    icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "angular"],
-    }),
-    label: "Angular",
-    type: "Framework / Library",
   },
   {
     include: true,
@@ -94,42 +120,32 @@ export const techSkills: TechSkill[] = [
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "docker"],
+      icon: ["fab", "angular"],
     }),
-    label: "Docker",
-    type: "Tool",
+    label: "Angular",
+    type: "Framework / Library",
+  },
+  {
+    include: true,
+    icon: <></>,
+    label: "jQuery",
+    type: "Framework / Library",
   },
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "java"],
+      icon: ["fab", "bootstrap"],
     }),
-    label: "Java",
-    type: "Language",
+    label: "Bootstrap",
+    type: "Framework / Library",
   },
   {
     include: true,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "python"],
+      icon: ["fab", "wordpress"],
     }),
-    label: "Python",
-    type: "Language",
-  },
-  {
-    include: true,
-    icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "sass"],
-    }),
-    label: "Sass",
-    type: "Language",
-  },
-  {
-    include: true,
-    icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "markdown"],
-    }),
-    label: "Markdown",
-    type: "Tool",
+    label: "WordPress",
+    type: "Framework / Library",
   },
   {
     include: false,
@@ -138,6 +154,22 @@ export const techSkills: TechSkill[] = [
     }),
     label: "Node.js",
     type: "Framework / Library",
+  },
+  {
+    include: true,
+    icon: React.createElement(FontAwesomeIcon, {
+      icon: ["fab", "git-alt"],
+    }),
+    label: "Git",
+    type: "Tool",
+  },
+  {
+    include: true,
+    icon: React.createElement(FontAwesomeIcon, {
+      icon: ["fab", "docker"],
+    }),
+    label: "Docker",
+    type: "Tool",
   },
   {
     include: true,
@@ -153,22 +185,6 @@ export const techSkills: TechSkill[] = [
       icon: ["fab", "yarn"],
     }),
     label: "Yarn",
-    type: "Tool",
-  },
-  {
-    include: true,
-    icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "wordpress"],
-    }),
-    label: "WordPress",
-    type: "Framework / Library",
-  },
-  {
-    include: true,
-    icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "sourcetree"],
-    }),
-    label: "Sourcetree",
     type: "Tool",
   },
   {
@@ -214,25 +230,9 @@ export const techSkills: TechSkill[] = [
   {
     include: false,
     icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "codepen"],
-    }),
-    label: "CodePen",
-    type: "None",
-  },
-  {
-    include: false,
-    icon: React.createElement(FontAwesomeIcon, {
       icon: ["fab", "jenkins"],
     }),
     label: "Jenkins",
     type: "Tool",
-  },
-  {
-    include: false,
-    icon: React.createElement(FontAwesomeIcon, {
-      icon: ["fab", "hackerrank"],
-    }),
-    label: "HackerRank",
-    type: "None",
   },
 ];
