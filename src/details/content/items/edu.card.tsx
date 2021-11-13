@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 import {
   TimelineConnector,
   TimelineContent,
@@ -7,7 +7,7 @@ import {
   TimelineItem,
   TimelineOppositeContent,
   TimelineSeparator,
-} from "@material-ui/lab";
+} from "@mui/lab";
 import React from "react";
 import { eduList } from "./data/edu.list";
 

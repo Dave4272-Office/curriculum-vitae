@@ -6,7 +6,7 @@ import {
   Divider,
   Grid,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   TimelineConnector,
   TimelineContent,
@@ -14,7 +14,7 @@ import {
   TimelineItem,
   TimelineOppositeContent,
   TimelineSeparator,
-} from "@material-ui/lab";
+} from "@mui/lab";
 import React from "react";
 import { DateTime, Duration } from "luxon";
 import { workList } from "./data/work";

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, IconButton, Toolbar } from "@material-ui/core";
+import { Box, IconButton, Toolbar } from "@mui/material";
 import React from "react";
 
 type PropType = {
@@ -18,7 +18,7 @@ export class DrawerToolbar extends React.Component<PropType> {
       return (
         <Toolbar disableGutters>
           <Box className="drawer-logo-container" >Image</Box>
-          <IconButton onClick={this.props.handler}>
+          <IconButton onClick={this.props.handler} size="large">
             <FontAwesomeIcon
               icon={["fas", "chevron-circle-left"]}
               color="pink"

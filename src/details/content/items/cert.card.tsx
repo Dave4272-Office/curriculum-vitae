@@ -7,7 +7,7 @@ import {
   Divider,
   Grid,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { certList } from "./data/cert.list";
 import { Certificate } from "./data/types/Certificate";
