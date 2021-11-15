@@ -19,10 +19,20 @@ import {
   FaPhp,
   FaPython,
   FaReact,
+  FaRust,
   FaSass,
   FaWordpress,
   FaYarn,
 } from "react-icons/fa";
+import { CgCPlusPlus } from "react-icons/cg";
+import {
+  SiC,
+  SiGnubash,
+  SiGo,
+  SiJquery,
+  SiKotlin,
+  SiTypescript,
+} from "react-icons/si";
 import React from "react";
 import { TechSkill } from "./types/TechSkill";
 
@@ -41,19 +51,19 @@ export const techSkills: TechSkill[] = [
   },
   {
     include: true,
-    icon: <></>,
+    icon: React.createElement(CgCPlusPlus),
     label: "C++",
     type: "Language",
   },
   {
     include: true,
-    icon: <></>,
+    icon: React.createElement(SiC),
     label: "C",
     type: "Language",
   },
   {
     include: true,
-    icon: <></>,
+    icon: React.createElement(SiGnubash),
     label: "Bash",
     type: "Language",
   },
@@ -65,25 +75,25 @@ export const techSkills: TechSkill[] = [
   },
   {
     include: true,
-    icon: <></>,
+    icon: React.createElement(SiTypescript),
     label: "TypeScript",
     type: "Language",
   },
   {
     include: false,
-    icon: <></>,
+    icon: React.createElement(SiKotlin),
     label: "Kotlin",
     type: "Language",
   },
   {
     include: false,
-    icon: <></>,
+    icon: React.createElement(SiGo),
     label: "Go",
     type: "Language",
   },
   {
     include: false,
-    icon: <></>,
+    icon: React.createElement(FaRust),
     label: "Rust",
     type: "Language",
   },
@@ -131,7 +141,7 @@ export const techSkills: TechSkill[] = [
   },
   {
     include: true,
-    icon: <></>,
+    icon: React.createElement(SiJquery),
     label: "jQuery",
     type: "Framework / Library",
   },
