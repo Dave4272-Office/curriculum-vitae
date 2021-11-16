@@ -3,9 +3,6 @@ import {
   FaAngular,
   FaAws,
   FaBootstrap,
-  FaCloudflare,
-  FaConfluence,
-  FaCpanel,
   FaCss3,
   FaDocker,
   FaGitAlt,
@@ -140,6 +137,18 @@ export const techSkills: TechSkill[] = [
   },
   {
     include: true,
+    icon: React.createElement(SiSpring),
+    label: "Spring",
+    type: "Framework / Library",
+  },
+  {
+    include: true,
+    icon: React.createElement(SiSpringboot),
+    label: "Spring Boot",
+    type: "Framework / Library",
+  },
+  {
+    include: true,
     icon: React.createElement(FaReact),
     label: "React",
     type: "Framework / Library",
@@ -152,6 +161,12 @@ export const techSkills: TechSkill[] = [
   },
   {
     include: true,
+    icon: React.createElement(FaNodeJs),
+    label: "Node.js",
+    type: "Framework / Library",
+  },
+  {
+    include: true,
     icon: React.createElement(SiJquery),
     label: "jQuery",
     type: "Framework / Library",
@@ -160,6 +175,24 @@ export const techSkills: TechSkill[] = [
     include: true,
     icon: React.createElement(FaBootstrap),
     label: "Bootstrap",
+    type: "Framework / Library",
+  },
+  {
+    include: true,
+    icon: React.createElement(FaWordpress),
+    label: "WordPress",
+    type: "Framework / Library",
+  },
+  {
+    include: true,
+    icon: React.createElement(SiHibernate),
+    label: "Hibernate",
+    type: "Framework / Library",
+  },
+  {
+    include: true,
+    icon: React.createElement(SiScikitlearn),
+    label: "scikit-learn",
     type: "Framework / Library",
   },
   {
@@ -179,42 +212,6 @@ export const techSkills: TechSkill[] = [
     icon: React.createElement(SiMongodb),
     label: "MongoDB",
     type: "Database",
-  },
-  {
-    include: true,
-    icon: React.createElement(FaWordpress),
-    label: "WordPress",
-    type: "Framework / Library",
-  },
-  {
-    include: true,
-    icon: React.createElement(SiSpring),
-    label: "Spring",
-    type: "Framework / Library",
-  },
-  {
-    include: true,
-    icon: React.createElement(SiSpringboot),
-    label: "Spring Boot",
-    type: "Framework / Library",
-  },
-  {
-    include: true,
-    icon: React.createElement(SiHibernate),
-    label: "Hibernate",
-    type: "Framework / Library",
-  },
-  {
-    include: true,
-    icon: React.createElement(SiScikitlearn),
-    label: "scikit-learn",
-    type: "Framework / Library",
-  },
-  {
-    include: true,
-    icon: React.createElement(FaNodeJs),
-    label: "Node.js",
-    type: "Framework / Library",
   },
   {
     include: true,
@@ -242,21 +239,9 @@ export const techSkills: TechSkill[] = [
   },
   {
     include: true,
-    icon: React.createElement(FaCpanel),
-    label: "cPanel",
-    type: "Platform",
-  },
-  {
-    include: true,
-    icon: React.createElement(FaConfluence),
-    label: "Confluence",
-    type: "Platform",
-  },
-  {
-    include: true,
-    icon: React.createElement(FaCloudflare),
-    label: "Cloudflare",
-    type: "Platform",
+    icon: React.createElement(FaJenkins),
+    label: "Jenkins",
+    type: "Tool",
   },
   {
     include: true,
@@ -272,9 +257,15 @@ export const techSkills: TechSkill[] = [
   },
   {
     include: true,
-    icon: React.createElement(FaJenkins),
-    label: "Jenkins",
-    type: "Tool",
+    icon: React.createElement(SiCloudfoundry),
+    label: "Pivotal Cloud Foundry",
+    type: "Platform",
+  },
+  {
+    include: true,
+    icon: React.createElement(FaLinux),
+    label: "Linux",
+    type: "Platform",
   },
   {
     include: true,
@@ -287,17 +278,5 @@ export const techSkills: TechSkill[] = [
     icon: React.createElement(SiVisualstudiocode),
     label: "VS Code",
     type: "IDE",
-  },
-  {
-    include: true,
-    icon: React.createElement(SiCloudfoundry),
-    label: "Pivotal Cloud Foundry",
-    type: "Platform",
-  },
-  {
-    include: true,
-    icon: React.createElement(FaLinux),
-    label: "Linux",
-    type: "Platform",
   },
 ];
