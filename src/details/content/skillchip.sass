@@ -24,10 +24,10 @@ $container-radius: $containersize / 2
         display: block
         margin-block-start: 1em
         margin-block-end: 1em
-        margin-inline-start: 0px
-        margin-inline-end: 0px
+        margin-inline-start: 0
+        margin-inline-end: 0
     .MuiChip-outlined.chst1
-        border: $outlineborder solid rgba(0, 0, 0, 0.23)
+        border: $outlineborder solid #0000003b
     .MuiChip-outlined.chst2
         border: $outlineborder solid #3f51b5
     .MuiChip-outlined.chst3
@@ -37,8 +37,10 @@ $container-radius: $containersize / 2
     .chst3-span > span
         color: #000008
     .chst1>svg
+        overflow: visible
         width: $chipiconsize !important
         height: $chipiconsize !important
+        color: #37c94a !important
         display: flex !important
         position: relative !important
         align-items: center !important
@@ -49,10 +51,10 @@ $container-radius: $containersize / 2
         justify-content: center !important
         padding: $padding !important
     .chst2>svg
+        overflow: visible
         width: $chipiconsize !important
         height: $chipiconsize !important
-        color: #fff !important
-        background-color: rgb(17, 82, 147) !important
+        color: #115293 !important
         display: flex !important
         position: relative !important
         align-items: center !important
@@ -63,10 +65,10 @@ $container-radius: $containersize / 2
         justify-content: center !important
         padding: $padding !important
     .chst3>svg
+        overflow: visible
         width: $chipiconsize !important
         height: $chipiconsize !important
-        color: #fff !important
-        background-color: #a4053e !important
+        color: #a4053e !important
         display: flex !important
         position: relative !important
         align-items: center !important
