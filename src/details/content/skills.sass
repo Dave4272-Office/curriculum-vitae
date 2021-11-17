@@ -35,9 +35,6 @@ $sub-headiconlinesize: 50px
     padding-left: $paddleftright
     padding-right: $paddleftright
 
-.skill-divider
-    width: $dividerwidth
-
 .soft-skill-list-icon
     background-color: #ff9e22 !important
     color: #590205 !important
@@ -48,6 +45,10 @@ $sub-headiconlinesize: 50px
     justify-content: center
     align-items: center
     margin: 10px
+    > div
+        display: flex
+        flex-direction: column
+        align-items: center
 
 .lang-card
     display: flex
@@ -55,6 +56,10 @@ $sub-headiconlinesize: 50px
     justify-content: center
     align-items: center
     margin: 10px
+    > div
+        display: flex
+        flex-direction: column
+        align-items: center
 
 .skill-card
     display: flex
@@ -62,3 +67,6 @@ $sub-headiconlinesize: 50px
     justify-content: center
     align-items: center
     margin: 10px
+    > div
+        > div
+            justify-content: center

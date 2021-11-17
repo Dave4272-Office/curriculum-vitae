@@ -9,72 +9,55 @@ $container-radius: $containersize / 2
     display: flex
     justify-content: center
     flex-wrap: wrap
-    >*
+    background-color: #00000014
+    border-radius: 20px
+
+    .tech-chip
         margin: $margin
-    .MuiChip-root
         height: $containersize
         border-radius: $container-radius
+        background-color: #fff !important
 
-    .MuiChip-label
-        font-size: 1rem
-        font-weight: 400
-        line-height: 1.5
-        letter-spacing: 0.00938em
-        margin: 0
-        display: block
-        margin-block-start: 1em
-        margin-block-end: 1em
-        margin-inline-start: 0
-        margin-inline-end: 0
-    .MuiChip-outlined.chst1
+        >svg
+            overflow: visible
+            width: $chipiconsize
+            height: $chipiconsize
+            display: flex
+            position: relative
+            align-items: center
+            flex-shrink: 0
+            line-height: 1
+            user-select: none
+            border-radius: 50%
+            justify-content: center
+            padding: $padding
+
+        > span
+            font-size: 1rem
+            font-weight: 400
+            line-height: 1.5
+            letter-spacing: 0.00938em
+            margin: 0
+            display: block
+            margin-block-start: 1em
+            margin-block-end: 1em
+            margin-inline-start: 0
+            margin-inline-end: 0
+
+    .chip-style-1
         border: $outlineborder solid #0000003b
-    .MuiChip-outlined.chst2
+
+        >svg
+            color: #37c94a
+
+    .chip-style-2
         border: $outlineborder solid #3f51b5
-    .MuiChip-outlined.chst3
+
+        >svg
+            color: #115293
+
+    .chip-style-3
         border: $outlineborder solid #a4053e
-        >span
+
+        >svg
             color: #a4053e
-    .chst3-span > span
-        color: #000008
-    .chst1>svg
-        overflow: visible
-        width: $chipiconsize !important
-        height: $chipiconsize !important
-        color: #37c94a !important
-        display: flex !important
-        position: relative !important
-        align-items: center !important
-        flex-shrink: 0 !important
-        line-height: 1 !important
-        user-select: none !important
-        border-radius: 50% !important
-        justify-content: center !important
-        padding: $padding !important
-    .chst2>svg
-        overflow: visible
-        width: $chipiconsize !important
-        height: $chipiconsize !important
-        color: #115293 !important
-        display: flex !important
-        position: relative !important
-        align-items: center !important
-        flex-shrink: 0 !important
-        line-height: 1 !important
-        user-select: none !important
-        border-radius: 50% !important
-        justify-content: center !important
-        padding: $padding !important
-    .chst3>svg
-        overflow: visible
-        width: $chipiconsize !important
-        height: $chipiconsize !important
-        color: #a4053e !important
-        display: flex !important
-        position: relative !important
-        align-items: center !important
-        flex-shrink: 0 !important
-        line-height: 1 !important
-        user-select: none !important
-        border-radius: 50% !important
-        justify-content: center !important
-        padding: $padding !important

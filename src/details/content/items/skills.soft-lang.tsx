@@ -33,13 +33,19 @@ langSkillList.forEach((value, index) => {
       className="padding-top-bottom padding-left-right"
     >
       <TableCell>
-        <Typography variant="body1">{value.language}</Typography>
+        <Typography variant="body1" textAlign="center">
+          {value.language}
+        </Typography>
       </TableCell>
       <TableCell>
-        <Typography variant="body1">{value.readwrite}</Typography>
+        <Typography variant="body1" textAlign="center">
+          {value.readwrite}
+        </Typography>
       </TableCell>
       <TableCell>
-        <Typography variant="body1">{value.listeningspeaking}</Typography>
+        <Typography variant="body1" textAlign="center">
+          {value.listeningspeaking}
+        </Typography>
       </TableCell>
     </TableRow>
   );

@@ -9,7 +9,6 @@ import {
   TableCell,
   TableBody,
   Typography,
-  Divider,
   Card,
   CardContent,
 } from "@mui/material";
@@ -96,7 +95,6 @@ export class Skills extends React.Component {
                   <Grid item className="extra-padded">
                     <Typography variant="h4">Technical Skills:</Typography>
                   </Grid>
-                  <Divider orientation="horizontal" className="skill-divider" />
                   <Grid item className="extra-padded">
                     <SkillChipsBlock />
                   </Grid>

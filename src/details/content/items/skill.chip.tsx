@@ -3,12 +3,9 @@ import React from "react";
 import { techSkills } from "./data/skill.list";
 
 const chipStyles = [
-  "chst1",
-  "MuiChip-colorPrimary chst2",
-  "MuiChip-colorSecondary chst3 chst3-span",
-  "MuiChip-outlined chst1",
-  "MuiChip-outlined chst2",
-  "MuiChip-outlined chst3",
+  "chip-style-1 tech-chip",
+  "chip-style-2 tech-chip",
+  "chip-style-3 tech-chip",
 ];
 
 let chips: React.ReactElement[] = [];
