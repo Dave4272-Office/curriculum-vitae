@@ -28,7 +28,7 @@ export class Skills extends React.Component {
         </Typography>
         <Grid container direction="column" alignItems="center">
           <Grid item container>
-            <Grid item container xs={12} md={5} justifyContent="center">
+            <Grid item container md={12} lg={5} justifyContent="center">
               <Card className="soft-card">
                 <CardContent>
                   <div className="sub-head-title">
@@ -45,7 +45,7 @@ export class Skills extends React.Component {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md justifyContent="center">
+            <Grid item md={12} lg justifyContent="center">
               <Card className="lang-card">
                 <CardContent>
                   <div className="sub-head-title">
