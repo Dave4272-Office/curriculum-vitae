@@ -17,3 +17,6 @@ form-action 'self'; \
 upgrade-insecure-requests; \
 block-all-mixed-content; \
 base-uri 'self'"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+Header set X-Content-Type-Options "nosniff"
+Header set X-XSS-Protection "1"
