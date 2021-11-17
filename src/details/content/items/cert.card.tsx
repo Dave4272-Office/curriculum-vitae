@@ -39,7 +39,6 @@ class CertCont extends React.Component<PropType, StateType> {
       dom.style.height =
         Number(this.textInput.current.clientHeight).toString() + "px";
     }
-    console.log(this.textInput.current.clientHeight);
   }
 
   render() {
