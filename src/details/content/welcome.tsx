@@ -32,7 +32,7 @@ export class Welcome extends React.Component {
         </Typography>
         <Grid container direction="column" alignItems="center">
           <Grid item container>
-            <Grid item container xs={12} sm={4} justifyContent="center">
+            <Grid item container md={12} lg={4} justifyContent="center">
               <Card className="profile-card">
                 <CardContent className="profile-card-container">
                   <div className="profile-frame">
@@ -43,7 +43,7 @@ export class Welcome extends React.Component {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item container xs={12} sm justifyContent="center">
+            <Grid item container md={12} lg justifyContent="center">
               <Card className="bio-card">
                 <CardContent>
                   <Grid
