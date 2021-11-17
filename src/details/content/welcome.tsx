@@ -37,7 +37,11 @@ export class Welcome extends React.Component {
                 <CardContent className="profile-card-container">
                   <div className="profile-frame">
                     <div>
-                      <Avatar src="profile-dave.jpg" className="profile-img" />
+                      <Avatar
+                        src="profile-dave.jpg"
+                        className="profile-img"
+                        alt="My Picture"
+                      />
                     </div>
                   </div>
                 </CardContent>
@@ -101,7 +105,7 @@ export class Welcome extends React.Component {
           <Grid item container justifyContent="center" alignItems="center">
             <Card className="goal-card">
               <CardContent>
-                <Typography variant="h6" className="extra-gutter">
+                <Typography variant="h6" component="p" className="extra-gutter">
                   I am focused on learning anything related to technology, with
                   a particular interest in Cyber Security and AI.
                 </Typography>
@@ -120,6 +124,7 @@ export class Welcome extends React.Component {
                         target="_blank"
                         rel="noreferrer noopener"
                         size="large"
+                        aria-label="Twitter profile link"
                       >
                         <FaTwitter color="#1d9bf0" />
                       </IconButton>
@@ -131,6 +136,7 @@ export class Welcome extends React.Component {
                         target="_blank"
                         rel="noreferrer noopener"
                         size="large"
+                        aria-label="LinkedIn profile link"
                       >
                         <FaLinkedin color="#0a66c2" />
                       </IconButton>
@@ -142,6 +148,7 @@ export class Welcome extends React.Component {
                         target="_blank"
                         rel="noreferrer noopener"
                         size="large"
+                        aria-label="Instagram profile link"
                       >
                         <FaInstagram color="#d80f68" />
                       </IconButton>
@@ -154,6 +161,7 @@ export class Welcome extends React.Component {
                         rel="noreferrer noopener"
                         disabled
                         size="large"
+                        aria-label="YouTube profile link"
                       >
                         <FaYoutube color="#ff0000" />
                       </IconButton>
@@ -173,6 +181,7 @@ export class Welcome extends React.Component {
                         target="_blank"
                         rel="noreferrer noopener"
                         size="large"
+                        aria-label="Github profile link"
                       >
                         <FaGithub color="#000000" />
                       </IconButton>
@@ -184,6 +193,7 @@ export class Welcome extends React.Component {
                         target="_blank"
                         rel="noreferrer noopener"
                         size="large"
+                        aria-label="Keybase profile link"
                       >
                         <FaKeybase color="#ff6f21" />
                       </IconButton>

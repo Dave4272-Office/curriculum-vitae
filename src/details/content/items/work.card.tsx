@@ -75,13 +75,25 @@ workinclude.reverse().forEach((value, index) => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h5" component="h4">
+                    <Typography
+                      variant="h5"
+                      component="h4"
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                    >
                       <FaAt color="#75e900" />
                       &nbsp;&nbsp;{value.organization}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="h6" component="h5">
+                    <Typography
+                      variant="h6"
+                      component="h5"
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                    >
                       <FaClock color="#75e900" />
                       &nbsp;&nbsp;{value.emptype}
                     </Typography>

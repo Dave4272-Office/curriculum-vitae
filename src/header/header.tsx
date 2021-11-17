@@ -18,7 +18,7 @@ export class Header extends React.Component<PropType> {
             className="ham-icon"
             size="large"
           >
-            <FaHamburger color="white" />
+            <FaHamburger color="white" aria-label="Navigation Menu" />
           </IconButton>
         </Toolbar>
       </AppBar>
