@@ -1,10 +1,10 @@
 import React from "react";
 import { Drawer } from "@mui/material";
-import { NavBar } from "./nav-bar/nav-bar";
-import { Details } from "./details/details";
+import { NavBar } from "./nav-bar";
+import { Details } from "./details";
 import "./App.sass";
-import { Header } from "./header/header";
-import { Footer } from "./footer/footer";
+import { Header } from "./header";
+import { Footer } from "./footer";
 import { DrawerToolbar } from "./nav-bar/toolbar";
 
 type StateType = {

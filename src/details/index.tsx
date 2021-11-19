@@ -7,7 +7,7 @@ import { Experience } from "./content/experience";
 import { Welcome } from "./content/welcome";
 import { Interests } from "./content/interests";
 import { Skills } from "./content/skills";
-import "./Details.sass";
+import "./index.sass";
 
 export class Details extends React.Component {
   render() {

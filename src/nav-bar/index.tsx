@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useMatch } from "react-router-dom";
 import { List, ListItem, ListItemText, Divider } from "@mui/material";
-import "./NavBar.sass";
+import "./index.sass";
 
 type PropType = {
   toolbar: React.ReactElement;

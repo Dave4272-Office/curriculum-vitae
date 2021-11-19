@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Footer.sass";
+import "./index.sass";
 
 export class Footer extends React.Component {
   render() {

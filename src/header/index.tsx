@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, Container, IconButton, Toolbar } from "@mui/material";
-import "./Header.sass";
+import "./index.sass";
 import { FaHamburger } from "react-icons/fa";
 
 type PropType = {
