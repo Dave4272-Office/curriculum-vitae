@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import { List, ListItem, ListItemText, Divider } from "@mui/material";
 import "./NavBar.sass";
 
@@ -15,12 +15,7 @@ export class NavBar extends React.Component<PropType> {
         {this.props.toolbar}
         <List component="div">
           <Divider />
-          <Item
-            activeOnlyWhenExact={true}
-            to="/"
-            label="Home"
-            clickHandler={this.props.clickHandler}
-          />
+          <Item to="/" label="Home" clickHandler={this.props.clickHandler} />
           <Divider />
           <Item
             to="/edu"
@@ -66,9 +61,8 @@ type ItemProps = {
 };
 
 function Item(props: ItemProps) {
-  let match = useRouteMatch({
+  let match = useMatch({
     path: props.to,
-    exact: props.activeOnlyWhenExact,
   });
 
   let x = () => {
