@@ -1,6 +1,6 @@
 import { Container, Toolbar } from "@mui/material";
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Certs } from "./content/certificates";
 import { Education } from "./content/education";
 import { Experience } from "./content/experience";
@@ -14,26 +14,14 @@ export class Details extends React.Component {
     return (
       <Container>
         <Toolbar />
-        <Switch>
-          <Route exact path="/">
-            <Welcome />
-          </Route>
-          <Route path="/edu">
-            <Education />
-          </Route>
-          <Route path="/exp">
-            <Experience />
-          </Route>
-          <Route path="/certs">
-            <Certs />
-          </Route>
-          <Route path="/skills">
-            <Skills />
-          </Route>
-          <Route path="/interests">
-            <Interests />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="edu" element={<Education />} />
+          <Route path="exp" element={<Experience />} />
+          <Route path="certs" element={<Certs />} />
+          <Route path="skills" element={<Skills />} />
+          <Route path="interests" element={<Interests />} />
+        </Routes>
       </Container>
     );
   }
