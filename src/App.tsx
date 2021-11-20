@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import { NavBar } from "./nav-bar";
 import { Details } from "./details";
 import "./App.sass";
@@ -19,13 +19,13 @@ export class App extends React.Component<any, StateType> {
     };
   }
 
-  onHamburgerClick = () => {
+  openDrawer = () => {
     this.setState({
-      ariaHidden: !this.state.ariaHidden,
+      ariaHidden: true,
     });
   };
 
-  onChevronClick = () => {
+  closeDrawer = () => {
     this.setState({
       ariaHidden: false,
     });
@@ -35,25 +35,29 @@ export class App extends React.Component<any, StateType> {
     return (
       <>
         <div className="App">
-          <Header hamClick={this.onHamburgerClick.bind(this)} />
+          <Header hamClick={this.openDrawer.bind(this)} />
           <Drawer anchor="left" variant="permanent" className="drawer">
             <NavBar toolbar={<DrawerToolbar />} />
           </Drawer>
           <Details />
           <Footer />
+          <Box
+            className="backdrop-second-drawer"
+            visibility={this.state.ariaHidden.valueOf() ? "visible" : "hidden"}
+            onClick={this.closeDrawer.bind(this)}
+          ></Box>
           <Drawer
             anchor="left"
             variant="persistent"
             className="second-drawer"
             open={this.state.ariaHidden.valueOf()}
-            onClose={this.onChevronClick}
-            PaperProps={{ className: "custom-elevation" }}
+            onClose={this.closeDrawer}
           >
             <NavBar
               toolbar={
-                <DrawerToolbar handler={this.onChevronClick.bind(this)} />
+                <DrawerToolbar handler={this.closeDrawer.bind(this)} />
               }
-              clickHandler={this.onChevronClick.bind(this)}
+              clickHandler={this.closeDrawer.bind(this)}
             />
           </Drawer>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useMatch } from "react-router-dom";
-import { List, ListItem, ListItemText, Divider } from "@mui/material";
+import { List, ListItem, ListItemText, Divider, Box } from "@mui/material";
 import "./index.sass";
 
 type PropType = {
@@ -11,7 +11,7 @@ type PropType = {
 export class NavBar extends React.Component<PropType> {
   render() {
     return (
-      <div className="navbar">
+      <Box className="navbar">
         {this.props.toolbar}
         <List component="div">
           <Divider />
@@ -48,7 +48,7 @@ export class NavBar extends React.Component<PropType> {
           />
           <Divider />
         </List>
-      </div>
+      </Box>
     );
   }
 }

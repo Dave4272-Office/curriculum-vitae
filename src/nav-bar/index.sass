@@ -1,11 +1,24 @@
-$selectedcolor: rgba(4, 133, 0, 1)
-$selectedhover: rgba(4, 82, 1, 0.9)
+$selectedcolor: #048500
+$selectedhover: rgb(26, 155, 21)
+$drawerWidth: 250px
+$bgcolor: #1f0085
+$textdrawer: #ffffff
 
 .navbar
     overflow: auto
+    background-color: $bgcolor !important
+    color: $textdrawer !important
+    width: $drawerWidth
+    height: 100%
+
+@media (min-width: 880px)
+    .navbar
+        width: $drawerWidth
 
 .selected
     background-color: $selectedcolor !important
+    &:hover
+        background-color: $selectedhover !important
 
 .drawer-logo-container
     flex-grow: 1
