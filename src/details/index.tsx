@@ -12,7 +12,7 @@ import "./index.sass";
 export class Details extends React.Component {
   render() {
     return (
-      <Container className="app-container">
+      <Container className="app-container" maxWidth="xl">
         <Toolbar />
         <Routes>
           <Route path="/" element={<Welcome />} />
