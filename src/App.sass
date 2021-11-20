@@ -5,24 +5,23 @@ $textdrawer: #ffffff
 .App
   display: flex
 
-.Drawer
+.drawer
   flex-shrink: 0
-  width: $drawerWidth
   .MuiPaper-root
     background-color: $bgcolor !important
     color: $textdrawer !important
-  .Navbar > div
+  .navbar > div
     justify-content: center
 
 .MuiDrawer-paper
   width: $drawerWidth
 
 @media (min-width: 880px)
-  .Drawer
+  .drawer
     width: $drawerWidth
 
 @media (max-width: 879px)
-  .Drawer
+  .drawer
     display: none
 
 @media (min-width: 880px)
@@ -34,7 +33,7 @@ $textdrawer: #ffffff
     background-color: $bgcolor !important
     color: $textdrawer !important
     width: $drawerWidth
-  .Navbar > div
+  .navbar > div
     justify-content: space-between
 
 .custom-elevation

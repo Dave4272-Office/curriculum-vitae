@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import React from "react";
 import { certCards } from "./items/cert.card";
 import "./certificates.sass";
@@ -10,8 +10,9 @@ export class Certs extends React.Component {
     var msnry = new Masonry(".creds-container", {
       columnWidth: 520,
       itemSelector: ".certificate",
-      gutter: 16,
+      gutter: 20,
       horizontalOrder: true,
+      fitWidth: true,
     });
   }
   render() {
@@ -20,7 +21,11 @@ export class Certs extends React.Component {
         <Typography variant="h2" gutterBottom className="extra-padded">
           Certifications
         </Typography>
-        <div className="creds-container">{certCards}</div>
+        <Container className="root-content certificate-container">
+          <Container className="creds-container">
+            {certCards}
+          </Container>
+        </Container>
       </>
     );
   }

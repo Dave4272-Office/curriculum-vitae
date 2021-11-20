@@ -1,31 +1,41 @@
 $orgiconsize: 200px
 
-.work-card
-    max-width: 700px
-    min-width: 520px
+.experience-container
+    padding: 10px !important
+    max-width: 810px !important
 
-.work-item
-    display: flex
-    justify-content: space-evenly
-    align-items: center
-    margin: unset
-    flex-direction: column
-    > *
-        margin: 5px !important
+    .work-card-container
+        padding: 0 !important
+        margin: auto
+        .work-card
+            max-width: 700px
+            min-width: 520px
+            padding-left: 0 !important
+            padding-right: 0 !important
+            padding-top: 10px !important
+            padding-bottom: 10px !important
+            .work-item
+                display: flex
+                justify-content: space-evenly
+                align-items: center
+                margin: unset
+                flex-direction: column
+                > *
+                    margin: 5px !important
 
-.work-detail
-    display: flex
-    flex-direction: column !important
-    justify-content: space-evenly
-    align-items: center
+                .work-detail
+                    display: flex
+                    flex-direction: column !important
+                    justify-content: space-evenly
+                    align-items: center
 
-.work-logo-divider
-    margin: 5px
+                .work-logo-divider
+                    margin: 5px
 
-.work-org-icon
-    width: $orgiconsize
-    height: $orgiconsize
-    align-self: center
+                .work-org-icon
+                    width: $orgiconsize
+                    height: $orgiconsize
+                    align-self: center
 
-.work-desc-divider
-    width: 95%
+                .work-desc-divider
+                    width: 95%

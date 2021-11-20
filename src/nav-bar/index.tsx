@@ -11,7 +11,7 @@ type PropType = {
 export class NavBar extends React.Component<PropType> {
   render() {
     return (
-      <div className="Navbar">
+      <div className="navbar">
         {this.props.toolbar}
         <List component="div">
           <Divider />
@@ -66,8 +66,8 @@ function Item(props: ItemProps) {
   });
 
   let x = () => {
-    if (match == null) return false;
-    return match ? true : false;
+    if (match == null) return "";
+    return match ? "selected" : "";
   };
 
   return (
@@ -76,7 +76,7 @@ function Item(props: ItemProps) {
       onClick={props.clickHandler}
       component={Link}
       to={props.to}
-      selected={x()}
+      className={x()}
     >
       <ListItemText primary={props.label} />
     </ListItem>

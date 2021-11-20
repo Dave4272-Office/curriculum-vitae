@@ -5,68 +5,69 @@ $sub-headtitlepadd: 0px 10px
 $sub-headicnsize: 32px
 $sub-headiconlinesize: 50px
 
-.sub-head-title
-    display: flex
-    align-items: center
+.skill-container
+    padding: 10px !important
 
-.sub-head-icon
-    width: $sub-headiconlinesize !important
-    height: $sub-headiconlinesize !important
-    background-color: #f50057 !important
-    svg
-        height: $sub-headicnsize !important
-        width: unset !important
-
-.skill-text
-    font-size: xx-large !important
-
-.sub-head-text
-    padding: $sub-headtitlepadd
-
-.padding-top-bottom
-    padding-top: $paddtopbottom
-    padding-bottom: $paddtopbottom
-
-.padding-top-bottom-imp
-    padding-top: 2 * $paddtopbottom !important
-    padding-bottom: $paddtopbottom !important
-
-.padding-left-right
-    padding-left: $paddleftright
-    padding-right: $paddleftright
-
-.soft-skill-list-icon
-    background-color: #ff9e22 !important
-    color: #590205 !important
-
-.soft-card
-    display: flex
-    flex-grow: 1
-    justify-content: center
-    align-items: center
-    margin: 10px
-    > div
+    .sub-head-title
         display: flex
-        flex-direction: column
         align-items: center
 
-.lang-card
-    display: flex
-    flex-grow: 1
-    justify-content: center
-    align-items: center
-    margin: 10px
-    > div
-        display: flex
-        flex-direction: column
-        align-items: center
+    .sub-head-icon
+        width: $sub-headiconlinesize !important
+        height: $sub-headiconlinesize !important
+        background-color: #f50057 !important
+        svg
+            height: $sub-headicnsize !important
+            width: unset !important
 
-.skill-card
-    display: flex
-    flex-grow: 1
-    justify-content: center
-    align-items: center
-    margin: 10px
-    > div
+    .sub-head-text
+        padding: $sub-headtitlepadd
+
+    .padding-top-bottom
+        padding-top: $paddtopbottom
+        padding-bottom: $paddtopbottom
+
+    .padding-top-bottom-imp
+        padding-top: 2 * $paddtopbottom !important
+        padding-bottom: $paddtopbottom !important
+
+    .padding-left-right
+        padding-left: $paddleftright
+        padding-right: $paddleftright
+
+    .soft-card
+        display: flex
+        flex-grow: 1
+        justify-content: center
+        align-items: center
+        margin: 10px
         > div
-            justify-content: center
+            display: flex
+            flex-direction: column
+            align-items: center
+        .skill-text
+            font-size: xx-large !important
+        .soft-skill-list-icon
+            background-color: #ff9e22 !important
+            color: #590205 !important
+
+    .lang-card
+        display: flex
+        flex-grow: 1
+        justify-content: center
+        align-items: center
+        margin: 10px
+        > div
+            display: flex
+            flex-direction: column
+            align-items: center
+
+    .skill-card
+        display: flex
+        flex-grow: 1
+        justify-content: center
+        align-items: center
+        margin: 10px
+        > div
+            > div
+                justify-content: center

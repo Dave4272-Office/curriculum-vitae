@@ -10,7 +10,7 @@ type PropType = {
 export class Header extends React.Component<PropType> {
   render() {
     return (
-      <AppBar position="fixed" className="AppBar">
+      <AppBar position="fixed" className="app-bar">
         <Toolbar className="header-toolbar">
           <Container className="header-details">Curriculum Vitae</Container>
           <IconButton

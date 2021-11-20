@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import React from "react";
 
 export class Interests extends React.Component {
@@ -8,8 +8,10 @@ export class Interests extends React.Component {
         <Typography variant="h2" gutterBottom className="extra-padded">
           Interests
         </Typography>
-        Hobbies &amp; Interests: 1. Learning New Things 2. Reading Novels 3.
-        Sketching 4. Listening music
+        <Container className="root-content">
+          Hobbies &amp; Interests: 1. Learning New Things 2. Reading Novels 3.
+          Sketching 4. Listening music
+        </Container>
       </>
     );
   }

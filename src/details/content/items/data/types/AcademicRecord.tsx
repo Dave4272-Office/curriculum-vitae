@@ -1,6 +1,6 @@
 export type AcademicRecord = {
   from: string;
-  to: string;
+  to?: string;
   qualexam: string;
   score: string;
   certauthtype: "Board" | "University";

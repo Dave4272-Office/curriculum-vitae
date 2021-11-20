@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Timeline } from "@mui/lab";
 import React from "react";
 import { workCards } from "./items/work.card";
@@ -11,7 +11,9 @@ export class Experience extends React.Component {
         <Typography variant="h2" gutterBottom className="extra-padded">
           Experience
         </Typography>
-        <Timeline>{workCards}</Timeline>
+        <Container className="root-content experience-container">
+          <Timeline className="work-card-container">{workCards}</Timeline>
+        </Container>
       </>
     );
   }
