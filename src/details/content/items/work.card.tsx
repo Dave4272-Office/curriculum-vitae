@@ -40,23 +40,30 @@ workinclude.reverse().forEach((value, index) => {
   }
 
   if (parseInt(duration.years.toFixed(0)) !== 0) {
-    durationout += duration.years.toFixed(0) + " yr ";
+    durationout += duration.years.toFixed(0) + " yr";
+    durationout += Math.abs(duration.years) > 1 ? "s " : " ";
   }
 
   if (parseInt(duration.months.toFixed(0)) !== 0) {
-    durationout += duration.months.toFixed(0) + " mo ";
+    durationout += duration.months.toFixed(0) + " mth";
+    durationout += Math.abs(duration.months) > 1 ? "s " : " ";
   }
 
   if (parseInt(duration.days.toFixed(0)) !== 0) {
-    durationout += duration.days.toFixed(0) + " dy";
+    durationout += duration.days.toFixed(0) + " day";
+    durationout += Math.abs(duration.days) > 1 ? "s" : "";
   }
 
   workCards.push(
     <TimelineItem key={index.toString()} className="work-edu-container">
       <TimelineOppositeContent className="timeline-opp-container"></TimelineOppositeContent>
-      <TimelineSeparator>
+      <TimelineSeparator className="timeline-separator">
         <TimelineConnector className={index === 0 ? "hide" : ""} />
-        <TimelineDot variant="outlined" color="primary">
+        <TimelineDot
+          variant="outlined"
+          color="primary"
+          className="icon-backgrounds"
+        >
           <FaBriefcase className="timeline-icons" />
         </TimelineDot>
         <TimelineConnector

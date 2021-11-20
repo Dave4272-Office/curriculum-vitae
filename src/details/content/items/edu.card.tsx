@@ -9,29 +9,29 @@ import {
 } from "@mui/lab";
 import React from "react";
 import { eduList } from "./data/edu.list";
-import { FaGraduationCap } from "react-icons/fa";
+import { FaGraduationCap, FaHourglass, FaRegHourglass } from "react-icons/fa";
 
 export let educationCards: React.ReactElement[] = [];
 
 eduList.reverse().forEach((value, index) => {
   educationCards.push(
     <TimelineItem key={index.toString()} className="work-edu-container">
-      <TimelineOppositeContent className="timeline-opp-container">
-        <Typography variant="h6" component="h3" gutterBottom>
-          {value.from} - {value.to}
-        </Typography>
-      </TimelineOppositeContent>
-      <TimelineSeparator>
+      <TimelineOppositeContent className="timeline-opp-container"></TimelineOppositeContent>
+      <TimelineSeparator className="timeline-separator">
         <TimelineConnector className={index === 0 ? "hide" : ""} />
-        <TimelineDot variant="outlined" color="primary">
+        <TimelineDot
+          variant="outlined"
+          color="primary"
+          className="icon-backgrounds"
+        >
           <FaGraduationCap className="timeline-icons" />
         </TimelineDot>
         <TimelineConnector
           className={index === eduList.length - 1 ? "hide" : ""}
         />
       </TimelineSeparator>
-      <TimelineContent>
-        <Card className="edu-card">
+      <TimelineContent className="edu-card">
+        <Card>
           <CardContent>
             <Grid container>
               <Grid item sm={12} md={9}>
@@ -50,6 +50,20 @@ eduList.reverse().forEach((value, index) => {
                     {value.score}
                   </Typography>
                 </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant="h6"
+                  component="h3"
+                  gutterBottom
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                >
+                  <FaRegHourglass color="#f97501" />
+                  &nbsp;&nbsp;{value.from} -{" "}
+                  {!value.to ? "Currently Pursuing" : value.to}
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subtitle2" component="h3">

@@ -36,7 +36,7 @@ export class App extends React.Component<any, StateType> {
       <>
         <div className="App">
           <Header hamClick={this.onHamburgerClick.bind(this)} />
-          <Drawer anchor="left" variant="permanent" className="Drawer">
+          <Drawer anchor="left" variant="permanent" className="drawer">
             <NavBar toolbar={<DrawerToolbar />} />
           </Drawer>
           <Details />
