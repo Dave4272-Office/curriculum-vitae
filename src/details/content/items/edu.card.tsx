@@ -9,7 +9,7 @@ import {
 } from "@mui/lab";
 import React from "react";
 import { eduList } from "./data/edu.list";
-import { FaGraduationCap, FaHourglass, FaRegHourglass } from "react-icons/fa";
+import { FaGraduationCap, FaRegHourglass } from "react-icons/fa";
 
 export let educationCards: React.ReactElement[] = [];
 
