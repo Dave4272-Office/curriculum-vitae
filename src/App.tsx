@@ -45,7 +45,7 @@ export class App extends React.Component<any, StateType> {
             className="backdrop-second-drawer"
             visibility={this.state.ariaHidden.valueOf() ? "visible" : "hidden"}
             onClick={this.closeDrawer.bind(this)}
-          ></Box>
+          />
           <Drawer
             anchor="left"
             variant="persistent"
@@ -54,9 +54,7 @@ export class App extends React.Component<any, StateType> {
             onClose={this.closeDrawer}
           >
             <NavBar
-              toolbar={
-                <DrawerToolbar handler={this.closeDrawer.bind(this)} />
-              }
+              toolbar={<DrawerToolbar handler={this.closeDrawer.bind(this)} />}
               clickHandler={this.closeDrawer.bind(this)}
             />
           </Drawer>
