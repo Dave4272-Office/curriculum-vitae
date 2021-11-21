@@ -29,7 +29,7 @@ export class Welcome extends React.Component {
   render() {
     return (
       <>
-        <Typography variant="h2" gutterBottom className="extra-padded">
+        <Typography variant="h2" gutterBottom className="extra-padded title">
           Welcome
         </Typography>
         <Container className="root-content welcome-container">
