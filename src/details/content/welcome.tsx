@@ -16,6 +16,7 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
+import { SiTryhackme } from "react-icons/si";
 import { AnimatedHeadline } from "./animated-headline";
 import { Animate } from "./animated-headline/animate";
 import "./welcome.sass";
@@ -209,6 +210,18 @@ export class Welcome extends React.Component {
                           aria-label="Keybase profile link"
                         >
                           <FaKeybase color="#ff6f21" />
+                        </IconButton>
+                      </Grid>
+                      <Grid item xs>
+                        <IconButton
+                          component="a"
+                          href="https://tryhackme.com/p/Dave4272"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          size="large"
+                          aria-label="TryHackMe profile link"
+                        >
+                          <SiTryhackme color="#c11111" />
                         </IconButton>
                       </Grid>
                     </Grid>
