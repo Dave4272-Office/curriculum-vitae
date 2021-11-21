@@ -24,7 +24,7 @@ export class Skills extends React.Component {
   render() {
     return (
       <>
-        <Typography variant="h2" className="extra-padded">
+        <Typography variant="h2" className="extra-padded title">
           Skills
         </Typography>
         <Container className="root-content skill-container">

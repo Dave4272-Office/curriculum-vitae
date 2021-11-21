@@ -5,7 +5,7 @@ export class Interests extends React.Component {
   render() {
     return (
       <>
-        <Typography variant="h2" gutterBottom className="extra-padded">
+        <Typography variant="h2" gutterBottom className="extra-padded title">
           Interests
         </Typography>
         <Container className="root-content">

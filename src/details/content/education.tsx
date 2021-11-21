@@ -8,7 +8,7 @@ export class Education extends React.Component {
   render() {
     return (
       <>
-        <Typography variant="h2" gutterBottom className="extra-padded">
+        <Typography variant="h2" gutterBottom className="extra-padded title">
           Education
         </Typography>
         <Container className="root-content education-container">

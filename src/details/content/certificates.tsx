@@ -18,7 +18,7 @@ export class Certs extends React.Component {
   render() {
     return (
       <>
-        <Typography variant="h2" gutterBottom className="extra-padded">
+        <Typography variant="h2" gutterBottom className="extra-padded title">
           Certifications
         </Typography>
         <Container className="root-content certificate-container">

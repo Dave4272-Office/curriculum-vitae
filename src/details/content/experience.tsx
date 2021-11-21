@@ -8,7 +8,7 @@ export class Experience extends React.Component {
   render() {
     return (
       <>
-        <Typography variant="h2" gutterBottom className="extra-padded">
+        <Typography variant="h2" gutterBottom className="extra-padded title">
           Experience
         </Typography>
         <Container className="root-content experience-container">
