@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
-    "@types/eslint": "^8.2.1",
+    "@types/eslint": "^8.2.2",
     "@types/jest": "^27.4.0",
     "@types/luxon": "^2.0.9",
     "@types/masonry-layout": "^4.2.4",
@@ -68,7 +68,7 @@
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.6.0",
+    "eslint": "^8.7.0",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest": "^25.3.4",
