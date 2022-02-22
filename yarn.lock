@@ -3213,7 +3213,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.10.0, @typescript-eslint/eslint-plugin@npm:^5.5.0":
+"@typescript-eslint/eslint-plugin@npm:^5.12.1, @typescript-eslint/eslint-plugin@npm:^5.5.0":
   version: 5.12.1
   resolution: "@typescript-eslint/eslint-plugin@npm:5.12.1"
   dependencies:
@@ -3247,7 +3247,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.10.0, @typescript-eslint/parser@npm:^5.5.0":
+"@typescript-eslint/parser@npm:^5.12.1, @typescript-eslint/parser@npm:^5.5.0":
   version: 5.12.1
   resolution: "@typescript-eslint/parser@npm:5.12.1"
   dependencies:
@@ -3315,7 +3315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:5.12.1, @typescript-eslint/utils@npm:^5.10.2":
+"@typescript-eslint/utils@npm:5.12.1, @typescript-eslint/utils@npm:^5.10.0, @typescript-eslint/utils@npm:^5.10.2":
   version: 5.12.1
   resolution: "@typescript-eslint/utils@npm:5.12.1"
   dependencies:
@@ -5295,17 +5295,17 @@ __metadata:
     "@types/testing-library__react": ^10.2.0
     "@types/testing-library__user-event": ^4.2.0
     "@types/typescript": ^2.0.0
-    "@typescript-eslint/eslint-plugin": ^5.10.0
-    "@typescript-eslint/parser": ^5.10.0
+    "@typescript-eslint/eslint-plugin": ^5.12.1
+    "@typescript-eslint/parser": ^5.12.1
     babel-eslint: ^10.1.0
-    eslint: ^8.7.0
+    eslint: ^8.9.0
     eslint-plugin-flowtype: ^8.0.3
     eslint-plugin-import: ^2.25.4
-    eslint-plugin-jest: ^25.7.0
+    eslint-plugin-jest: ^26.1.1
     eslint-plugin-jsx-a11y: ^6.5.1
     eslint-plugin-react: ^7.28.0
     eslint-plugin-react-hooks: ^4.3.0
-    eslint-plugin-testing-library: ^5.0.3
+    eslint-plugin-testing-library: ^5.0.5
     luxon: ^2.3.0
     masonry-layout: ^4.2.2
     node-sass: ^7.0.1
@@ -6080,7 +6080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:^25.3.0, eslint-plugin-jest@npm:^25.7.0":
+"eslint-plugin-jest@npm:^25.3.0":
   version: 25.7.0
   resolution: "eslint-plugin-jest@npm:25.7.0"
   dependencies:
@@ -6094,6 +6094,23 @@ __metadata:
     jest:
       optional: true
   checksum: fc6da96131f4cbf33d15ef911ec8e600ccd71deb97d73c0ca340427cef7b01ff41a797e2e7d1e351abf97321a46ed0c0acff5ee8eeedac94961dd6dad1f718a9
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-jest@npm:^26.1.1":
+  version: 26.1.1
+  resolution: "eslint-plugin-jest@npm:26.1.1"
+  dependencies:
+    "@typescript-eslint/utils": ^5.10.0
+  peerDependencies:
+    "@typescript-eslint/eslint-plugin": ^5.0.0
+    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+  peerDependenciesMeta:
+    "@typescript-eslint/eslint-plugin":
+      optional: true
+    jest:
+      optional: true
+  checksum: efed65bd6b83f15f38e3d8447d0dbbac18c10d6e4c4853c8d0539f5bc8e898cca8136b1e706899b756ea995ed189445b7f15d0fffeb983890608c33e752670d7
   languageName: node
   linkType: hard
 
@@ -6152,7 +6169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-testing-library@npm:^5.0.1, eslint-plugin-testing-library@npm:^5.0.3":
+"eslint-plugin-testing-library@npm:^5.0.1, eslint-plugin-testing-library@npm:^5.0.5":
   version: 5.0.5
   resolution: "eslint-plugin-testing-library@npm:5.0.5"
   dependencies:
@@ -6231,7 +6248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.3.0, eslint@npm:^8.7.0":
+"eslint@npm:^8.3.0, eslint@npm:^8.9.0":
   version: 8.9.0
   resolution: "eslint@npm:8.9.0"
   dependencies:
