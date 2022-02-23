@@ -52,7 +52,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "@types/eslint": "^8.4.1",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.4.1",
     "@types/luxon": "^2.0.9",
     "@types/masonry-layout": "^4.2.4",
     "@types/material-ui": "^0.21.12",
