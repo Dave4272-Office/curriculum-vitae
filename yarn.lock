@@ -2621,7 +2621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:*, @testing-library/dom@npm:^8.0.0, @testing-library/dom@npm:^8.12.0":
+"@testing-library/dom@npm:^8.0.0, @testing-library/dom@npm:^8.12.0":
   version: 8.12.0
   resolution: "@testing-library/dom@npm:8.12.0"
   dependencies:
@@ -2654,7 +2654,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:*, @testing-library/react@npm:^12.1.4":
+"@testing-library/react@npm:^12.1.4":
   version: 12.1.4
   resolution: "@testing-library/react@npm:12.1.4"
   dependencies:
@@ -2668,7 +2668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:*, @testing-library/user-event@npm:^13.5.0":
+"@testing-library/user-event@npm:^13.5.0":
   version: 13.5.0
   resolution: "@testing-library/user-event@npm:13.5.0"
   dependencies:
@@ -3153,15 +3153,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/testing-library__dom@npm:^7.5.0":
-  version: 7.5.0
-  resolution: "@types/testing-library__dom@npm:7.5.0"
-  dependencies:
-    "@testing-library/dom": "*"
-  checksum: fe38a1f42c6f35178c39ae3e465b6762467344bffab818163a18f6727abd402c8a27b4da41444789cbde4c7d08f3e5e9eceb8daed7be02187d757c22b06d07e6
-  languageName: node
-  linkType: hard
-
 "@types/testing-library__jest-dom@npm:^5.14.3, @types/testing-library__jest-dom@npm:^5.9.1":
   version: 5.14.3
   resolution: "@types/testing-library__jest-dom@npm:5.14.3"
@@ -3171,37 +3162,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/testing-library__react@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "@types/testing-library__react@npm:10.2.0"
-  dependencies:
-    "@testing-library/react": "*"
-  checksum: 85f4db1aee846a86c088e71cbc5538374996b180adcab19d15c4e0a09fe294d71e587a7547b35fb3542519c2415d8e2ee92af579b2b583a8830f56d6d6d76b79
-  languageName: node
-  linkType: hard
-
-"@types/testing-library__user-event@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "@types/testing-library__user-event@npm:4.2.0"
-  dependencies:
-    "@testing-library/user-event": "*"
-  checksum: 31ad1437c95210b19320b815f90e89e810a9a92344cb8ce258e53a555d3b74dd14d8317bab7fbc0c1286ce6048364c4d965878b38185c33c3f0f96f106412854
-  languageName: node
-  linkType: hard
-
 "@types/trusted-types@npm:^2.0.2":
   version: 2.0.2
   resolution: "@types/trusted-types@npm:2.0.2"
   checksum: 3371eef5f1c50e1c3c07a127c1207b262ba65b83dd167a1c460fc1b135a3fb0c97b9f508efebd383f239cc5dd5b7169093686a692a501fde9c3f7208657d9b0d
-  languageName: node
-  linkType: hard
-
-"@types/typescript@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@types/typescript@npm:2.0.0"
-  dependencies:
-    typescript: "*"
-  checksum: 657dd1cb516dd4e99998538dca3f9be3a04edd761c5fb1a579472c4e78ba81f702142506356f0d312f8f696c7432f066faad402dd571da652f4b27365452a8b5
   languageName: node
   linkType: hard
 
@@ -4554,9 +4518,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001317":
-  version: 1.0.30001320
-  resolution: "caniuse-lite@npm:1.0.30001320"
-  checksum: d1f52e9d8e2316f2dba4c7adb4c5957e535b07a4a90ac5432bef3a83b4dab487f0efaa6eff3cda75a52bf044d09886ec583299595389fe0a92cf135f4f07692e
+  version: 1.0.30001322
+  resolution: "caniuse-lite@npm:1.0.30001322"
+  checksum: 48609d1808c69034a74ab6df9db8cffd847e12da6979e150f364cc8e2a4310fce1f2811382ca57b3b4111c0182f7c67edfde3cd4159c29537fc232596aecf48b
   languageName: node
   linkType: hard
 
@@ -5331,11 +5295,7 @@ __metadata:
     "@types/node-sass": ^4.11.2
     "@types/react": ^17.0.43
     "@types/react-dom": ^17.0.14
-    "@types/testing-library__dom": ^7.5.0
     "@types/testing-library__jest-dom": ^5.14.3
-    "@types/testing-library__react": ^10.2.0
-    "@types/testing-library__user-event": ^4.2.0
-    "@types/typescript": ^2.0.0
     "@typescript-eslint/eslint-plugin": ^5.17.0
     "@typescript-eslint/parser": ^5.17.0
     babel-eslint: ^10.1.0
@@ -13060,7 +13020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:*, typescript@npm:^4.6.3":
+"typescript@npm:^4.6.3":
   version: 4.6.3
   resolution: "typescript@npm:4.6.3"
   bin:
@@ -13070,7 +13030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@*#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.3#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.6.3#~builtin<compat/typescript>":
   version: 4.6.3
   resolution: "typescript@patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"
   bin:
