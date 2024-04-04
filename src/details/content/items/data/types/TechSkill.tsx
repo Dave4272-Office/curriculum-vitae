@@ -1,8 +1,6 @@
-import React from "react";
-
 export type TechSkill = {
   include: boolean;
-  icon: React.ReactElement;
+  icon: string;
   label: string;
   type: TechType;
 };

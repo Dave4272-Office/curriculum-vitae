@@ -1,0 +1,17 @@
+[
+  {
+    "language": "English",
+    "readwrite": "Fluent",
+    "listeningspeaking": "Fluent"
+  },
+  {
+    "language": "Bengali",
+    "readwrite": "Intermediate",
+    "listeningspeaking": "Native Fluent"
+  },
+  {
+    "language": "Hindi",
+    "readwrite": "Basic",
+    "listeningspeaking": "Fluent"
+  }
+]

@@ -1,0 +1,236 @@
+[
+  {
+    "include": true,
+    "icon": "FaPython",
+    "label": "Python",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "FaJava",
+    "label": "Java",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "CgCPlusPlus",
+    "label": "C++",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "SiC",
+    "label": "C",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "SiGnubash",
+    "label": "Bash",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "FaJs",
+    "label": "JavaScript",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "SiTypescript",
+    "label": "TypeScript",
+    "type": "Language"
+  },
+  {
+    "include": false,
+    "icon": "SiKotlin",
+    "label": "Kotlin",
+    "type": "Language"
+  },
+  {
+    "include": false,
+    "icon": "SiGo",
+    "label": "Go",
+    "type": "Language"
+  },
+  {
+    "include": false,
+    "icon": "FaRust",
+    "label": "Rust",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "FaPhp",
+    "label": "php",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "FaHtml5",
+    "label": "HTML 5",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "FaCss3",
+    "label": "CSS 3",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "FaSass",
+    "label": "Sass",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "FaMarkdown",
+    "label": "Markdown",
+    "type": "Language"
+  },
+  {
+    "include": true,
+    "icon": "SiSpring",
+    "label": "Spring",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "SiSpringboot",
+    "label": "Spring Boot",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "FaReact",
+    "label": "React",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "FaAngular",
+    "label": "Angular",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "FaNodeJs",
+    "label": "Node.js",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "SiJquery",
+    "label": "jQuery",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "FaBootstrap",
+    "label": "Bootstrap",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "FaWordpress",
+    "label": "WordPress",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "SiHibernate",
+    "label": "Hibernate",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "SiScikitlearn",
+    "label": "scikit-learn",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "GrMysql",
+    "label": "MySQL",
+    "type": "Database"
+  },
+  {
+    "include": true,
+    "icon": "SiOracle",
+    "label": "Oracle DB",
+    "type": "Database"
+  },
+  {
+    "include": true,
+    "icon": "SiMongodb",
+    "label": "MongoDB",
+    "type": "Database"
+  },
+  {
+    "include": true,
+    "icon": "FaGitAlt",
+    "label": "Git",
+    "type": "Tool"
+  },
+  {
+    "include": true,
+    "icon": "FaDocker",
+    "label": "Docker",
+    "type": "Tool"
+  },
+  {
+    "include": true,
+    "icon": "SiNpm",
+    "label": "npm",
+    "type": "Tool"
+  },
+  {
+    "include": true,
+    "icon": "FaYarn",
+    "label": "Yarn",
+    "type": "Tool"
+  },
+  {
+    "include": false,
+    "icon": "FaJenkins",
+    "label": "Jenkins",
+    "type": "Tool"
+  },
+  {
+    "include": false,
+    "icon": "FaAndroid",
+    "label": "Android",
+    "type": "Platform"
+  },
+  {
+    "include": false,
+    "icon": "FaAws",
+    "label": "Amazon Web Services",
+    "type": "Platform"
+  },
+  {
+    "include": true,
+    "icon": "SiCloudfoundry",
+    "label": "Pivotal Cloud Foundry",
+    "type": "Platform"
+  },
+  {
+    "include": true,
+    "icon": "FaLinux",
+    "label": "Linux",
+    "type": "Platform"
+  },
+  {
+    "include": true,
+    "icon": "SiJupyter",
+    "label": "Jupyter",
+    "type": "IDE"
+  },
+  {
+    "include": true,
+    "icon": "SiVisualstudiocode",
+    "label": "VS Code",
+    "type": "IDE"
+  }
+]

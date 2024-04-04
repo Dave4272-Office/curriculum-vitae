@@ -1,65 +1,47 @@
-import React from "react";
 import { Box, Drawer } from "@mui/material";
-import { NavBar } from "./nav-bar";
-import { Details } from "./details";
+import { useState } from "react";
 import "./App.sass";
-import { Header } from "./header";
+import { Details } from "./details";
 import { Footer } from "./footer";
+import { Header } from "./header";
+import { NavBar } from "./nav-bar";
 import { DrawerToolbar } from "./nav-bar/toolbar";
 
-type StateType = {
-  ariaHidden: boolean;
+export const App = () => {
+  const [ariaHidden, setAriaHidden] = useState(false);
+
+  const openDrawer = () => {
+    setAriaHidden(true);
+  };
+
+  const closeDrawer = () => {
+    setAriaHidden(false);
+  };
+  return (
+    <div className="App">
+      <Header hamClick={openDrawer.bind(this)} />
+      <Drawer anchor="left" variant="permanent" className="drawer">
+        <NavBar toolbar={<DrawerToolbar />} />
+      </Drawer>
+      <Details />
+      <Footer />
+      <Box
+        className="backdrop-second-drawer"
+        visibility={ariaHidden ? "visible" : "hidden"}
+        onClick={closeDrawer.bind(this)}
+      />
+      <Drawer
+        anchor="left"
+        variant="persistent"
+        className="second-drawer"
+        open={ariaHidden}
+        onClose={closeDrawer}
+      >
+        <NavBar
+          toolbar={<DrawerToolbar handler={closeDrawer.bind(this)} />}
+          clickHandler={closeDrawer.bind(this)}
+        />
+      </Drawer>
+    </div>
+  );
 };
-
-export class App extends React.Component<any, StateType> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      ariaHidden: false,
-    };
-  }
-
-  openDrawer = () => {
-    this.setState({
-      ariaHidden: true,
-    });
-  };
-
-  closeDrawer = () => {
-    this.setState({
-      ariaHidden: false,
-    });
-  };
-
-  render() {
-    return (
-      <>
-        <div className="App">
-          <Header hamClick={this.openDrawer.bind(this)} />
-          <Drawer anchor="left" variant="permanent" className="drawer">
-            <NavBar toolbar={<DrawerToolbar />} />
-          </Drawer>
-          <Details />
-          <Footer />
-          <Box
-            className="backdrop-second-drawer"
-            visibility={this.state.ariaHidden.valueOf() ? "visible" : "hidden"}
-            onClick={this.closeDrawer.bind(this)}
-          />
-          <Drawer
-            anchor="left"
-            variant="persistent"
-            className="second-drawer"
-            open={this.state.ariaHidden.valueOf()}
-            onClose={this.closeDrawer}
-          >
-            <NavBar
-              toolbar={<DrawerToolbar handler={this.closeDrawer.bind(this)} />}
-              clickHandler={this.closeDrawer.bind(this)}
-            />
-          </Drawer>
-        </div>
-      </>
-    );
-  }
-}

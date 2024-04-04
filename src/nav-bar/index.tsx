@@ -1,6 +1,13 @@
+import {
+  Box,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import React from "react";
 import { Link, useMatch } from "react-router-dom";
-import { List, ListItem, ListItemText, Divider, Box } from "@mui/material";
 import "./index.sass";
 
 type PropType = {
@@ -8,77 +15,63 @@ type PropType = {
   clickHandler?: () => void;
 };
 
-export class NavBar extends React.Component<PropType> {
-  render() {
-    return (
-      <Box className="navbar">
-        {this.props.toolbar}
-        <List component="div">
-          <Divider />
-          <Item to="/" label="Home" clickHandler={this.props.clickHandler} />
-          <Divider />
-          <Item
-            to="/edu"
-            label="Education"
-            clickHandler={this.props.clickHandler}
-          />
-          <Divider />
-          <Item
-            to="/exp"
-            label="Experience"
-            clickHandler={this.props.clickHandler}
-          />
-          <Divider />
-          <Item
-            to="/certs"
-            label="Certifications"
-            clickHandler={this.props.clickHandler}
-          />
-          <Divider />
-          <Item
-            to="/skills"
-            label="Skills"
-            clickHandler={this.props.clickHandler}
-          />
-          <Divider />
-          <Item
-            to="/interests"
-            label="Interests"
-            clickHandler={this.props.clickHandler}
-          />
-          <Divider />
-        </List>
-      </Box>
-    );
-  }
-}
+export const NavBar = (props: PropType) => {
+  return (
+    <Box className="navbar">
+      {props.toolbar}
+      <List component="div">
+        <Divider />
+        <Item to="/" label="Home" clickHandler={props.clickHandler} />
+        <Divider />
+        <Item to="/edu" label="Education" clickHandler={props.clickHandler} />
+        <Divider />
+        <Item to="/exp" label="Experience" clickHandler={props.clickHandler} />
+        <Divider />
+        <Item
+          to="/certs"
+          label="Certifications"
+          clickHandler={props.clickHandler}
+        />
+        <Divider />
+        <Item to="/skills" label="Skills" clickHandler={props.clickHandler} />
+        <Divider />
+        <Item
+          to="/interests"
+          label="Interests"
+          clickHandler={props.clickHandler}
+        />
+        <Divider />
+      </List>
+    </Box>
+  );
+};
 
 type ItemProps = {
   label: string;
   to: string;
-  activeOnlyWhenExact?: boolean;
   clickHandler?: () => void;
 };
 
-function Item(props: ItemProps) {
+function Item(props: Readonly<ItemProps>) {
   let match = useMatch({
     path: props.to,
   });
 
   let x = () => {
-    if (match == null) return "";
-    return match ? "selected" : "";
+    if (match == null) return "menutext";
+    return match ? "selected menutext" : "menutext";
   };
 
   return (
     <ListItem
-      button
       onClick={props.clickHandler}
       component={Link}
       to={props.to}
       className={x()}
     >
-      <ListItemText primary={props.label} />
+      <ListItemButton>
+        <ListItemText primary={props.label} />
+      </ListItemButton>
     </ListItem>
   );
 }

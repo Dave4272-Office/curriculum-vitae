@@ -1,4 +1,5 @@
-import React from "react";
+import { Buffer } from "buffer";
+import { useCallback, useEffect, useState } from "react";
 import "./index.sass";
 
 type PropType = {
@@ -7,58 +8,37 @@ type PropType = {
   postfix?: string;
 };
 
-type StateType = {
-  visibleChild: any[];
-};
+export const AnimatedHeadline = (props: PropType) => {
+  const [visibleChild, setVisibleChild] = useState<JSX.Element[]>([]);
 
-export class AnimatedHeadline extends React.Component<PropType, StateType> {
-  constructor(props: PropType | Readonly<PropType>) {
-    super(props);
-
-    this.state = {
-      visibleChild: [],
-    };
-  }
-
-  initHeadline = () => {
-    var mh: JSX.Element[] = [];
-    this.props.values.forEach((value, index) => {
+  const initHeadline = useCallback(() => {
+    let mh: JSX.Element[] = [];
+    props.values.forEach((value, index) => {
+      const key = Buffer.from(value, "binary").toString("base64");
       mh.push(
-        <b className={index === 0 ? "is-visible" : "is-hidden"} key={index}>
+        <b className={index === 0 ? "is-visible" : "is-hidden"} key={key}>
           {value}
         </b>
       );
     });
-    this.setState({ visibleChild: mh });
-  };
+    setVisibleChild(mh);
+  }, [props.values]);
 
-  componentDidMount = () => {
-    this.initHeadline();
-  };
+  useEffect(() => {
+    initHeadline();
+  }, [initHeadline]);
 
-  render() {
-    let prefixWithTags = this.props.prefix ? (
-      <span>{this.props.prefix}</span>
-    ) : (
-      ""
-    );
+  let prefixWithTags = props.prefix ? <span>{props.prefix}</span> : "";
 
-    let postfixWithTags = this.props.postfix ? (
-      <span>{this.props.postfix}</span>
-    ) : (
-      ""
-    );
+  let postfixWithTags = props.postfix ? <span>{props.postfix}</span> : "";
 
-    return (
-      <>
-        <section className="cd-intro">
-          <span className={"cd-headline loading-bar"}>
-            {prefixWithTags}
-            <span className="cd-words-wrapper">{this.state.visibleChild}</span>
-            {postfixWithTags}
-          </span>
-        </section>
-      </>
-    );
-  }
-}
+  return (
+    <section className="cd-intro">
+      <span className={"cd-headline loading-bar"}>
+        {prefixWithTags}
+        <span className="cd-words-wrapper">{visibleChild}</span>
+        {postfixWithTags}
+      </span>
+    </section>
+  );
+};

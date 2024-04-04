@@ -1,0 +1,79 @@
+[
+  {
+    "include": true,
+    "designation": "Associate Consultant",
+    "from": "2024-01",
+    "organization": "Infosys",
+    "organizationicon": "static/logos/third-party/Infosys.svg",
+    "emptype": "Full Time",
+    "location": "Bengaluru, Karnataka, India",
+    "desc": [
+      "Led an Agile project within the Manufacturing Domain for Toyota Motor North America.",
+      "Revamped core logistics infrastructure by migrating modules from Java, Struts & JSP to modern, containerized REST APIs built with Spring Boot or Node.js/Express.js and integrated it with an Angular SPA.",
+      "Spring scheduler-driven batch processes for core logistics functionalities, further enhancing core logistics capabilities.",
+      "Spearheaded the development of a comprehensive E2E web application for logistics process tracking, leveraging Spring Boot and Angular.",
+      "Managed deployments to production environments, ensuring smooth transitions and operational stability."
+    ],
+    "skills": [
+      "Kubernetes",
+      "AWS Lambda",
+      "Serverless Framework",
+      "Node.js",
+      "Express.js",
+      "Java",
+      "Angular",
+      "Spring Boot"
+    ]
+  },
+  {
+    "include": true,
+    "designation": "Associate Business Analyst",
+    "from": "2022-11",
+    "to": "2023-12",
+    "organization": "Infosys",
+    "organizationicon": "static/logos/third-party/Infosys.svg",
+    "emptype": "Full Time",
+    "location": "Bengaluru, Karnataka, India",
+    "desc": [
+      "Led an Agile project within the Manufacturing Domain for Toyota Motor North America.",
+      "Revamped core logistics infrastructure by migrating modules from Java, Struts & JSP to modern, containerized REST APIs built with Spring Boot or Node.js/Express.js and integrated it with an Angular SPA.",
+      "Spring scheduler-driven batch processes for core logistics functionalities, further enhancing core logistics capabilities.",
+      "Spearheaded the development of a comprehensive E2E web application for logistics process tracking, leveraging Spring Boot and Angular.",
+      "Managed deployments to production environments, ensuring smooth transitions and operational stability."
+    ],
+    "skills": [
+      "Kubernetes",
+      "AWS Lambda",
+      "Serverless Framework",
+      "Node.js",
+      "Express.js",
+      "Java",
+      "Angular",
+      "Spring Boot"
+    ]
+  },
+  {
+    "include": true,
+    "designation": "Project Engineer",
+    "from": "2020-09",
+    "to": "2022-10",
+    "organization": "Wipro Limited",
+    "organizationicon": "static/logos/third-party/Wipro.png",
+    "emptype": "Full Time",
+    "location": "Bengaluru, Karnataka, India",
+    "desc": [
+      "Working on an Agile project in the banking sector (MasterCard).",
+      "Developed and converted modules from legacy tomcat API for currency exchange rates to Spring Boot implementation to be deployed in the PCF cloud, implemented the use of Redis Enterprise Cache in the application.",
+      "Developed modules for a web application (both backend API & Frontend) used to set rates between currencies for transaction settlements.",
+      "Handled deployments to production."
+    ],
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "Redis",
+      "PCF",
+      "Oracle Database",
+      "Angular"
+    ]
+  }
+]
