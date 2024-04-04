@@ -84,6 +84,7 @@ export class Welcome extends React.Component {
                         >
                           <AnimatedHeadline
                             values={[
+                              "Software Engineer",
                               "Developer",
                               "Learner",
                               "Full Stack",
@@ -98,10 +99,10 @@ export class Welcome extends React.Component {
                           I am a learner at heart,
                         </Typography>
                         <Typography variant="h4" className="extra-gutter">
-                          experimenter in mind,
+                          an experimenter in mind,
                         </Typography>
                         <Typography variant="h4" className="extra-gutter">
-                          adventurer in the soul.
+                          an adventurer from the soul.
                         </Typography>
                         <Typography variant="h4" className="extra-gutter">
                           I thrive on challenges.
