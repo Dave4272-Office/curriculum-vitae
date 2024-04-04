@@ -1,4 +1,3 @@
-import { Card, CardContent, Grid, Typography } from "@mui/material";
 import {
   TimelineConnector,
   TimelineContent,
@@ -7,18 +6,24 @@ import {
   TimelineOppositeContent,
   TimelineSeparator,
 } from "@mui/lab";
-import React from "react";
-import { eduList } from "./data/edu.list";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 import { FaGraduationCap, FaRegHourglass } from "react-icons/fa";
+import { AcademicRecord } from "./data/types/AcademicRecord";
 
-export let educationCards: React.ReactElement[] = [];
+type EducationCardPropType = {
+  index: number;
+  length: number;
+  value: AcademicRecord;
+};
 
-eduList.reverse().forEach((value, index) => {
-  educationCards.push(
-    <TimelineItem key={index.toString()} className="work-edu-container">
+export const EducationCard = (props: EducationCardPropType) => {
+  return (
+    <TimelineItem key={props.index.toString()} className="work-edu-container">
       <TimelineOppositeContent className="timeline-opp-container"></TimelineOppositeContent>
       <TimelineSeparator className="timeline-separator">
-        <TimelineConnector className={index === 0 ? "hide" : ""} />
+        <TimelineConnector
+          className={props.index === props.length - 1 ? "hide" : ""}
+        />
         <TimelineDot
           variant="outlined"
           color="primary"
@@ -26,9 +31,7 @@ eduList.reverse().forEach((value, index) => {
         >
           <FaGraduationCap className="timeline-icons" />
         </TimelineDot>
-        <TimelineConnector
-          className={index === eduList.length - 1 ? "hide" : ""}
-        />
+        <TimelineConnector className={props.index === 0 ? "hide" : ""} />
       </TimelineSeparator>
       <TimelineContent className="edu-card">
         <Card>
@@ -36,7 +39,7 @@ eduList.reverse().forEach((value, index) => {
             <Grid container>
               <Grid item sm={12} md={9}>
                 <Typography variant="h4" component="h3" gutterBottom>
-                  {value.qualexam}
+                  {props.value.qualexam}
                 </Typography>
               </Grid>
               <Grid item sm={12} md={3} id="score" container direction="column">
@@ -47,7 +50,7 @@ eduList.reverse().forEach((value, index) => {
                 </Grid>
                 <Grid item xs>
                   <Typography variant="body1" component="span" gutterBottom>
-                    {value.score}
+                    {props.value.score}
                   </Typography>
                 </Grid>
               </Grid>
@@ -61,38 +64,38 @@ eduList.reverse().forEach((value, index) => {
                   alignItems="center"
                 >
                   <FaRegHourglass color="#f97501" />
-                  &nbsp;&nbsp;{value.from} -{" "}
-                  {!value.to ? "Currently Pursuing" : value.to}
+                  &nbsp;&nbsp;{props.value.from} -{" "}
+                  {!props.value.to ? "Currently Pursuing" : props.value.to}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subtitle2" component="h3">
-                  {value.certauthtype} :
+                  {props.value.certauthtype} :
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h6" component="span" gutterBottom>
-                  {value.certauthname}
+                  {props.value.certauthname}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subtitle2" component="h3">
-                  {value.institutetype} :
+                  {props.value.institutetype} :
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h6" component="span" gutterBottom>
-                  {value.institutename}
+                  {props.value.institutename}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subtitle2" component="h3">
-                  {value.qualspectype} :
+                  {props.value.qualspectype} :
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h6" component="span" gutterBottom>
-                  {value.qualspec}
+                  {props.value.qualspec}
                 </Typography>
               </Grid>
             </Grid>
@@ -101,4 +104,4 @@ eduList.reverse().forEach((value, index) => {
       </TimelineContent>
     </TimelineItem>
   );
-});
+};
