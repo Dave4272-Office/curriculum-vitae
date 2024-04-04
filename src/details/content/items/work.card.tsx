@@ -1,12 +1,4 @@
 import {
-  Card,
-  CardContent,
-  CardMedia,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
-import {
   TimelineConnector,
   TimelineContent,
   TimelineDot,
@@ -14,27 +6,35 @@ import {
   TimelineOppositeContent,
   TimelineSeparator,
 } from "@mui/lab";
-import React from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Divider,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { DateTime, Duration } from "luxon";
-import { workList } from "./data/work";
-import { FaAt, FaBriefcase, FaClock } from "react-icons/fa";
+import { FaArrowRight, FaAt, FaBriefcase, FaClock } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { WorkItem } from "./data/types/WorkItem";
 
-export let workCards: React.ReactElement[] = [];
+export type WorkCardPropType = {
+  index: number;
+  value: WorkItem;
+  length: number;
+};
 
-const workinclude = workList.filter((value) => {
-  return value.include;
-});
-
-workinclude.reverse().forEach((value, index) => {
+export const WorkCard = (props: WorkCardPropType) => {
   let duration: Duration;
   let durationout = "";
 
-  if (!value.to) {
-    duration = DateTime.now().diff(value.from, ["year", "months", "day"], {
+  if (!props.value.to) {
+    duration = DateTime.now().diff(props.value.from, ["year", "months"], {
       conversionAccuracy: "longterm",
     });
   } else {
-    duration = value.to.diff(value.from, ["years", "months", "days"], {
+    duration = props.value.to.diff(props.value.from, ["years", "months"], {
       conversionAccuracy: "longterm",
     });
   }
@@ -45,20 +45,17 @@ workinclude.reverse().forEach((value, index) => {
   }
 
   if (parseInt(duration.months.toFixed(0)) !== 0) {
-    durationout += duration.months.toFixed(0) + " mth";
+    durationout += Math.ceil(Number(duration.months.toFixed(2))) + " mth";
     durationout += Math.abs(duration.months) > 1 ? "s " : " ";
   }
 
-  if (parseInt(duration.days.toFixed(0)) !== 0) {
-    durationout += duration.days.toFixed(0) + " day";
-    durationout += Math.abs(duration.days) > 1 ? "s" : "";
-  }
-
-  workCards.push(
-    <TimelineItem key={index.toString()} className="work-edu-container">
+  return (
+    <TimelineItem key={props.index.toString()} className="work-edu-container">
       <TimelineOppositeContent className="timeline-opp-container"></TimelineOppositeContent>
       <TimelineSeparator className="timeline-separator">
-        <TimelineConnector className={index === 0 ? "hide" : ""} />
+        <TimelineConnector
+          className={props.index === props.length - 1 ? "hide" : ""}
+        />
         <TimelineDot
           variant="outlined"
           color="primary"
@@ -66,9 +63,7 @@ workinclude.reverse().forEach((value, index) => {
         >
           <FaBriefcase className="timeline-icons" />
         </TimelineDot>
-        <TimelineConnector
-          className={index === workinclude.length - 1 ? "hide" : ""}
-        />
+        <TimelineConnector className={props.index === 0 ? "hide" : ""} />
       </TimelineSeparator>
       <TimelineContent className="work-card">
         <Card>
@@ -78,7 +73,7 @@ workinclude.reverse().forEach((value, index) => {
                 <Grid item container xs className="work-detail">
                   <Grid item>
                     <Typography variant="h4" component="h3">
-                      {value.designation}
+                      {props.value.designation}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -90,30 +85,64 @@ workinclude.reverse().forEach((value, index) => {
                       alignItems="center"
                     >
                       <FaAt color="#75e900" />
-                      &nbsp;&nbsp;{value.organization}
+                      &nbsp;&nbsp;{props.value.organization}
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    display="flex"
+                    justifyContent="center"
+                  >
                     <Typography
                       variant="h6"
                       component="h5"
                       display="flex"
                       flexDirection="row"
                       alignItems="center"
+                      marginRight="5px"
+                    >
+                      <FaLocationDot color="#75e900" />
+                      &nbsp;&nbsp;{props.value.location}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="h5"
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                      marginLeft="5px"
                     >
                       <FaClock color="#75e900" />
-                      &nbsp;&nbsp;{value.emptype}
+                      &nbsp;&nbsp;{props.value.emptype}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="body1" align="center">
-                      From : {value.from.toFormat("MMMM d, yyyy")}
-                      <br />
-                      To :{" "}
-                      {!value.to
-                        ? "Present"
-                        : value.to.toFormat("MMMM d, yyyy")}
-                    </Typography>
+                    <Grid container direction="row" alignItems="center">
+                      <Typography
+                        variant="body1"
+                        component="div"
+                        align="center"
+                        marginTop="2px"
+                      >
+                        From: {props.value.from.toFormat("MMM yyyy")}
+                      </Typography>
+                      <FaArrowRight
+                        color="#0000ff"
+                        style={{ marginLeft: "5px", marginRight: "5px" }}
+                      />
+                      <Typography
+                        variant="body1"
+                        component="div"
+                        align="center"
+                        marginTop="2px"
+                      >
+                        To:{" "}
+                        {!props.value.to
+                          ? "Present"
+                          : props.value.to.toFormat("MMM yyyy")}
+                      </Typography>
+                    </Grid>
                   </Grid>
                   <Grid item>
                     <Typography variant="body1">{durationout}</Typography>
@@ -125,7 +154,7 @@ workinclude.reverse().forEach((value, index) => {
                   className="work-logo-divider"
                 />
                 <CardMedia
-                  image={value.organizationicon}
+                  image={props.value.organizationicon}
                   className="work-org-icon"
                 />
               </Grid>
@@ -136,7 +165,20 @@ workinclude.reverse().forEach((value, index) => {
                   component="div"
                   title="Work Description"
                 >
-                  {value.desc}
+                  {props.value.desc}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant="subtitle2"
+                  component="div"
+                  title="Work Skills Used"
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="center"
+                  flexWrap="wrap"
+                >
+                  {props.value.skills}
                 </Typography>
               </Grid>
             </Grid>
@@ -145,4 +187,4 @@ workinclude.reverse().forEach((value, index) => {
       </TimelineContent>
     </TimelineItem>
   );
-});
+};
