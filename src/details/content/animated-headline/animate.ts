@@ -6,7 +6,7 @@ const barWaiting = barAnimationDelay - 3000;
 function animateHeadline($headlines: JQuery<HTMLElement>) {
   let duration = barAnimationDelay;
   $headlines.each(function () {
-    var headline = $(this);
+    let headline = $(this);
 
     //loading bar
     setTimeout(function () {
@@ -21,7 +21,7 @@ function animateHeadline($headlines: JQuery<HTMLElement>) {
 }
 
 function hideWord($word: JQuery<HTMLElement>) {
-  var nextWord = takeNext($word);
+  let nextWord = takeNext($word);
 
   $word.parents(".cd-words-wrapper").removeClass("is-loading");
   switchWord($word, nextWord);
