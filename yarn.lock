@@ -3445,12 +3445,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.12.3":
+"@types/node@npm:*":
   version: 20.12.3
   resolution: "@types/node@npm:20.12.3"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/3f3c5c6ba118a18aa997c51cdc3c66259d69021f87475a99ed6c913a6956e22de49748e09843bf6447a7a63ae474e61945a6dbcca93e23b2359fc0b6f9914f7a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.12.12":
+  version: 20.12.12
+  resolution: "@types/node@npm:20.12.12"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/e3945da0a3017bdc1f88f15bdfb823f526b2a717bd58d4640082d6eb0bd2794b5c99bfb914b9e9324ec116dce36066990353ed1c777e8a7b0641f772575793c4
   languageName: node
   linkType: hard
 
@@ -5966,7 +5975,7 @@ __metadata:
     "@types/jest": "npm:^29.5.12"
     "@types/luxon": "npm:^3.4.2"
     "@types/masonry-layout": "npm:^4.2.7"
-    "@types/node": "npm:^20.12.3"
+    "@types/node": "npm:^20.12.12"
     "@types/node-sass": "npm:^4.11.7"
     "@types/react": "npm:^18.2.74"
     "@types/react-dom": "npm:^18.2.24"
