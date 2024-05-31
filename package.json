@@ -59,7 +59,7 @@
     "@types/jest": "^29.5.12",
     "@types/luxon": "^3.4.2",
     "@types/masonry-layout": "^4.2.7",
-    "@types/node": "^20.12.3",
+    "@types/node": "^20.13.0",
     "@types/node-sass": "^4.11.7",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
