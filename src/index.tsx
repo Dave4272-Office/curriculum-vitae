@@ -3,7 +3,10 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import "./index.sass";
-import reportWebVitals from "./reportWebVitals";
+import { reportWebVitals } from "./reportWebVitals";
+import TagManager from "react-gtm-module";
+
+TagManager.initialize({gtmId: "GTM-57TRFSCL"});
 
 const container = document.getElementById("root");
 const root = createRoot(container!);

@@ -14,9 +14,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { DateTime, Duration } from "luxon";
 import { FaArrowRight, FaAt, FaBriefcase, FaClock } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { durationAsString } from "../../../utils/date-time";
 import { WorkItem } from "./data/types/WorkItem";
 
 export type WorkCardPropType = {
@@ -26,28 +26,7 @@ export type WorkCardPropType = {
 };
 
 export const WorkCard = (props: WorkCardPropType) => {
-  let duration: Duration;
-  let durationout = "";
-
-  if (!props.value.to) {
-    duration = DateTime.now().diff(props.value.from, ["year", "months"], {
-      conversionAccuracy: "longterm",
-    });
-  } else {
-    duration = props.value.to.diff(props.value.from, ["years", "months"], {
-      conversionAccuracy: "longterm",
-    });
-  }
-
-  if (parseInt(duration.years.toFixed(0)) !== 0) {
-    durationout += duration.years.toFixed(0) + " yr";
-    durationout += Math.abs(duration.years) > 1 ? "s " : " ";
-  }
-
-  if (parseInt(duration.months.toFixed(0)) !== 0) {
-    durationout += Math.ceil(Number(duration.months.toFixed(2))) + " mth";
-    durationout += Math.abs(duration.months) > 1 ? "s " : " ";
-  }
+  const durationout = durationAsString(props.value.from, props.value.to);
 
   return (
     <TimelineItem key={props.index.toString()} className="work-edu-container">

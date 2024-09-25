@@ -9,7 +9,7 @@ export const DrawerToolbar = (props: PropType) => {
   if (!props.handler) {
     return (
       <Toolbar disableGutters>
-        <Box>Image</Box>
+        <Box></Box>
       </Toolbar>
     );
   } else {
