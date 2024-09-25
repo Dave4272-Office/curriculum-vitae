@@ -121,6 +121,12 @@
   },
   {
     "include": true,
+    "icon": "SiTerraform",
+    "label": "Terraform",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
     "icon": "SiJquery",
     "label": "jQuery",
     "type": "Framework / Library"

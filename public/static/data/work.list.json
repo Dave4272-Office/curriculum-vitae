@@ -9,20 +9,20 @@
     "location": "Bengaluru, Karnataka, India",
     "desc": [
       "Led an Agile project within the Manufacturing Domain for Toyota Motor North America.",
-      "Revamped core logistics infrastructure by migrating modules from Java, Struts & JSP to modern, containerized REST APIs built with Spring Boot or Node.js/Express.js and integrated it with an Angular SPA.",
-      "Spring scheduler-driven batch processes for core logistics functionalities, further enhancing core logistics capabilities.",
-      "Spearheaded the development of a comprehensive E2E web application for logistics process tracking, leveraging Spring Boot and Angular.",
-      "Managed deployments to production environments, ensuring smooth transitions and operational stability."
+      "Implemented OAuth 2.0 and OpenID Connect (OIDC) best practices to enhance application security and user authentication.",
+      "Designed and developed database schemas and models to support application data structures and relationships.",
+      "Created and maintained Terraform scripts for deploying and managing AWS infrastructure, ensuring efficient and reliable cloud resource provisioning."
     ],
     "skills": [
-      "Kubernetes",
       "AWS Lambda",
+      "Amazon API Gateway",
+      "Amazon Route53",
+      "Amazon Aurora",
       "Serverless Framework",
       "Node.js",
-      "Express.js",
-      "Java",
       "Angular",
-      "Spring Boot"
+      "Java",
+      "Terraform"
     ]
   },
   {
@@ -35,7 +35,7 @@
     "emptype": "Full Time",
     "location": "Bengaluru, Karnataka, India",
     "desc": [
-      "Led an Agile project within the Manufacturing Domain for Toyota Motor North America.",
+      "Working on an Agile project within the Manufacturing Domain for Toyota Motor North America.",
       "Revamped core logistics infrastructure by migrating modules from Java, Struts & JSP to modern, containerized REST APIs built with Spring Boot or Node.js/Express.js and integrated it with an Angular SPA.",
       "Spring scheduler-driven batch processes for core logistics functionalities, further enhancing core logistics capabilities.",
       "Spearheaded the development of a comprehensive E2E web application for logistics process tracking, leveraging Spring Boot and Angular.",
