@@ -40,6 +40,7 @@ import {
   SiScikitlearn,
   SiSpring,
   SiSpringboot,
+  SiTerraform,
   SiTypescript,
   SiVisualstudiocode,
 } from "react-icons/si";
@@ -84,4 +85,5 @@ export const IconMap: { [key: string]: React.ReactElement<IconBaseProps> } = {
   FaLinux: React.createElement(FaLinux),
   SiJupyter: React.createElement(SiJupyter),
   SiVisualstudiocode: React.createElement(SiVisualstudiocode),
+  SiTerraform: React.createElement(SiTerraform),
 };
