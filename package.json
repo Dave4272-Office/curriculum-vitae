@@ -1,7 +1,7 @@
 {
   "name": "curriculum-vitae",
   "version": "3.0.0",
-  "packageManager": "yarn@4.1.1",
+  "packageManager": "yarn@4.5.0",
   "private": true,
   "scripts": {
     "clean": "rm -rf ./build",
