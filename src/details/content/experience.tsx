@@ -114,7 +114,7 @@ const ExperienceBoard = (props: {
 
   const handleResponse = (
     res: AxiosResponse<IWorkItem[]>,
-    setTotalExperience: Dispatch<SetStateAction<string>>,
+    setTotalExperience: Dispatch<SetStateAction<string>>
   ) => {
     setExp([]);
     const length = res.data.length;
@@ -155,10 +155,7 @@ const ExperienceBoard = (props: {
       }
     });
     setTotalExperience(
-      durationAsString(
-        start ?? DateTime.now(),
-        end ?? DateTime.now(),
-      ),
+      durationAsString(start ?? DateTime.now(), end ?? DateTime.now())
     );
   };
 
