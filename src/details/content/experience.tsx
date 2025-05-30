@@ -156,8 +156,8 @@ const ExperienceBoard = (props: {
     });
     setTotalExperience(
       durationAsString(
-        !start ? DateTime.now() : start,
-        !end ? DateTime.now() : end,
+        start ?? DateTime.now(),
+        end ?? DateTime.now(),
       ),
     );
   };
