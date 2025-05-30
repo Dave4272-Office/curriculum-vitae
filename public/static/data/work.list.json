@@ -1,8 +1,38 @@
 [
   {
     "include": true,
+    "designation": "Senior Associate Consultant",
+    "from": "2025-01",
+    "organization": "Infosys",
+    "organizationicon": "static/logos/third-party/Infosys.svg",
+    "emptype": "Full Time",
+    "location": "Kolkata, West Bengal, India",
+    "desc": [
+      "Led an Agile project within the Manufacturing Domain for Toyota Motor North America.",
+      "Implemented Authorization Framework following best practices and introducing flexibility.",
+      "Designed and developed database schemas and models to support application data structures and relationships.",
+      "Created and maintained Terraform scripts for deploying and managing AWS infrastructure, ensuring efficient and reliable cloud resource provisioning.",
+      "Crafted Features and Roles concept for detailed Fine Grain Access Control."
+    ],
+    "skills": [
+      "AWS Lambda",
+      "Amazon API Gateway",
+      "Amazon Route53",
+      "Amazon Aurora",
+      "Serverless Framework",
+      "Node.js",
+      "Angular",
+      "Java",
+      "Terraform",
+      "Spring Boot",
+      "Amazon ECS"
+    ]
+  },
+  {
+    "include": true,
     "designation": "Associate Consultant",
     "from": "2024-01",
+    "to": "2024-12",
     "organization": "Infosys",
     "organizationicon": "static/logos/third-party/Infosys.svg",
     "emptype": "Full Time",

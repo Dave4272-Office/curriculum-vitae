@@ -39,7 +39,12 @@ export const Experience = () => {
           </Typography>
         </Grid>
         <Grid item xs>
-          <Typography variant="h5" gutterBottom className="extra-padded" component="h2">
+          <Typography
+            variant="h5"
+            gutterBottom
+            className="extra-padded"
+            component="h2"
+          >
             {expDuration ? "(" + expDuration + ")" : ""}
           </Typography>
         </Grid>
@@ -109,7 +114,7 @@ const ExperienceBoard = (props: {
 
   const handleResponse = (
     res: AxiosResponse<IWorkItem[]>,
-    setTotalExperience: Dispatch<SetStateAction<string>>
+    setTotalExperience: Dispatch<SetStateAction<string>>,
   ) => {
     setExp([]);
     const length = res.data.length;
@@ -152,8 +157,8 @@ const ExperienceBoard = (props: {
     setTotalExperience(
       durationAsString(
         !start ? DateTime.now() : start,
-        !end ? DateTime.now() : end
-      )
+        !end ? DateTime.now() : end,
+      ),
     );
   };
 
