@@ -2,5 +2,9 @@
   "search.exclude": {
     "**/.yarn": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "dave4272-office",
+    "projectKey": "Dave4272-Office_curriculum-vitae"
+  }
 }
