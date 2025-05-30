@@ -1,7 +1,7 @@
 {
   "name": "curriculum-vitae",
   "version": "3.0.0",
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "yarn@4.9.1",
   "private": true,
   "scripts": {
     "clean": "rm -rf ./build",
@@ -41,6 +41,7 @@
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.7.7",
+    "browserslist": "^4.25.0",
     "buffer": "^6.0.3",
     "eslint-config-react-app": "^7.0.1",
     "luxon": "^3.5.0",
