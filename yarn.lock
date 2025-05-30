@@ -1645,7 +1645,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/normalize.css@npm:*":
+"@csstools/normalize.css@npm:*, @csstools/normalize.css@npm:12.1.1":
   version: 12.1.1
   resolution: "@csstools/normalize.css@npm:12.1.1"
   checksum: 10/aa4d1b9a77c1ecba0a60e11371d944615c64b465abfb6fe7aea237d8bebd34dc47036f2570d7038a8633755ebd3ed09ec02326fbb7570b5bf7b80aa142c0ef4b
@@ -6007,6 +6007,7 @@ __metadata:
     luxon: "npm:^3.5.0"
     masonry-layout: "npm:^4.2.2"
     node-sass: "npm:^9.0.0"
+    postcss-normalize: "npm:^13.0.1"
     react: "npm:^18.3.1"
     react-dev-utils: "npm:^12.0.1"
     react-dom: "npm:^18.3.1"
@@ -11464,6 +11465,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-browser-comments@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "postcss-browser-comments@npm:6.0.1"
+  peerDependencies:
+    browserslist: ^4.23.1
+    postcss: ^8.4
+  checksum: 10/eae1a10ff4aacfa79793884179ac2eb772154b68e54aa3517191a8432b1b5e85218f6c7410cdc9c0e2c313491ad052494c0985ccb1ef2b72fa9a4ed4b10e6996
+  languageName: node
+  linkType: hard
+
 "postcss-calc@npm:^8.2.3":
   version: 8.2.4
   resolution: "postcss-calc@npm:8.2.4"
@@ -12055,6 +12066,20 @@ __metadata:
     browserslist: ">= 4"
     postcss: ">= 8"
   checksum: 10/f2562ae30a75531436542cfd8ee5aec6c46f044cd410fed51d38dbecfc053f822ff5589687eeb1c0a1c5db3a16b25f6cebe0188c75be2cf4352d526212b760dc
+  languageName: node
+  linkType: hard
+
+"postcss-normalize@npm:^13.0.1":
+  version: 13.0.1
+  resolution: "postcss-normalize@npm:13.0.1"
+  dependencies:
+    "@csstools/normalize.css": "npm:12.1.1"
+    postcss-browser-comments: "npm:^6.0.1"
+    sanitize.css: "npm:13.0.0"
+  peerDependencies:
+    browserslist: ">= 4"
+    postcss: ">= 8"
+  checksum: 10/1bc8618d5a55efcf99ef47fc8687e49cd46b406af0a4ecf31e14ece3b632d94666a776378f311680f1fe3e96f09a70ab66d37cba872b265e3efdbaef10ef8414
   languageName: node
   linkType: hard
 
@@ -13180,7 +13205,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sanitize.css@npm:*":
+"sanitize.css@npm:*, sanitize.css@npm:13.0.0":
   version: 13.0.0
   resolution: "sanitize.css@npm:13.0.0"
   checksum: 10/508cde59d1c99a885806387ca8350c594c4211cab16804fe66ed75cd7e1ba7ebd4079224128b1aea4d4227f0d1add3e83a85a51a6a7e4419c083f4cce70d010f
