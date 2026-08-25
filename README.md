@@ -54,6 +54,22 @@ Security headers (CSP, Referrer-Policy, etc.) that previously lived in Apache
 `.htaccess` are now set in `next.config.ts` and applied by the Next.js server
 on Vercel. GTM and the Web Vitals reporter still load in the root layout.
 
+## Google Tag Manager
+
+The app measures Core Web Vitals with the npm `web-vitals` package and pushes
+each metric to `window.dataLayer` as `{ event: "web_vitals", name, value,
+rating, id, delta, navigationType? }`. It does not load a script from unpkg.
+`entries` is omitted because GTM cannot serialize it.
+
+Git cannot pause tags in the GTM UI. In the container
+(`GTM-57TRFSCL` unless `NEXT_PUBLIC_GTM_ID` is set):
+
+1. Pause or delete tag **web-vitals GA4** (demirj, “Load library from unpkg.com”).
+2. Add a **GA4 Event** tag, trigger Custom Event `web_vitals`, and map metric
+   fields to GA4 params.
+3. Keep the existing Google Tag (Initialization – All Pages).
+4. Publish the container.
+
 ## Learn More
 
 See the [Next.js documentation](https://nextjs.org/docs) and
