@@ -33,13 +33,13 @@ export const Experience = () => {
   const [expDuration, setExpDuration] = useState<string>("");
   return (
     <>
-      <Grid container direction="row" alignItems="baseline" wrap="nowrap">
-        <Grid item xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
+      <Grid container wrap="nowrap" sx={{ alignItems: "baseline" }}>
+        <Grid size="auto">
           <Typography variant="h2" gutterBottom className="extra-padded title">
             Experience
           </Typography>
         </Grid>
-        <Grid item xs>
+        <Grid size="grow">
           <Typography
             variant="h5"
             gutterBottom
@@ -60,52 +60,32 @@ export const Experience = () => {
 };
 
 const ExperienceDescription = (props: { desc: string[] }) => {
-  const [expdesc, setExpdesc] = useState<React.ReactElement[]>([]);
-  const convertToList = useCallback(() => {
-    setExpdesc([]);
-    props.desc.forEach((val) => {
-      const key = Buffer.from(val, "binary").toString("base64");
-      setExpdesc((expdesc) => [
-        <ListItem key={key}>
-          <ListItemIcon style={{ minWidth: "30px" }}>
-            <GoDotFill />
-          </ListItemIcon>
-          <ListItemText primary={val} />
-        </ListItem>,
-        ...expdesc,
-      ]);
-    });
-    setExpdesc((value) => {
-      const x = value;
-      return x.reverse();
-    });
-  }, [props.desc]);
-
-  useEffect(() => {
-    convertToList();
-  }, [convertToList]);
-
-  return <List dense>{expdesc}</List>;
+  return (
+    <List dense>
+      {props.desc.map((val) => {
+        const key = Buffer.from(val, "binary").toString("base64");
+        return (
+          <ListItem key={key}>
+            <ListItemIcon style={{ minWidth: "30px" }}>
+              <GoDotFill />
+            </ListItemIcon>
+            <ListItemText primary={val} />
+          </ListItem>
+        );
+      })}
+    </List>
+  );
 };
 
 const ExperienceSkill = (props: { skills: string[] }) => {
-  const [expskills, setExpskills] = useState<React.ReactElement[]>([]);
-  const convertToList = useCallback(() => {
-    setExpskills([]);
-    props.skills.toReversed().forEach((val) => {
-      const key = Buffer.from(val, "binary").toString("base64");
-      setExpskills((expskills) => [
-        <Chip style={{ margin: "5px" }} label={val} key={key} />,
-        ...expskills,
-      ]);
-    });
-  }, [props.skills]);
-
-  useEffect(() => {
-    convertToList();
-  }, [convertToList]);
-
-  return <>{expskills}</>;
+  return (
+    <>
+      {props.skills.map((val) => {
+        const key = Buffer.from(val, "binary").toString("base64");
+        return <Chip style={{ margin: "5px" }} label={val} key={key} />;
+      })}
+    </>
+  );
 };
 
 const ExperienceBoard = (props: {

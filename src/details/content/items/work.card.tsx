@@ -49,19 +49,21 @@ export const WorkCard = (props: WorkCardPropType) => {
           <CardContent>
             <Grid container className="work-item">
               <Grid container>
-                <Grid item container xs className="work-detail">
-                  <Grid item>
+                <Grid container size="grow" className="work-detail">
+                  <Grid size="auto">
                     <Typography variant="h4" component="h3">
                       {props.value.designation}
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  <Grid size="auto">
                     <Typography
                       variant="h5"
                       component="h4"
-                      display="flex"
-                      flexDirection="row"
-                      alignItems="center"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
                     >
                       <FaAt color="#75e900" />
                       &nbsp;&nbsp;{props.value.organization}
@@ -70,16 +72,17 @@ export const WorkCard = (props: WorkCardPropType) => {
                   <Grid
                     container
                     direction="row"
-                    display="flex"
-                    justifyContent="center"
+                    sx={{ display: "flex", justifyContent: "center" }}
                   >
                     <Typography
                       variant="h6"
                       component="h5"
-                      display="flex"
-                      flexDirection="row"
-                      alignItems="center"
-                      marginRight="5px"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginRight: "5px",
+                      }}
                     >
                       <FaLocationDot color="#75e900" />
                       &nbsp;&nbsp;{props.value.location}
@@ -87,22 +90,28 @@ export const WorkCard = (props: WorkCardPropType) => {
                     <Typography
                       variant="h6"
                       component="h5"
-                      display="flex"
-                      flexDirection="row"
-                      alignItems="center"
-                      marginLeft="5px"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginLeft: "5px",
+                      }}
                     >
                       <FaClock color="#75e900" />
                       &nbsp;&nbsp;{props.value.emptype}
                     </Typography>
                   </Grid>
-                  <Grid item>
-                    <Grid container direction="row" alignItems="center">
+                  <Grid size="auto">
+                    <Grid
+                      container
+                      direction="row"
+                      sx={{ alignItems: "center" }}
+                    >
                       <Typography
                         variant="body1"
                         component="div"
                         align="center"
-                        marginTop="2px"
+                        sx={{ marginTop: "2px" }}
                       >
                         From: {props.value.from.toFormat("MMM yyyy")}
                       </Typography>
@@ -114,7 +123,7 @@ export const WorkCard = (props: WorkCardPropType) => {
                         variant="body1"
                         component="div"
                         align="center"
-                        marginTop="2px"
+                        sx={{ marginTop: "2px" }}
                       >
                         To:{" "}
                         {!props.value.to
@@ -123,7 +132,7 @@ export const WorkCard = (props: WorkCardPropType) => {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid item>
+                  <Grid size="auto">
                     <Typography variant="body1">{durationout}</Typography>
                   </Grid>
                 </Grid>
@@ -138,7 +147,7 @@ export const WorkCard = (props: WorkCardPropType) => {
                 />
               </Grid>
               <Divider variant="fullWidth" className="work-desc-divider" />
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography
                   variant="subtitle2"
                   component="div"
@@ -147,15 +156,17 @@ export const WorkCard = (props: WorkCardPropType) => {
                   {props.value.desc}
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography
                   variant="subtitle2"
                   component="div"
                   title="Work Skills Used"
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  flexWrap="wrap"
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                  }}
                 >
                   {props.value.skills}
                 </Typography>

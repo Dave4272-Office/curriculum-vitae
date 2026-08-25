@@ -6,6 +6,7 @@ import {
   CardContent,
   Container,
   Grid,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -27,15 +28,18 @@ export const Skills = () => {
         Skills
       </Typography>
       <Container className="root-content skill-container">
-        <Grid container direction="column" alignItems="center">
-          <Grid item container justifyContent="center" alignItems="center">
+        <Stack sx={{ alignItems: "center" }}>
+          <Grid
+            container
+            sx={{ justifyContent: "center", alignItems: "center" }}
+          >
             <Card className="skill-card">
               <CardContent>
                 <Grid container>
-                  <Grid item className="extra-padded">
+                  <Grid size="auto" className="extra-padded">
                     <Typography variant="h4">Technical Skills:</Typography>
                   </Grid>
-                  <Grid item className="extra-padded">
+                  <Grid size="auto" className="extra-padded">
                     <Suspense fallback={<CgSpinner />}>
                       <SkillChipsBlock />
                     </Suspense>
@@ -44,7 +48,7 @@ export const Skills = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item container justifyContent="center">
+          <Grid container sx={{ justifyContent: "center" }}>
             <Card className="lang-card">
               <CardContent>
                 <div className="sub-head-title">
@@ -90,7 +94,7 @@ export const Skills = () => {
               </CardContent>
             </Card>
           </Grid>
-        </Grid>
+        </Stack>
       </Container>
     </>
   );

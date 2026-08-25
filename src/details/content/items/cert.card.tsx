@@ -37,8 +37,8 @@ export const CertCont = (props: PropType) => {
           <Grid container>
             <Grid container className="cert-item">
               <Grid container>
-                <Grid item container xs className="cert-detail">
-                  <Grid item>
+                <Grid container size="grow" className="cert-detail">
+                  <Grid size="auto">
                     <Typography
                       variant="h5"
                       component="h3"
@@ -48,13 +48,13 @@ export const CertCont = (props: PropType) => {
                       {value.name}
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  <Grid size="auto">
                     <Typography variant="h6" component="h4" gutterBottom>
                       <FaCertificate color="#75e900" />
                       &nbsp;&nbsp;{value.issuer}
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  <Grid size="auto">
                     <Typography variant="body1" align="center" gutterBottom>
                       {value.issuedate.toFormat("MMMM d, yyyy")}
                       {!value.expirydate ? (
@@ -71,7 +71,7 @@ export const CertCont = (props: PropType) => {
                 </Grid>
               </Grid>
               <Divider variant="fullWidth" className="cert-desc-divider" />
-              <Grid item className="cred-chip">
+              <Grid size="auto" className="cred-chip">
                 <Chip
                   label="Credential"
                   variant="outlined"
@@ -102,7 +102,7 @@ export const CertCont = (props: PropType) => {
 function CertID(props: Readonly<{ value: Certificate }>) {
   if (props.value.certid) {
     return (
-      <Grid item>
+      <Grid size="auto">
         <Typography variant="body1" gutterBottom>
           ID : {props.value.certid}
         </Typography>

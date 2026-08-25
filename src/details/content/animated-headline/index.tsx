@@ -1,7 +1,6 @@
 "use client";
 
 import { Buffer } from "buffer";
-import { ReactElement, useCallback, useEffect, useState } from "react";
 
 type PropType = {
   values: string[];
@@ -10,24 +9,14 @@ type PropType = {
 };
 
 export const AnimatedHeadline = (props: PropType) => {
-  const [visibleChild, setVisibleChild] = useState<ReactElement[]>([]);
-
-  const initHeadline = useCallback(() => {
-    const mh: ReactElement[] = [];
-    props.values.forEach((value, index) => {
-      const key = Buffer.from(value, "binary").toString("base64");
-      mh.push(
-        <b className={index === 0 ? "is-visible" : "is-hidden"} key={key}>
-          {value}
-        </b>
-      );
-    });
-    setVisibleChild(mh);
-  }, [props.values]);
-
-  useEffect(() => {
-    initHeadline();
-  }, [initHeadline]);
+  const visibleChild = props.values.map((value, index) => {
+    const key = Buffer.from(value, "binary").toString("base64");
+    return (
+      <b className={index === 0 ? "is-visible" : "is-hidden"} key={key}>
+        {value}
+      </b>
+    );
+  });
 
   const prefixWithTags = props.prefix ? <span>{props.prefix}</span> : "";
 

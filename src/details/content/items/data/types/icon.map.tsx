@@ -24,7 +24,7 @@ import {
   FaWordpress,
   FaYarn,
 } from "react-icons/fa";
-import { GrMysql } from "react-icons/gr";
+import { GrMysql, GrOracle } from "react-icons/gr";
 import {
   SiC,
   SiCloudfoundry,
@@ -36,14 +36,13 @@ import {
   SiKotlin,
   SiMongodb,
   SiNpm,
-  SiOracle,
   SiScikitlearn,
   SiSpring,
   SiSpringboot,
   SiTerraform,
   SiTypescript,
-  SiVisualstudiocode,
 } from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 
 export const IconMap: { [key: string]: React.ReactElement<IconBaseProps> } = {
   FaPython: React.createElement(FaPython),
@@ -72,7 +71,7 @@ export const IconMap: { [key: string]: React.ReactElement<IconBaseProps> } = {
   SiHibernate: React.createElement(SiHibernate),
   SiScikitlearn: React.createElement(SiScikitlearn),
   GrMysql: React.createElement(GrMysql),
-  SiOracle: React.createElement(SiOracle),
+  SiOracle: React.createElement(GrOracle),
   SiMongodb: React.createElement(SiMongodb),
   FaGitAlt: React.createElement(FaGitAlt),
   FaDocker: React.createElement(FaDocker),
@@ -84,6 +83,6 @@ export const IconMap: { [key: string]: React.ReactElement<IconBaseProps> } = {
   SiCloudfoundry: React.createElement(SiCloudfoundry),
   FaLinux: React.createElement(FaLinux),
   SiJupyter: React.createElement(SiJupyter),
-  SiVisualstudiocode: React.createElement(SiVisualstudiocode),
+  SiVisualstudiocode: React.createElement(VscVscode),
   SiTerraform: React.createElement(SiTerraform),
 };
