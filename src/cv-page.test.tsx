@@ -11,16 +11,19 @@ vi.mock("next/image", () => ({
     alt,
     src,
     priority,
+    unoptimized,
     ...rest
   }: {
     alt: string;
     src: string;
     priority?: boolean;
+    unoptimized?: boolean;
     width?: number;
     height?: number;
     className?: string;
   }) {
     void priority;
+    void unoptimized;
     // Test double for next/image. Production uses next/image in cv-page.tsx.
     // eslint-disable-next-line @next/next/no-img-element -- test mock
     return <img alt={alt} src={src} {...rest} />;
@@ -63,8 +66,11 @@ test("renders employment-first editorial page from existing JSON", () => {
   ).toHaveAttribute("href", expect.stringContaining("credly.com"));
 
   expect(screen.getByRole("heading", { name: "Skills" })).toBeInTheDocument();
-  expect(screen.getByText(/Python, Java/)).toBeInTheDocument();
+  expect(screen.getByText("Python")).toBeInTheDocument();
+  expect(screen.getByText("Java")).toBeInTheDocument();
   expect(screen.getByText(/English\./)).toBeInTheDocument();
+  expect(screen.queryByText("Rust")).not.toBeInTheDocument();
+  expect(screen.queryByText("Kotlin")).not.toBeInTheDocument();
 
   expect(screen.getByRole("heading", { name: "Interests" })).toBeInTheDocument();
   expect(screen.getByText(/Novels fill the quieter hours/)).toBeInTheDocument();
@@ -85,6 +91,10 @@ test("small text nav jumps to on-page sections", () => {
   renderCv();
 
   expect(screen.getByRole("navigation", { name: "On this page" })).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
+    "aria-current",
+    "true",
+  );
   expect(screen.getByRole("link", { name: "Experience" })).toHaveAttribute(
     "href",
     "#experience",
@@ -178,5 +188,39 @@ test("content JSON files stay complete, including hidden include:false rows", as
       issuericon: "static/logos/third-party/Microsoft.png",
       credurl: expect.stringContaining("credly.com"),
     }),
+  );
+});
+
+test("draws employer and issuer logos from JSON paths", () => {
+  renderCv();
+
+  expect(
+    document.querySelectorAll('img[src="/static/logos/third-party/Infosys.svg"]')
+      .length,
+  ).toBe(3);
+  expect(
+    document.querySelector('img[src="/static/logos/third-party/Wipro.png"]'),
+  ).toBeTruthy();
+  expect(
+    document.querySelectorAll('img[src="/static/logos/third-party/Microsoft.png"]')
+      .length,
+  ).toBe(2);
+  expect(
+    document.querySelector('img[src="/static/logos/third-party/IBM.png"]'),
+  ).toBeTruthy();
+  expect(
+    document.querySelector('img[src="/static/logos/third-party/DataCamp.png"]'),
+  ).toBeTruthy();
+});
+
+test("nav click marks the chosen section current", async () => {
+  const user = userEvent.setup();
+  renderCv();
+
+  const experience = screen.getByRole("link", { name: "Experience" });
+  await user.click(experience);
+  expect(experience).toHaveAttribute("aria-current", "true");
+  expect(screen.getByRole("link", { name: "About" })).not.toHaveAttribute(
+    "aria-current",
   );
 });

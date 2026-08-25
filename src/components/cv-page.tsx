@@ -1,5 +1,7 @@
 import Image from "next/image";
+import { BrandMark } from "./brand-mark";
 import { SiteNav } from "./site-nav";
+import { SkillIcon } from "./skill-icon";
 import { SocialList } from "./social-list";
 import { ThemeToggle } from "./theme-toggle";
 import {
@@ -75,11 +77,17 @@ export function CvPage() {
                   <div className="job-body">
                     <h3>{job.designation}</h3>
                     <p className="job-org">
-                      {job.organization}
-                      <span aria-hidden="true"> · </span>
-                      {job.emptype}
-                      <span aria-hidden="true"> · </span>
-                      {job.location}
+                      <BrandMark
+                        src={job.organizationicon}
+                        label={job.organization}
+                      />
+                      <span>
+                        {job.organization}
+                        <span aria-hidden="true"> · </span>
+                        {job.emptype}
+                        <span aria-hidden="true"> · </span>
+                        {job.location}
+                      </span>
                     </p>
                     <ul className="job-desc">
                       {job.desc.map((line) => (
@@ -138,9 +146,12 @@ export function CvPage() {
                   <a href={item.credurl} target="_blank" rel="noreferrer noopener">
                     {item.name}
                   </a>
-                  <p>
-                    {item.issuer}
-                    {item.certid ? ` · ${item.certid}` : ""}
+                  <p className="cert-issuer">
+                    <BrandMark src={item.issuericon} label={item.issuer} />
+                    <span>
+                      {item.issuer}
+                      {item.certid ? ` · ${item.certid}` : ""}
+                    </span>
                   </p>
                 </div>
               </li>
@@ -158,7 +169,17 @@ export function CvPage() {
             {skillGroups.map((group) => (
               <div key={group.type} className="skill-group">
                 <dt>{group.type}</dt>
-                <dd>{group.labels.join(", ")}</dd>
+                <dd>
+                  {group.items.map((skill, index) => (
+                    <span key={skill.label}>
+                      {index > 0 ? ", " : null}
+                      <span className="skill-inline">
+                        <SkillIcon name={skill.icon} />
+                        {skill.label}
+                      </span>
+                    </span>
+                  ))}
+                </dd>
               </div>
             ))}
           </dl>
