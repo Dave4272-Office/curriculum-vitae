@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Divider,
@@ -6,9 +8,9 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
-import { Link, useMatch } from "react-router-dom";
-import "./index.sass";
 
 type PropType = {
   toolbar: React.ReactElement;
@@ -52,13 +54,19 @@ type ItemProps = {
   clickHandler?: () => void;
 };
 
-function Item(props: Readonly<ItemProps>) {
-  let match = useMatch({
-    path: props.to,
-  });
+function isActivePath(pathname: string, href: string) {
+  if (href === "/") {
+    return pathname === "/";
+  }
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
-  let x = () => {
-    if (match == null) return "menutext";
+function Item(props: Readonly<ItemProps>) {
+  const pathname = usePathname();
+  const match = isActivePath(pathname, props.to);
+
+  const x = () => {
+    if (!match) return "menutext";
     return match ? "selected menutext" : "menutext";
   };
 
@@ -66,7 +74,7 @@ function Item(props: Readonly<ItemProps>) {
     <ListItem
       onClick={props.clickHandler}
       component={Link}
-      to={props.to}
+      href={props.to}
       className={x()}
     >
       <ListItemButton>

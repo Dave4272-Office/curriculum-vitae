@@ -1,13 +1,13 @@
-import { Box, Drawer } from "@mui/material";
+"use client";
+
+import { Box, Container, Drawer, Toolbar } from "@mui/material";
 import { useState } from "react";
-import "./App.sass";
-import { Details } from "./details";
 import { Footer } from "./footer";
 import { Header } from "./header";
 import { NavBar } from "./nav-bar";
 import { DrawerToolbar } from "./nav-bar/toolbar";
 
-export const App = () => {
+export const App = ({ children }: { children: React.ReactNode }) => {
   const [ariaHidden, setAriaHidden] = useState(false);
 
   const openDrawer = () => {
@@ -23,7 +23,10 @@ export const App = () => {
       <Drawer anchor="left" variant="permanent" className="drawer">
         <NavBar toolbar={<DrawerToolbar />} />
       </Drawer>
-      <Details />
+      <Container className="app-container" maxWidth="xl">
+        <Toolbar />
+        {children}
+      </Container>
       <Footer />
       <Box
         className="backdrop-second-drawer"

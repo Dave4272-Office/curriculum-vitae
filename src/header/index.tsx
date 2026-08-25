@@ -1,6 +1,7 @@
+"use client";
+
 import { AppBar, Container, IconButton, Toolbar } from "@mui/material";
 import { FaHamburger } from "react-icons/fa";
-import "./index.sass";
 
 type PropType = {
   hamClick: () => void;

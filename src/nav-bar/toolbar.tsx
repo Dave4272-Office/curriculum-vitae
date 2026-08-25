@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, IconButton, Toolbar } from "@mui/material";
 import { FaChevronCircleLeft } from "react-icons/fa";
 

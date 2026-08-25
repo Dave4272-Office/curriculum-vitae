@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Avatar,
   Card,
@@ -17,8 +19,6 @@ import { CgSpinner } from "react-icons/cg";
 import { FaLanguage } from "react-icons/fa";
 import { LanguageBoard } from "./items/skill.lang";
 import { SkillChipsBlock } from "./items/skill.tech";
-import "./skillchip.sass";
-import "./skills.sass";
 
 export const Skills = () => {
   return (

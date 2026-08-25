@@ -1,3 +1,5 @@
+"use client";
+
 import { Timeline } from "@mui/lab";
 import {
   Chip,
@@ -24,7 +26,6 @@ import { CgSpinner } from "react-icons/cg";
 import { GoDotFill } from "react-icons/go";
 import { AxiosClient } from "../../HTTPClient";
 import { durationAsString } from "../../utils/date-time";
-import "./experience.sass";
 import { IWorkItem, WorkItem } from "./items/data/types/WorkItem";
 import { WorkCard } from "./items/work.card";
 
@@ -75,7 +76,7 @@ const ExperienceDescription = (props: { desc: string[] }) => {
       ]);
     });
     setExpdesc((value) => {
-      let x = value;
+      const x = value;
       return x.reverse();
     });
   }, [props.desc]);
@@ -124,7 +125,7 @@ const ExperienceBoard = (props: {
       let key: string =
         element.designation + element.organization + element.from;
       key = Buffer.from(key, "binary").toString("base64");
-      let value: WorkItem = {
+      const value: WorkItem = {
         ...element,
         from: DateTime.fromFormat(element.from, "yyyy-MM"),
         to: element.to

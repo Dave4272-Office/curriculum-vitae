@@ -1,12 +1,12 @@
+"use client";
+
 import { Container, Typography } from "@mui/material";
 import { AxiosResponse } from "axios";
 import { Buffer } from "buffer";
 import { DateTime } from "luxon";
-import Masonry from "masonry-layout";
 import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { AxiosClient } from "../../HTTPClient";
-import "./certificates.sass";
 import { CertCont } from "./items/cert.card";
 import { Certificate, ICertificate } from "./items/data/types/Certificate";
 
@@ -28,14 +28,23 @@ export const CertificatePage = () => {
 const CertificateBoard = () => {
   const [certs, setCerts] = useState<React.ReactElement[]>([]);
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _msnry = new Masonry(".creds-container", {
-      columnWidth: 520,
-      itemSelector: ".certificate",
-      gutter: 20,
-      horizontalOrder: true,
-      fitWidth: true,
+    let cancelled = false;
+    void import("masonry-layout").then(({ default: Masonry }) => {
+      if (cancelled) {
+        return;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const _msnry = new Masonry(".creds-container", {
+        columnWidth: 520,
+        itemSelector: ".certificate",
+        gutter: 20,
+        horizontalOrder: true,
+        fitWidth: true,
+      });
     });
+    return () => {
+      cancelled = true;
+    };
   }, [certs]);
 
   const handleResponse = (res: AxiosResponse) => {

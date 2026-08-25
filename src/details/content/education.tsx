@@ -1,3 +1,5 @@
+"use client";
+
 import { Timeline } from "@mui/lab";
 import { Container, Typography } from "@mui/material";
 import { AxiosResponse } from "axios";
@@ -5,7 +7,6 @@ import { Buffer } from "buffer";
 import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { AxiosClient } from "../../HTTPClient";
-import "./education.sass";
 import { AcademicRecord } from "./items/data/types/AcademicRecord";
 import { EducationCard } from "./items/edu.card";
 

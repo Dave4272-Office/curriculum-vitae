@@ -1,6 +1,7 @@
+"use client";
+
 import { Buffer } from "buffer";
-import { useCallback, useEffect, useState } from "react";
-import "./index.sass";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 
 type PropType = {
   values: string[];
@@ -9,10 +10,10 @@ type PropType = {
 };
 
 export const AnimatedHeadline = (props: PropType) => {
-  const [visibleChild, setVisibleChild] = useState<JSX.Element[]>([]);
+  const [visibleChild, setVisibleChild] = useState<ReactElement[]>([]);
 
   const initHeadline = useCallback(() => {
-    let mh: JSX.Element[] = [];
+    const mh: ReactElement[] = [];
     props.values.forEach((value, index) => {
       const key = Buffer.from(value, "binary").toString("base64");
       mh.push(
@@ -28,9 +29,9 @@ export const AnimatedHeadline = (props: PropType) => {
     initHeadline();
   }, [initHeadline]);
 
-  let prefixWithTags = props.prefix ? <span>{props.prefix}</span> : "";
+  const prefixWithTags = props.prefix ? <span>{props.prefix}</span> : "";
 
-  let postfixWithTags = props.postfix ? <span>{props.postfix}</span> : "";
+  const postfixWithTags = props.postfix ? <span>{props.postfix}</span> : "";
 
   return (
     <section className="cd-intro">

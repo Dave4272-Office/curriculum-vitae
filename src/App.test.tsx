@@ -1,14 +1,10 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import { App } from "./App";
-import { MemoryRouter } from "react-router-dom";
+import { expect, test } from "vitest";
+import { Interests } from "./details/content/interests";
 
-test("renders learn react link", () => {
-  render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
-  );
-  const linkElement = screen.getByText(/Welcome/i);
-  expect(linkElement).toBeInTheDocument();
+test("renders interests heading", () => {
+  render(<Interests />);
+  expect(
+    screen.getByRole("heading", { name: /Interests/i }),
+  ).toBeInTheDocument();
 });
