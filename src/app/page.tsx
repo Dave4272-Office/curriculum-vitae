@@ -1,5 +1,5 @@
-import { Welcome } from "../details/content/welcome";
+import { CvPage } from "../components/cv-page";
 
 export default function HomePage() {
-  return <Welcome />;
+  return <CvPage />;
 }
