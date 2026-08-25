@@ -16,7 +16,11 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: www.googletagmanager.com www.google-analytics.com",
   "font-src 'self'",
-  "connect-src 'self' www.google-analytics.com *.google-analytics.com www.googletagmanager.com",
+  // GA4 page_view already uses www.google-analytics.com; also allow the
+  // www.google.com/g/collect fallback. unpkg.com is omitted on purpose:
+  // GTM-57TRFSCL injects unpkg.com/web-vitals@4, but this app already
+  // reports Core Web Vitals via the npm package in src/reportWebVitals.ts.
+  "connect-src 'self' www.google-analytics.com *.google-analytics.com www.googletagmanager.com www.google.com/g/collect",
   "media-src 'self'",
   "object-src 'self'",
   "frame-src www.googletagmanager.com",

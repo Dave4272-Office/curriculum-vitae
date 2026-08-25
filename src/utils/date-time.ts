@@ -1,30 +1,29 @@
-import { DateTime, Duration } from "luxon";
+import { DateTime } from "luxon";
+
+function unitLabel(count: number, singular: string, plural: string): string {
+  return `${count} ${Math.abs(count) === 1 ? singular : plural}`;
+}
 
 export const durationAsString = (from: DateTime, to?: DateTime): string => {
-  let duration: Duration;
-  let formatedString = "";
-  if (!to) {
-    duration = DateTime.now().diff(from, ["year", "months"], {
-      conversionAccuracy: "longterm",
-    });
-  } else {
-    duration = to.diff(from, ["years", "months"], {
-      conversionAccuracy: "longterm",
-    });
+  const end = to ?? DateTime.now();
+  const duration = end.diff(from, ["years", "months"], {
+    conversionAccuracy: "longterm",
+  });
+
+  let years = Math.trunc(duration.years);
+  let months = Math.ceil(Number(duration.months.toFixed(2)));
+
+  if (months >= 12) {
+    years += Math.trunc(months / 12);
+    months %= 12;
   }
 
-  if (parseInt(duration.years.toFixed(0)) !== 0) {
-    formatedString += duration.years.toFixed(0) + " yr";
-    formatedString += Math.abs(duration.years) > 1 ? "s" : "";
+  const parts: string[] = [];
+  if (years !== 0) {
+    parts.push(unitLabel(years, "yr", "yrs"));
   }
-
-  if (parseInt(duration.months.toFixed(0)) !== 0) {
-    if (formatedString.length > 0) {
-      formatedString += " ";
-    }
-    formatedString += Math.ceil(Number(duration.months.toFixed(2))) + " mth";
-    formatedString += Math.abs(duration.months) > 1 ? "s" : "";
+  if (months !== 0) {
+    parts.push(unitLabel(months, "mth", "mths"));
   }
-
-  return formatedString;
+  return parts.join(" ");
 };

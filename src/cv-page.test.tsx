@@ -213,6 +213,40 @@ test("draws employer and issuer logos from JSON paths", () => {
   ).toBeTruthy();
 });
 
+test("job tenures roll 12 months into years and keep edu/cert dates as years", () => {
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date("2026-08-25T12:00:00+05:30"));
+  renderCv();
+
+  expect(screen.queryByText(/12 mths/)).not.toBeInTheDocument();
+  expect(screen.getByText("6 yrs")).toBeInTheDocument();
+  expect(screen.getByText("1 yr 8 mths")).toBeInTheDocument();
+  expect(screen.getByText("1 yr")).toBeInTheDocument();
+  expect(screen.getByText("1 yr 2 mths")).toBeInTheDocument();
+  expect(screen.getByText("2 yrs 2 mths")).toBeInTheDocument();
+
+  expect(screen.getByText("2016–2020")).toBeInTheDocument();
+  expect(screen.getByText("2014–2016")).toBeInTheDocument();
+  expect(screen.getByText("2009–2014")).toBeInTheDocument();
+  expect(screen.getAllByText("2018").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("2019").length).toBeGreaterThan(0);
+
+  vi.useRealTimers();
+});
+
+test("CSP allows the GA collect fallback and does not open unpkg.com", async () => {
+  const headers = nextConfig.headers ? await nextConfig.headers() : [];
+  const csp =
+    headers
+      .flatMap((entry) => entry.headers)
+      .find((header) => header.key === "Content-Security-Policy")?.value ?? "";
+
+  expect(csp).toContain("www.google.com/g/collect");
+  expect(csp).toContain("www.google-analytics.com");
+  expect(csp).toContain("www.googletagmanager.com");
+  expect(csp).not.toContain("unpkg.com");
+});
+
 test("nav click marks the chosen section current", async () => {
   const user = userEvent.setup();
   renderCv();
