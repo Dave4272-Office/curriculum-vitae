@@ -199,7 +199,7 @@ test("draws employer and issuer logos from JSON paths", () => {
       .length,
   ).toBe(3);
   expect(
-    document.querySelector('img[src="/static/logos/third-party/Wipro.png"]'),
+    document.querySelector('img[src="/static/logos/third-party/Wipro.svg"]'),
   ).toBeTruthy();
   expect(
     document.querySelectorAll('img[src="/static/logos/third-party/Microsoft.png"]')
