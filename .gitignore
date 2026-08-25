@@ -2,16 +2,11 @@
 
 # dependencies
 /node_modules
-/.pnp
+.pnp
 .pnp.js
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
 .pnp.*
 .trunk/*
+
 # testing
 /coverage
 
@@ -26,5 +21,6 @@
 .env.production.local
 
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
