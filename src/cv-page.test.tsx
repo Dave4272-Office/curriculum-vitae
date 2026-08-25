@@ -195,16 +195,16 @@ test("draws employer and issuer logos from JSON paths", () => {
   renderCv();
 
   expect(
-    document.querySelectorAll('img[src="/static/logos/third-party/Infosys.svg"]')
-      .length,
-  ).toBe(3);
+    document.querySelectorAll('img[src="/static/logos/third-party/Infosys.svg"]'),
+  ).toHaveLength(3);
   expect(
     document.querySelector('img[src="/static/logos/third-party/Wipro.svg"]'),
   ).toBeTruthy();
   expect(
-    document.querySelectorAll('img[src="/static/logos/third-party/Microsoft.png"]')
-      .length,
-  ).toBe(2);
+    document.querySelectorAll(
+      'img[src="/static/logos/third-party/Microsoft.png"]',
+    ),
+  ).toHaveLength(2);
   expect(
     document.querySelector('img[src="/static/logos/third-party/IBM.png"]'),
   ).toBeTruthy();
