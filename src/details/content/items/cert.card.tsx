@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -17,17 +19,17 @@ type PropType = {
 };
 
 export const CertCont = (props: PropType) => {
-  const textInput = React.createRef<any>();
+  const textInput = React.createRef<HTMLDivElement>();
 
   useEffect(() => {
-    let dom = document.getElementById("certificate" + props.index);
-    if (dom) {
+    const dom = document.getElementById("certificate" + props.index);
+    if (dom && textInput.current) {
       dom.style.height =
         Number(textInput.current.clientHeight).toString() + "px";
     }
   });
 
-  let value = props.value;
+  const value = props.value;
   return (
     <div id={"certificate" + props.index} className="certificate">
       <Card className="cert-card" ref={textInput}>

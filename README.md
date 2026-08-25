@@ -1,8 +1,7 @@
-# Getting Started with Create React App
+# Curriculum Vitae
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-It uses [pnpm](https://pnpm.io) (see `packageManager` in `package.json`).
+Personal CV site built with [Next.js](https://nextjs.org) (App Router) and
+[pnpm](https://pnpm.io) (see `packageManager` in `package.json`).
 Enable Corepack (`corepack enable`) or install pnpm 10.13.1, then run
 `pnpm install`.
 
@@ -10,41 +9,52 @@ Enable Corepack (`corepack enable`) or install pnpm 10.13.1, then run
 
 In the project directory, you can run:
 
-### `pnpm start`
+### `pnpm dev`
 
-Runs the app in the development mode.\
+Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The page will reload if you make edits.
 
 ### `pnpm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the Vitest suite once (CI-friendly). Use `pnpm test:watch` for watch
+mode.
 
 ### `pnpm build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Creates a production Next.js build. Vercel runs this automatically on deploy.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `pnpm start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Serves the production build locally (`next start`). Vercel runs the Next.js
+server for you in production.
 
-### `pnpm eject`
+### `pnpm lint`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Runs ESLint with `eslint-config-next`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Hosting (Vercel)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Production hosting is **Vercel**. This repo is a standard Next.js app (no
+`output: 'export'`, no `vercel.json`), so connecting GitHub is enough:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. In [Vercel](https://vercel.com), import
+   `Dave4272-Office/curriculum-vitae`.
+2. Leave the Next.js preset. Vercel detects pnpm from `packageManager`.
+3. Set optional environment variables (Production / Preview / Development)
+   under Project Settings → Environment Variables:
+   - `NEXT_PUBLIC_GTM_ID` — GTM container (defaults to `GTM-57TRFSCL` if
+     unset).
+   - `NEXT_PUBLIC_BASE_PATH` — only if the site is not served from `/`.
+4. Deploy. Custom domains are configured in the Vercel project, not in this
+   repo.
+
+Security headers (CSP, Referrer-Policy, etc.) that previously lived in Apache
+`.htaccess` are now set in `next.config.ts` and applied by the Next.js server
+on Vercel. GTM and the Web Vitals reporter still load in the root layout.
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+See the [Next.js documentation](https://nextjs.org/docs) and
+[Vercel Next.js guide](https://vercel.com/docs/frameworks/nextjs).

@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import type { ReactElement } from "react";
 
 export type WorkItem = {
   include: boolean;
@@ -8,8 +9,8 @@ export type WorkItem = {
   organization: string;
   organizationicon: string;
   emptype: string;
-  desc: React.ReactElement;
-  skills: React.ReactElement;
+  desc: ReactElement;
+  skills: ReactElement;
   location: string;
 };
 

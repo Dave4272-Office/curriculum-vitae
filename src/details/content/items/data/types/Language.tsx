@@ -11,7 +11,7 @@ type LanguageLevels =
   | "Fluent"
   | "Native Fluent";
 
-type ILR =
+export type ILR =
   | "No"
   | "Elementary"
   | "Limited Working"

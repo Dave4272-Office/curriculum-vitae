@@ -4,9 +4,9 @@ const barWaiting = barAnimationDelay - 3000;
 //3000 is the duration of the transition on the loading bar - set in the scss/css file
 
 function animateHeadline($headlines: JQuery<HTMLElement>) {
-  let duration = barAnimationDelay;
+  const duration = barAnimationDelay;
   $headlines.each(function () {
-    let headline = $(this);
+    const headline = $(this);
 
     //loading bar
     setTimeout(function () {
@@ -21,7 +21,7 @@ function animateHeadline($headlines: JQuery<HTMLElement>) {
 }
 
 function hideWord($word: JQuery<HTMLElement>) {
-  let nextWord = takeNext($word);
+  const nextWord = takeNext($word);
 
   $word.parents(".cd-words-wrapper").removeClass("is-loading");
   switchWord($word, nextWord);

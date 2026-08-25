@@ -10,15 +10,17 @@
 # testing
 /coverage
 
-# production
+# next.js
+/.next
+/out
+.vercel
+
+# production (legacy CRA output)
 /build
 
 # misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
 npm-debug.log*
 pnpm-debug.log*

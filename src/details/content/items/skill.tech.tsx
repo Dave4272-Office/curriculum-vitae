@@ -1,3 +1,5 @@
+"use client";
+
 import { Chip } from "@mui/material";
 import { AxiosResponse } from "axios";
 import { Buffer } from "buffer";
@@ -18,10 +20,10 @@ export const SkillChipsBlock = () => {
   const handleResponse = (res: AxiosResponse) => {
     setChips([]);
     let i = 0;
-    res.data.reverse().forEach((element: TechSkill, index: number) => {
+    res.data.reverse().forEach((element: TechSkill) => {
       let key: string = element.type + element.label;
       key = Buffer.from(key, "binary").toString("base64");
-      let x = i % chipStyles.length;
+      const x = i % chipStyles.length;
       if (element.include) {
         setChips((chips) => [
           <Chip

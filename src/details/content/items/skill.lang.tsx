@@ -1,3 +1,5 @@
+"use client";
+
 import { TableCell, TableRow, Typography } from "@mui/material";
 import { AxiosResponse } from "axios";
 import { Buffer } from "buffer";

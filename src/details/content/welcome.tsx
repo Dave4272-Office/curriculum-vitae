@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Avatar,
   Card,
@@ -19,10 +21,9 @@ import {
 import { SiTryhackme } from "react-icons/si";
 import { AnimatedHeadline } from "./animated-headline";
 import { Animate } from "./animated-headline/animate";
-import "./welcome.sass";
 
 export const Welcome = () => {
-  let animation = useCallback(Animate, []);
+  const animation = useCallback(Animate, []);
 
   useEffect(() => {
     animation();
