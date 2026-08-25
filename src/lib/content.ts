@@ -1,10 +1,12 @@
 import { DateTime } from "luxon";
+import type { IconType } from "react-icons";
 import certJson from "../../public/static/data/cert.list.json";
 import eduJson from "../../public/static/data/edu.list.json";
 import langJson from "../../public/static/data/lang.list.json";
 import skillJson from "../../public/static/data/skill.list.json";
 import workJson from "../../public/static/data/work.list.json";
 import { durationAsString } from "../utils/date-time";
+import { skillIcons } from "./skill-icons";
 import type {
   AcademicRecord,
   Certificate,
@@ -22,7 +24,7 @@ const languageItems = langJson as SpokenLanguage[];
 
 export type SkillEntry = {
   label: string;
-  icon: string;
+  Icon: IconType;
 };
 
 export type SkillGroup = {
@@ -105,15 +107,26 @@ const skillTypeOrder: TechType[] = [
   "IDE",
 ];
 
-export function getSkillGroups(): SkillGroup[] {
+function resolveSkillIcon(skill: TechSkill): IconType {
+  const Icon = skillIcons[skill.icon];
+  if (!Icon) {
+    throw new Error(`Missing skill icon "${skill.icon}" for "${skill.label}"`);
+  }
+  return Icon;
+}
+
+export function getSkillGroups(
+  items: readonly TechSkill[] = skillItems,
+): SkillGroup[] {
   const grouped = new Map<TechType, SkillEntry[]>();
-  for (const skill of skillItems) {
+  for (const skill of items) {
+    const Icon = resolveSkillIcon(skill);
     if (!skill.include || skill.type === "None") {
       continue;
     }
-    const items = grouped.get(skill.type) ?? [];
-    items.push({ label: skill.label, icon: skill.icon });
-    grouped.set(skill.type, items);
+    const groupItems = grouped.get(skill.type) ?? [];
+    groupItems.push({ label: skill.label, Icon });
+    grouped.set(skill.type, groupItems);
   }
   return skillTypeOrder
     .filter((type) => grouped.has(type))

@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { expect, test, vi } from "vitest";
 import { CvPage } from "./components/cv-page";
 import { Providers } from "./app/providers";
-import { legacyRedirects } from "./lib/nav";
+import { legacyRedirects, sections, skipToHref } from "./lib/nav";
 import nextConfig from "../next.config";
 
 vi.mock("next/image", () => ({
@@ -67,7 +67,9 @@ test("renders employment-first editorial page from existing JSON", () => {
 
   expect(screen.getByRole("heading", { name: "Skills" })).toBeInTheDocument();
   expect(screen.getByText("Python")).toBeInTheDocument();
+  expect(screen.getByText("Python").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
   expect(screen.getByText("Java")).toBeInTheDocument();
+  expect(screen.getByText("Java").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
   expect(screen.getByText(/English\./)).toBeInTheDocument();
   expect(screen.queryByText("Rust")).not.toBeInTheDocument();
   expect(screen.queryByText("Kotlin")).not.toBeInTheDocument();
@@ -85,6 +87,18 @@ test("does not render the old Material chrome or rotating titles", () => {
   expect(
     screen.queryByText(/Hobbies & Interests: 1\. Learning New Things/),
   ).not.toBeInTheDocument();
+});
+
+test("page section ids and skip link come from the nav registry", () => {
+  renderCv();
+
+  for (const section of sections) {
+    expect(document.getElementById(section.id)).toBeTruthy();
+  }
+  expect(screen.getByRole("link", { name: /Skip to experience/i })).toHaveAttribute(
+    "href",
+    skipToHref,
+  );
 });
 
 test("small text nav jumps to on-page sections", () => {
