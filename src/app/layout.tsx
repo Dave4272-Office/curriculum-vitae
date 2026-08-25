@@ -1,35 +1,29 @@
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
-import { Roboto } from "next/font/google";
-import Script from "next/script";
-import { App } from "../App";
+import { Fraunces, Source_Sans_3 } from "next/font/google";
+import { Providers } from "./providers";
 import { WebVitals } from "./web-vitals";
-import "../index.sass";
-import "../App.sass";
-import "../header/index.sass";
-import "../nav-bar/index.sass";
-import "../footer/index.sass";
-import "../details/index.sass";
-import "../details/content/welcome.sass";
-import "../details/content/education.sass";
-import "../details/content/experience.sass";
-import "../details/content/certificates.sass";
-import "../details/content/skills.sass";
-import "../details/content/skillchip.sass";
-import "../details/content/animated-headline/index.sass";
+import "./globals.css";
 
-const roboto = Roboto({
-  weight: ["300", "400", "500"],
+const display = Fraunces({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-display",
+  weight: ["400", "600"],
+});
+
+const sans = Source_Sans_3({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+  weight: ["400", "600"],
 });
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-57TRFSCL";
 
 export const metadata: Metadata = {
-  title: "Curriculum Vitae",
-  description: "Curriculum Vitae of Debraj Kundu",
+  title: "Debraj Kundu",
+  description: "Curriculum vitae of Debraj Kundu, software engineer.",
   keywords: [
     "Dave Curriculum Vitae",
     "e92fe1ce8a88db4d6047eb179c8f3eda5a2d3860",
@@ -42,7 +36,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f3efe6" },
+    { media: "(prefers-color-scheme: dark)", color: "#141210" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -53,20 +50,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable}`}
+      suppressHydrationWarning
+    >
       <GoogleTagManager gtmId={gtmId} />
-      <body className={roboto.className}>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <AppRouterCacheProvider>
-          <App>{children}</App>
-        </AppRouterCacheProvider>
+      <body>
+        <Providers>{children}</Providers>
         <WebVitals />
-        <Script
-          src="https://code.jquery.com/jquery-3.6.0.min.js"
-          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
       </body>
     </html>
   );

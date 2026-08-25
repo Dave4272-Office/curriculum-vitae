@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyRedirects } from "./src/lib/nav";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -7,16 +8,14 @@ const contentSecurityPolicy = [
   [
     "script-src 'self' 'unsafe-inline'",
     isDev ? "'unsafe-eval'" : "",
-    "code.jquery.com",
     "*.cloudflareinsights.com",
     "www.googletagmanager.com",
-    "unpkg.com",
   ]
     .filter(Boolean)
     .join(" "),
-  "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
+  "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: www.googletagmanager.com www.google-analytics.com",
-  "font-src 'self' fonts.gstatic.com",
+  "font-src 'self'",
   "connect-src 'self' www.google-analytics.com *.google-analytics.com www.googletagmanager.com",
   "media-src 'self'",
   "object-src 'self'",
@@ -43,6 +42,13 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
     ];
+  },
+  async redirects() {
+    return legacyRedirects.map((route) => ({
+      source: route.source,
+      destination: route.destination,
+      permanent: true,
+    }));
   },
 };
 

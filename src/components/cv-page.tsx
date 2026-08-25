@@ -1,0 +1,187 @@
+import Image from "next/image";
+import { SiteNav } from "./site-nav";
+import { SocialList } from "./social-list";
+import { ThemeToggle } from "./theme-toggle";
+import {
+  bio,
+  getCertificates,
+  getEducation,
+  getExperience,
+  getSkillGroups,
+  getSpokenLanguages,
+  totalExperienceLabel,
+} from "../lib/content";
+
+export function CvPage() {
+  const experience = getExperience();
+  const education = getEducation();
+  const certificates = getCertificates();
+  const skillGroups = getSkillGroups();
+  const languages = getSpokenLanguages();
+  const careerLength = totalExperienceLabel(experience);
+
+  return (
+    <div className="page">
+      <a className="skip-link" href="#experience">
+        Skip to experience
+      </a>
+
+      <header className="intro">
+        <div className="identity">
+          <Image
+            src="/profile-dave.jpg"
+            alt="Debraj Kundu"
+            width={72}
+            height={72}
+            className="portrait"
+            priority
+          />
+          <div>
+            <p className="eyebrow">Curriculum vitae</p>
+            <h1>{bio.name}</h1>
+          </div>
+        </div>
+
+        <div className="intro-copy" id="about">
+          <p>{bio.summary}</p>
+          <p>{bio.focus}</p>
+        </div>
+
+        <SiteNav />
+        <ThemeToggle />
+        <SocialList />
+      </header>
+
+      <main className="content">
+        <section
+          id="experience"
+          className="section section--hero"
+          aria-labelledby="experience-heading"
+        >
+          <div className="section-head">
+            <h2 id="experience-heading">Experience</h2>
+            {careerLength ? (
+              <p className="section-meta">{careerLength}</p>
+            ) : null}
+          </div>
+          <ol className="jobs">
+            {experience.map((job) => (
+              <li key={`${job.organization}-${job.designation}-${job.from}`}>
+                <article className="job">
+                  <div className="job-when">
+                    <p className="job-range">{job.rangeLabel}</p>
+                    <p className="job-tenure">{job.tenureLabel}</p>
+                  </div>
+                  <div className="job-body">
+                    <h3>{job.designation}</h3>
+                    <p className="job-org">
+                      {job.organization}
+                      <span aria-hidden="true"> · </span>
+                      {job.emptype}
+                      <span aria-hidden="true"> · </span>
+                      {job.location}
+                    </p>
+                    <ul className="job-desc">
+                      {job.desc.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                    <p className="job-skills">{job.skills.join(" · ")}</p>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section
+          id="education"
+          className="section"
+          aria-labelledby="education-heading"
+        >
+          <h2 id="education-heading">Education</h2>
+          <ol className="records">
+            {education.map((item) => (
+              <li key={`${item.qualexam}-${item.from}`}>
+                <p className="record-when">
+                  {item.from}
+                  {item.to ? `–${item.to}` : ""}
+                </p>
+                <div>
+                  <h3>
+                    {item.qualexam}
+                    {item.qualspec ? `, ${item.qualspec}` : ""}
+                  </h3>
+                  <p>
+                    {item.institutename}
+                    <span aria-hidden="true"> · </span>
+                    {item.certauthname}
+                  </p>
+                  <p className="record-meta">{item.score}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section
+          id="certifications"
+          className="section"
+          aria-labelledby="certs-heading"
+        >
+          <h2 id="certs-heading">Certifications</h2>
+          <ol className="certs">
+            {certificates.map((item) => (
+              <li key={`${item.name}-${item.issuedate}`}>
+                <time dateTime={item.issuedate}>{item.issuedLabel}</time>
+                <div>
+                  <a href={item.credurl} target="_blank" rel="noreferrer noopener">
+                    {item.name}
+                  </a>
+                  <p>
+                    {item.issuer}
+                    {item.certid ? ` · ${item.certid}` : ""}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section id="skills" className="section" aria-labelledby="skills-heading">
+          <h2 id="skills-heading">Skills</h2>
+          <p className="skills-lede">
+            Tools I reach for on the job sit on the roles above. The short list
+            below is the rest of the working set.
+          </p>
+          <dl className="skill-groups">
+            {skillGroups.map((group) => (
+              <div key={group.type} className="skill-group">
+                <dt>{group.type}</dt>
+                <dd>{group.labels.join(", ")}</dd>
+              </div>
+            ))}
+          </dl>
+          <ul className="spoken">
+            {languages.map((lang) => (
+              <li key={lang.language}>
+                <strong>{lang.language}.</strong> Reading and writing:{" "}
+                {lang.readwrite.toLowerCase()}. Listening and speaking:{" "}
+                {lang.listeningspeaking.toLowerCase()}.
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section
+          id="interests"
+          className="section"
+          aria-labelledby="interests-heading"
+        >
+          <h2 id="interests-heading">Interests</h2>
+          <p className="interests-copy">{bio.interests}</p>
+        </section>
+      </main>
+    </div>
+  );
+}
