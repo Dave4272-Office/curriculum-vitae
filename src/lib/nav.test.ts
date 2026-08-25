@@ -200,9 +200,9 @@ test("hash on connect holds the fragment and retries after fonts", () => {
 
   fake.runTimers(80);
   fake.runTimers(320);
-  expect(fake.scrollTo.mock.calls.filter((call) => call[0] === "skills").length).toBe(
-    4,
-  );
+  expect(
+    fake.scrollTo.mock.calls.filter((call) => call[0] === "skills"),
+  ).toHaveLength(4);
 });
 
 test("hashchange jumps without the instant retry path", () => {
