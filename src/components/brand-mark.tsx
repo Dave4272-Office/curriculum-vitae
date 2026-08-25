@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { publicAsset } from "../lib/assets";
 
 type BrandMarkProps = {
   src: string;
@@ -7,15 +6,14 @@ type BrandMarkProps = {
 };
 
 export function BrandMark({ src, label }: Readonly<BrandMarkProps>) {
-  const href = publicAsset(src);
-  if (!href) {
+  if (!src) {
     return null;
   }
 
   return (
     <span className="brand-mark" title={label} aria-hidden="true">
       <Image
-        src={href}
+        src={src}
         alt=""
         width={80}
         height={32}

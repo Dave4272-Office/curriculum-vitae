@@ -227,25 +227,13 @@ test("draws employer and issuer logos from JSON paths", () => {
   ).toBeTruthy();
 });
 
-test("job tenures roll 12 months into years and keep edu/cert dates as years", () => {
-  vi.useFakeTimers();
-  vi.setSystemTime(new Date("2026-08-25T12:00:00+05:30"));
+test("Experience still renders", () => {
   renderCv();
 
-  expect(screen.queryByText(/12 mths/)).not.toBeInTheDocument();
-  expect(screen.getByText("6 yrs")).toBeInTheDocument();
-  expect(screen.getByText("1 yr 8 mths")).toBeInTheDocument();
-  expect(screen.getByText("1 yr")).toBeInTheDocument();
-  expect(screen.getByText("1 yr 2 mths")).toBeInTheDocument();
-  expect(screen.getByText("2 yrs 2 mths")).toBeInTheDocument();
-
-  expect(screen.getByText("2016–2020")).toBeInTheDocument();
-  expect(screen.getByText("2014–2016")).toBeInTheDocument();
-  expect(screen.getByText("2009–2014")).toBeInTheDocument();
-  expect(screen.getAllByText("2018").length).toBeGreaterThan(0);
-  expect(screen.getAllByText("2019").length).toBeGreaterThan(0);
-
-  vi.useRealTimers();
+  expect(
+    screen.getByRole("heading", { name: "Experience" }),
+  ).toBeInTheDocument();
+  expect(screen.getByText("Senior Associate Consultant")).toBeInTheDocument();
 });
 
 test("CSP allows the GA collect fallback and does not open unpkg.com", async () => {

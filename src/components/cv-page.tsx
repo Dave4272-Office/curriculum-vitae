@@ -10,17 +10,15 @@ import {
   getExperience,
   getSkillGroups,
   getSpokenLanguages,
-  totalExperienceLabel,
 } from "../lib/content";
 import { sectionIds, skipToHref, skipToSectionId } from "../lib/nav";
 
 export function CvPage() {
-  const experience = getExperience();
+  const { jobs, careerLength } = getExperience();
   const education = getEducation();
   const certificates = getCertificates();
   const skillGroups = getSkillGroups();
   const languages = getSpokenLanguages();
-  const careerLength = totalExperienceLabel(experience);
 
   return (
     <div className="page">
@@ -67,7 +65,7 @@ export function CvPage() {
             ) : null}
           </div>
           <ol className="jobs">
-            {experience.map((job) => (
+            {jobs.map((job) => (
               <li key={`${job.organization}-${job.designation}-${job.from}`}>
                 <article className="job">
                   <div className="job-when">
