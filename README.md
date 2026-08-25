@@ -2,7 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-It uses [pnpm](https://pnpm.io) (see `packageManager` in `package.json`). Enable Corepack (`corepack enable`) or install pnpm 10.13.1, then run `pnpm install`.
+It uses [pnpm](https://pnpm.io) (see `packageManager` in `package.json`).
+Enable Corepack (`corepack enable`) or install pnpm 10.13.1, then run
+`pnpm install`.
 
 ## Available Scripts
 
