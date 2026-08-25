@@ -5,7 +5,7 @@ import { reportWebVitals } from "../reportWebVitals";
 
 export function WebVitals() {
   useEffect(() => {
-    reportWebVitals(console.log);
+    reportWebVitals();
   }, []);
 
   return null;
