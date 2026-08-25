@@ -1,8 +1,22 @@
 {
   "name": "curriculum-vitae",
   "version": "3.0.0",
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "pnpm@10.13.1",
   "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "core-js",
+      "core-js-pure",
+      "node-sass"
+    ],
+    "packageExtensions": {
+      "react-scripts": {
+        "peerDependencies": {
+          "eslint-config-react-app": "*"
+        }
+      }
+    }
+  },
   "scripts": {
     "clean": "rm -rf ./build",
     "start": "react-scripts --openssl-legacy-provider start",
