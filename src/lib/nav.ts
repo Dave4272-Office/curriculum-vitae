@@ -29,7 +29,12 @@ export const legacyRedirects = sections.flatMap((section) =>
 const HOLD_MS = 700;
 const HASH_RETRY_MS = [80, 320] as const;
 const TOP_SCROLL_Y = 16;
-const SPY_OFFSET = 88;
+const SPY_OFFSET = 96;
+export const backToTopAfterY = 160;
+
+export function isAwayFromTop(scrollY: number): boolean {
+  return scrollY > backToTopAfterY;
+}
 
 export type SectionMeasure = {
   id: string;
@@ -50,6 +55,7 @@ export type NavHost = {
     handler: () => void,
   ): () => void;
   onActiveId(id: string): void;
+  onAwayFromTop?(away: boolean): void;
 };
 
 function hashId(hash: string): string {
@@ -78,13 +84,19 @@ function activeSectionId(
 
 export function connectSectionNav(host: NavHost): {
   jumpTo: (id: string) => void;
+  jumpToTop: () => void;
   disconnect: () => void;
 } {
   let holding = false;
   let holdTimer = 0;
   const retryTimers: number[] = [];
 
+  const reportAway = () => {
+    host.onAwayFromTop?.(isAwayFromTop(host.getScrollY()));
+  };
+
   const sync = () => {
+    reportAway();
     if (holding) {
       return;
     }
@@ -108,6 +120,7 @@ export function connectSectionNav(host: NavHost): {
     if (id) {
       hold(id, true);
       host.scrollTo(id, instant);
+      reportAway();
       return;
     }
     sync();
@@ -118,6 +131,8 @@ export function connectSectionNav(host: NavHost): {
     hold(id, false);
     host.scrollTo(id, false);
   };
+
+  const jumpToTop = () => jumpTo(firstSectionId);
 
   applyHash(true);
   for (const ms of HASH_RETRY_MS) {
@@ -138,6 +153,7 @@ export function connectSectionNav(host: NavHost): {
 
   return {
     jumpTo,
+    jumpToTop,
     disconnect() {
       for (const timer of retryTimers) {
         host.clearTimeout(timer);
@@ -150,11 +166,23 @@ export function connectSectionNav(host: NavHost): {
   };
 }
 
-export function connectBrowserNav(onActiveId: (id: string) => void) {
-  return connectSectionNav(browserNavHost(onActiveId));
+export function connectBrowserNav(
+  onActiveId: (id: string) => void,
+  onAwayFromTop?: (away: boolean) => void,
+) {
+  return connectSectionNav(browserNavHost(onActiveId, onAwayFromTop));
 }
 
-function browserNavHost(onActiveId: (id: string) => void): NavHost {
+function prefersReducedMotion(instant: boolean): boolean {
+  return (
+    instant || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
+function browserNavHost(
+  onActiveId: (id: string) => void,
+  onAwayFromTop?: (away: boolean) => void,
+): NavHost {
   history.scrollRestoration = "manual";
 
   return {
@@ -171,13 +199,23 @@ function browserNavHost(onActiveId: (id: string) => void): NavHost {
       window.history.pushState(null, "", `#${id}`);
     },
     scrollTo: (id: string, instant: boolean) => {
+      const reduce = prefersReducedMotion(instant);
+      if (id === firstSectionId) {
+        const html = document.documentElement;
+        if (reduce) {
+          const previous = html.style.scrollBehavior;
+          html.style.scrollBehavior = "auto";
+          window.scrollTo(0, 0);
+          html.style.scrollBehavior = previous;
+          return;
+        }
+        window.scrollTo(0, 0);
+        return;
+      }
       const el = document.getElementById(id);
       if (!el) {
         return;
       }
-      const reduce =
-        instant ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       el.scrollIntoView({
         behavior: reduce ? "auto" : "smooth",
         block: "start",
@@ -196,5 +234,6 @@ function browserNavHost(onActiveId: (id: string) => void): NavHost {
       return () => window.removeEventListener(event, handler);
     },
     onActiveId,
+    onAwayFromTop,
   };
 }

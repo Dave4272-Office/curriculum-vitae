@@ -1,7 +1,9 @@
 import { expect, test, vi } from "vitest";
 import {
+  backToTopAfterY,
   connectSectionNav,
   firstSectionId,
+  isAwayFromTop,
   legacyRedirects,
   sections,
   skipToHref,
@@ -33,6 +35,7 @@ function createFakeHost(init?: {
   const listeners = new Map<string, Set<() => void>>();
   const fontsReady: Array<() => void> = [];
   const scrollTo = vi.fn();
+  let awayFromTop = isAwayFromTop(scrollY);
 
   const host: NavHost = {
     getScrollY: () => scrollY,
@@ -63,12 +66,16 @@ function createFakeHost(init?: {
     onActiveId: (id) => {
       activeId = id;
     },
+    onAwayFromTop: (away) => {
+      awayFromTop = away;
+    },
   };
 
   return {
     host,
     scrollTo,
     activeId: () => activeId,
+    awayFromTop: () => awayFromTop,
     setScrollY: (value: number) => {
       scrollY = value;
     },
@@ -212,4 +219,43 @@ test("hashchange jumps without the instant retry path", () => {
   fake.emit("hashchange");
   expect(fake.activeId()).toBe("interests");
   expect(fake.scrollTo).toHaveBeenCalledWith("interests", false);
+});
+
+test("back to top stays hidden at the page top and appears after the threshold", () => {
+  expect(isAwayFromTop(0)).toBe(false);
+  expect(isAwayFromTop(backToTopAfterY)).toBe(false);
+  expect(isAwayFromTop(backToTopAfterY + 1)).toBe(true);
+
+  const fake = createFakeHost({ scrollY: 0 });
+  connectSectionNav(fake.host);
+  expect(fake.awayFromTop()).toBe(false);
+
+  fake.setScrollY(backToTopAfterY);
+  fake.emit("scroll");
+  expect(fake.awayFromTop()).toBe(false);
+
+  fake.setScrollY(backToTopAfterY + 1);
+  fake.emit("scroll");
+  expect(fake.awayFromTop()).toBe(true);
+});
+
+test("jump to top scrolls the page top and holds the first section", () => {
+  const fake = createFakeHost({
+    scrollY: 800,
+    tops: [
+      { id: "about", top: -700 },
+      { id: "experience", top: 40 },
+      { id: "education", top: 700 },
+    ],
+  });
+  const nav = connectSectionNav(fake.host);
+  expect(fake.awayFromTop()).toBe(true);
+  expect(fake.activeId()).toBe("experience");
+
+  nav.jumpToTop();
+  expect(fake.activeId()).toBe("about");
+  expect(fake.scrollTo).toHaveBeenCalledWith("about", false);
+
+  fake.emit("scroll");
+  expect(fake.activeId()).toBe("about");
 });

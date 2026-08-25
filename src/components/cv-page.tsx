@@ -27,24 +27,26 @@ export function CvPage() {
       </a>
 
       <header className="intro">
-        <div className="identity">
-          <Image
-            src="/profile-dave.jpg"
-            alt="Debraj Kundu"
-            width={72}
-            height={72}
-            className="portrait"
-            priority
-          />
-          <div>
-            <p className="eyebrow">Curriculum vitae</p>
-            <h1>{bio.name}</h1>
+        <div className="intro-lead" id={sectionIds.about}>
+          <div className="identity">
+            <Image
+              src="/profile-dave.jpg"
+              alt="Debraj Kundu"
+              width={72}
+              height={72}
+              className="portrait"
+              priority
+            />
+            <div>
+              <p className="eyebrow">Curriculum vitae</p>
+              <h1>{bio.name}</h1>
+            </div>
           </div>
-        </div>
 
-        <div className="intro-copy" id={sectionIds.about}>
-          <p>{bio.summary}</p>
-          <p>{bio.focus}</p>
+          <div className="intro-copy">
+            <p>{bio.summary}</p>
+            <p>{bio.focus}</p>
+          </div>
         </div>
 
         <SiteNav />
