@@ -65,7 +65,7 @@ export const EducationCard = (props: EducationCardPropType) => {
                 >
                   <FaRegHourglass color="#f97501" />
                   &nbsp;&nbsp;{props.value.from} -{" "}
-                  {!props.value.to ? "Currently Pursuing" : props.value.to}
+                  {props.value.to ?? "Currently Pursuing"}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
