@@ -20,9 +20,14 @@ const certificateItems = certJson as Certificate[];
 const skillItems = skillJson as TechSkill[];
 const languageItems = langJson as SpokenLanguage[];
 
+export type SkillEntry = {
+  label: string;
+  icon: string;
+};
+
 export type SkillGroup = {
   type: TechType;
-  labels: string[];
+  items: SkillEntry[];
 };
 
 export type ParsedWork = WorkItem & {
@@ -101,18 +106,18 @@ const skillTypeOrder: TechType[] = [
 ];
 
 export function getSkillGroups(): SkillGroup[] {
-  const grouped = new Map<TechType, string[]>();
+  const grouped = new Map<TechType, SkillEntry[]>();
   for (const skill of skillItems) {
     if (!skill.include || skill.type === "None") {
       continue;
     }
-    const labels = grouped.get(skill.type) ?? [];
-    labels.push(skill.label);
-    grouped.set(skill.type, labels);
+    const items = grouped.get(skill.type) ?? [];
+    items.push({ label: skill.label, icon: skill.icon });
+    grouped.set(skill.type, items);
   }
   return skillTypeOrder
     .filter((type) => grouped.has(type))
-    .map((type) => ({ type, labels: grouped.get(type) ?? [] }));
+    .map((type) => ({ type, items: grouped.get(type) ?? [] }));
 }
 
 export function getSpokenLanguages(): SpokenLanguage[] {
