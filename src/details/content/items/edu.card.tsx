@@ -6,7 +6,7 @@ import {
   TimelineOppositeContent,
   TimelineSeparator,
 } from "@mui/lab";
-import { Card, CardContent, Grid, Typography } from "@mui/material";
+import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import { FaGraduationCap, FaRegHourglass } from "react-icons/fa";
 import { AcademicRecord } from "./data/types/AcademicRecord";
 
@@ -36,64 +36,64 @@ export const EducationCard = (props: EducationCardPropType) => {
       <TimelineContent className="edu-card">
         <Card>
           <CardContent>
-            <Grid container>
-              <Grid item sm={12} md={9}>
+            <Grid container sx={{ width: "100%" }}>
+              <Grid size={{ xs: 12, md: 9 }}>
                 <Typography variant="h4" component="h3" gutterBottom>
                   {props.value.qualexam}
                 </Typography>
               </Grid>
-              <Grid item sm={12} md={3} id="score" container direction="column">
-                <Grid item xs>
+              <Grid size={{ xs: 12, md: 3 }} id="score">
+                <Stack>
                   <Typography variant="subtitle2" component="h3">
                     Score :
                   </Typography>
-                </Grid>
-                <Grid item xs>
                   <Typography variant="body1" component="span" gutterBottom>
                     {props.value.score}
                   </Typography>
-                </Grid>
+                </Stack>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography
                   variant="h6"
                   component="h3"
                   gutterBottom
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
                 >
                   <FaRegHourglass color="#f97501" />
                   &nbsp;&nbsp;{props.value.from} -{" "}
                   {props.value.to ?? "Currently Pursuing"}
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography variant="subtitle2" component="h3">
                   {props.value.certauthtype} :
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography variant="h6" component="span" gutterBottom>
                   {props.value.certauthname}
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography variant="subtitle2" component="h3">
                   {props.value.institutetype} :
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography variant="h6" component="span" gutterBottom>
                   {props.value.institutename}
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography variant="subtitle2" component="h3">
                   {props.value.qualspectype} :
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Typography variant="h6" component="span" gutterBottom>
                   {props.value.qualspec}
                 </Typography>

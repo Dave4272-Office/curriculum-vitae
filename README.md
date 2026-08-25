@@ -2,7 +2,7 @@
 
 Personal CV site built with [Next.js](https://nextjs.org) (App Router) and
 [pnpm](https://pnpm.io) (see `packageManager` in `package.json`).
-Enable Corepack (`corepack enable`) or install pnpm 10.13.1, then run
+Enable Corepack (`corepack enable`) or install pnpm 10.34.5, then run
 `pnpm install`.
 
 ## Available Scripts

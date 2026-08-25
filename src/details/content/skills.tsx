@@ -6,6 +6,7 @@ import {
   CardContent,
   Container,
   Grid,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -20,6 +21,8 @@ import { FaLanguage } from "react-icons/fa";
 import { LanguageBoard } from "./items/skill.lang";
 import { SkillChipsBlock } from "./items/skill.tech";
 
+const fullWidth = { width: "100%" } as const;
+
 export const Skills = () => {
   return (
     <>
@@ -27,70 +30,84 @@ export const Skills = () => {
         Skills
       </Typography>
       <Container className="root-content skill-container">
-        <Grid container direction="column" alignItems="center">
-          <Grid item container justifyContent="center" alignItems="center">
-            <Card className="skill-card">
-              <CardContent>
-                <Grid container>
-                  <Grid item className="extra-padded">
-                    <Typography variant="h4">Technical Skills:</Typography>
-                  </Grid>
-                  <Grid item className="extra-padded">
-                    <Suspense fallback={<CgSpinner />}>
-                      <SkillChipsBlock />
-                    </Suspense>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item container justifyContent="center">
-            <Card className="lang-card">
-              <CardContent>
-                <div className="sub-head-title">
-                  <Avatar className="sub-head-icon">
-                    <FaLanguage />
-                  </Avatar>
-                  <Typography
-                    variant="h4"
-                    component="h3"
-                    className="sub-head-text"
-                  >
-                    Languages Known:
-                  </Typography>
-                </div>
-                <TableContainer className="padding-top-bottom">
-                  <Table>
-                    <TableHead>
-                      <TableRow className="padding-left-right">
-                        <TableCell className="padding-top-bottom-imp">
-                          <Typography variant="h6" component="h4">
-                            Language
-                          </Typography>
-                        </TableCell>
-                        <TableCell className="padding-top-bottom-imp">
-                          <Typography variant="h6" component="h4">
-                            Reading &amp; Writing
-                          </Typography>
-                        </TableCell>
-                        <TableCell className="padding-top-bottom-imp">
-                          <Typography variant="h6" component="h4">
-                            Listening &amp; Speaking
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
+        <Stack spacing={2} sx={fullWidth}>
+          <Grid container sx={fullWidth}>
+            <Grid size={12} sx={{ ...fullWidth, display: "flex" }}>
+              <Card
+                className="skill-card"
+                sx={{ ...fullWidth, overflow: "visible" }}
+              >
+                <CardContent sx={fullWidth}>
+                  <Grid container sx={fullWidth}>
+                    <Grid
+                      size={12}
+                      className="extra-padded"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography variant="h4">Technical Skills:</Typography>
+                    </Grid>
+                    <Grid size={12} className="extra-padded" sx={fullWidth}>
                       <Suspense fallback={<CgSpinner />}>
-                        <LanguageBoard />
+                        <SkillChipsBlock />
                       </Suspense>
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </CardContent>
-            </Card>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
+          <Grid container sx={fullWidth}>
+            <Grid size={12} sx={{ ...fullWidth, display: "flex" }}>
+              <Card className="lang-card" sx={fullWidth}>
+                <CardContent>
+                  <div className="sub-head-title">
+                    <Avatar className="sub-head-icon">
+                      <FaLanguage />
+                    </Avatar>
+                    <Typography
+                      variant="h4"
+                      component="h3"
+                      className="sub-head-text"
+                    >
+                      Languages Known:
+                    </Typography>
+                  </div>
+                  <TableContainer className="padding-top-bottom">
+                    <Table>
+                      <TableHead>
+                        <TableRow className="padding-left-right">
+                          <TableCell className="padding-top-bottom-imp">
+                            <Typography variant="h6" component="h4">
+                              Language
+                            </Typography>
+                          </TableCell>
+                          <TableCell className="padding-top-bottom-imp">
+                            <Typography variant="h6" component="h4">
+                              Reading &amp; Writing
+                            </Typography>
+                          </TableCell>
+                          <TableCell className="padding-top-bottom-imp">
+                            <Typography variant="h6" component="h4">
+                              Listening &amp; Speaking
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <Suspense fallback={<CgSpinner />}>
+                          <LanguageBoard />
+                        </Suspense>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Stack>
       </Container>
     </>
   );

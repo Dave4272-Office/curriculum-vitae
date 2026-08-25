@@ -30,7 +30,7 @@ export const App = ({ children }: { children: React.ReactNode }) => {
       <Footer />
       <Box
         className="backdrop-second-drawer"
-        visibility={ariaHidden ? "visible" : "hidden"}
+        sx={{ visibility: ariaHidden ? "visible" : "hidden" }}
         onClick={closeDrawer.bind(this)}
       />
       <Drawer

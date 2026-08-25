@@ -7,9 +7,10 @@ import {
   Container,
   Grid,
   IconButton,
+  Stack,
   Typography,
 } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import {
   FaGithub,
   FaInstagram,
@@ -22,12 +23,12 @@ import { SiTryhackme } from "react-icons/si";
 import { AnimatedHeadline } from "./animated-headline";
 import { Animate } from "./animated-headline/animate";
 
-export const Welcome = () => {
-  const animation = useCallback(Animate, []);
+const stretchItem = { display: "flex" } as const;
 
+export const Welcome = () => {
   useEffect(() => {
-    animation();
-  }, [animation]);
+    Animate();
+  }, []);
 
   return (
     <>
@@ -35,9 +36,13 @@ export const Welcome = () => {
         Welcome
       </Typography>
       <Container className="root-content welcome-container">
-        <Grid container direction="column" alignItems="center">
-          <Grid item container>
-            <Grid item container md={12} lg={5} xl={4} justifyContent="center">
+        <Stack spacing={2} sx={{ width: "100%" }}>
+          <Grid
+            container
+            spacing={2}
+            sx={{ width: "100%", alignItems: "stretch" }}
+          >
+            <Grid size={{ xs: 12, lg: 5, xl: 4 }} sx={stretchItem}>
               <Card className="profile-card">
                 <CardContent className="profile-card-container">
                   <div className="profile-frame">
@@ -52,44 +57,47 @@ export const Welcome = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item container md={12} lg xl justifyContent="center">
+            <Grid size={{ xs: 12, lg: "grow" }} sx={stretchItem}>
               <Card className="bio-card">
-                <CardContent>
-                  <Grid
-                    item
-                    container
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexGrow: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Stack
+                    sx={{
+                      width: "100%",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    <Grid item>
-                      <Typography
-                        variant="h3"
-                        gutterBottom
-                        className="extra-padded"
-                      >
-                        Hi I am Debraj Kundu
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography
-                        variant="h4"
-                        gutterBottom
-                        className="extra-padded"
-                      >
-                        <AnimatedHeadline
-                          values={[
-                            "Software Engineer",
-                            "Developer",
-                            "Learner",
-                            "Full Stack",
-                            "Linux",
-                            "Open Source",
-                          ]}
-                        />
-                      </Typography>
-                    </Grid>
-                    <Grid item>
+                    <Typography
+                      variant="h3"
+                      gutterBottom
+                      className="extra-padded"
+                    >
+                      Hi I am Debraj Kundu
+                    </Typography>
+                    <Typography
+                      variant="h4"
+                      gutterBottom
+                      className="extra-padded"
+                    >
+                      <AnimatedHeadline
+                        values={[
+                          "Software Engineer",
+                          "Developer",
+                          "Learner",
+                          "Full Stack",
+                          "Linux",
+                          "Open Source",
+                        ]}
+                      />
+                    </Typography>
+                    <div>
                       <Typography variant="h4" className="extra-gutter">
                         I am a learner at heart,
                       </Typography>
@@ -102,28 +110,30 @@ export const Welcome = () => {
                       <Typography variant="h4" className="extra-gutter">
                         I thrive on challenges.
                       </Typography>
-                    </Grid>
-                  </Grid>
+                    </div>
+                  </Stack>
                 </CardContent>
               </Card>
             </Grid>
           </Grid>
-          <Grid item container justifyContent="center" alignItems="center">
-            <Card className="goal-card">
-              <CardContent>
-                <Typography variant="h6" component="p" className="extra-gutter">
-                  I am focused on learning anything related to technology, with
-                  a particular interest in Cyber Security and AI.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item container>
-            <Grid item container xs={12} sm>
-              <Card className="social-card">
+          <Grid container spacing={2} sx={{ width: "100%" }}>
+            <Grid size={12} sx={stretchItem}>
+              <Card className="goal-card">
                 <CardContent>
-                  <Grid container>
-                    <Grid item xs>
+                  <Typography variant="h6" component="p" align="center">
+                    I am focused on learning anything related to technology,
+                    with a particular interest in Cyber Security and AI.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+          <Grid container spacing={2} sx={{ width: "100%" }}>
+            <Grid size={{ xs: 12, sm: "grow" }} sx={stretchItem}>
+              <Card className="social-card">
+                <CardContent sx={{ width: "100%" }}>
+                  <Grid container sx={{ width: "100%" }}>
+                    <Grid size="grow">
                       <IconButton
                         component="a"
                         href="https://twitter.com/Dave4272dk"
@@ -135,7 +145,7 @@ export const Welcome = () => {
                         <FaTwitter color="#1d9bf0" />
                       </IconButton>
                     </Grid>
-                    <Grid item xs>
+                    <Grid size="grow">
                       <IconButton
                         component="a"
                         href="https://www.linkedin.com/in/debraj-kundu/"
@@ -147,7 +157,7 @@ export const Welcome = () => {
                         <FaLinkedin color="#0a66c2" />
                       </IconButton>
                     </Grid>
-                    <Grid item xs>
+                    <Grid size="grow">
                       <IconButton
                         component="a"
                         href="https://www.instagram.com/dave4272dk/"
@@ -159,7 +169,7 @@ export const Welcome = () => {
                         <FaInstagram color="#d80f68" />
                       </IconButton>
                     </Grid>
-                    <Grid item xs>
+                    <Grid size="grow">
                       <IconButton
                         component="a"
                         href="https://www.youtube.com/channel/UC8qOYPxjzhzDsq3a2s_-oPw"
@@ -176,11 +186,11 @@ export const Welcome = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item container xs={12} sm>
+            <Grid size={{ xs: 12, sm: "grow" }} sx={stretchItem}>
               <Card className="tech-card">
-                <CardContent>
-                  <Grid container>
-                    <Grid item xs>
+                <CardContent sx={{ width: "100%" }}>
+                  <Grid container sx={{ width: "100%" }}>
+                    <Grid size="grow">
                       <IconButton
                         component="a"
                         href="https://github.com/Dave4272-Office"
@@ -192,7 +202,7 @@ export const Welcome = () => {
                         <FaGithub color="#000000" />
                       </IconButton>
                     </Grid>
-                    <Grid item xs>
+                    <Grid size="grow">
                       <IconButton
                         component="a"
                         href="https://keybase.io/dave4272"
@@ -204,7 +214,7 @@ export const Welcome = () => {
                         <FaKeybase color="#ff6f21" />
                       </IconButton>
                     </Grid>
-                    <Grid item xs>
+                    <Grid size="grow">
                       <IconButton
                         component="a"
                         href="https://tryhackme.com/p/Dave4272"
@@ -221,7 +231,7 @@ export const Welcome = () => {
               </Card>
             </Grid>
           </Grid>
-        </Grid>
+        </Stack>
       </Container>
     </>
   );

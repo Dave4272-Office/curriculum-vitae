@@ -14,17 +14,17 @@ const LanguageItem = (props: { value: Language }) => {
       className="padding-top-bottom padding-left-right"
     >
       <TableCell>
-        <Typography variant="body1" textAlign="center">
+        <Typography variant="body1" align="center">
           {props.value.language}
         </Typography>
       </TableCell>
       <TableCell>
-        <Typography variant="body1" textAlign="center">
+        <Typography variant="body1" align="center">
           {props.value.readwrite}
         </Typography>
       </TableCell>
       <TableCell>
-        <Typography variant="body1" textAlign="center">
+        <Typography variant="body1" align="center">
           {props.value.listeningspeaking}
         </Typography>
       </TableCell>
