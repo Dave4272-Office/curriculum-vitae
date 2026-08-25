@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getSkillGroups } from "./content";
+import { getEducation, getSkillGroups } from "./content";
 import type { TechSkill } from "./types";
 
 test("skill groups resolve catalog icons and omit hidden rows", () => {
@@ -44,4 +44,12 @@ test("hidden catalog rows still fail if their icon key is missing", () => {
   expect(() => getSkillGroups(broken)).toThrow(
     'Missing skill icon "AlsoMissing" for "Rust-alike"',
   );
+});
+
+test("education records leave the content seam with a year rangeLabel", () => {
+  expect(getEducation().map((item) => item.rangeLabel)).toEqual([
+    "2016–2020",
+    "2014–2016",
+    "2009–2014",
+  ]);
 });

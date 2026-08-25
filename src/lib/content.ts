@@ -44,10 +44,18 @@ export type ParsedCertificate = Certificate & {
   issuedLabel: string;
 };
 
+export type ParsedEducation = AcademicRecord & {
+  rangeLabel: string;
+};
+
 function monthLabel(from: DateTime, to?: DateTime): string {
   const start = from.toFormat("MMM yyyy");
   const end = to ? to.toFormat("MMM yyyy") : "Present";
   return `${start} – ${end}`;
+}
+
+function yearRangeLabel(from: string, to?: string): string {
+  return to ? `${from}–${to}` : from;
 }
 
 function parseWork(item: WorkItem): ParsedWork {
@@ -80,8 +88,13 @@ export function totalExperienceLabel(items: ParsedWork[]): string {
   return durationAsString(start, end);
 }
 
-export function getEducation(): AcademicRecord[] {
-  return [...educationItems].sort((a, b) => Number(b.from) - Number(a.from));
+export function getEducation(): ParsedEducation[] {
+  return [...educationItems]
+    .sort((a, b) => Number(b.from) - Number(a.from))
+    .map((item) => ({
+      ...item,
+      rangeLabel: yearRangeLabel(item.from, item.to),
+    }));
 }
 
 export function getCertificates(): ParsedCertificate[] {

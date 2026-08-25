@@ -111,10 +111,7 @@ export function CvPage() {
           <ol className="records">
             {education.map((item) => (
               <li key={`${item.qualexam}-${item.from}`}>
-                <p className="record-when">
-                  {item.from}
-                  {item.to ? `–${item.to}` : ""}
-                </p>
+                <p className="record-when">{item.rangeLabel}</p>
                 <div>
                   <h3>
                     {item.qualexam}
