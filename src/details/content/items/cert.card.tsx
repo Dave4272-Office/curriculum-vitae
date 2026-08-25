@@ -34,7 +34,7 @@ export const CertCont = (props: PropType) => {
     <div id={"certificate" + props.index} className="certificate">
       <Card className="cert-card" ref={textInput}>
         <CardContent className="cert-content">
-          <Grid container>
+          <Grid container sx={{ width: "100%" }}>
             <Grid container className="cert-item">
               <Grid container>
                 <Grid container size="grow" className="cert-detail">

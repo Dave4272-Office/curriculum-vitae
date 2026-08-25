@@ -47,8 +47,8 @@ export const WorkCard = (props: WorkCardPropType) => {
       <TimelineContent className="work-card">
         <Card>
           <CardContent>
-            <Grid container className="work-item">
-              <Grid container>
+            <Grid container className="work-item" sx={{ width: "100%" }}>
+              <Grid container sx={{ width: "100%" }}>
                 <Grid container size="grow" className="work-detail">
                   <Grid size="auto">
                     <Typography variant="h4" component="h3">

@@ -7,7 +7,9 @@ $drawerWidth: 250px
 
 @media (min-width: 880px)
     .app-bar
-        margin-left: $drawerWidth
+        left: $drawerWidth !important
+        margin-left: 0
+        width: calc(100% - #{$drawerWidth}) !important
 
 @media (min-width: 880px)
     .ham-icon

@@ -36,13 +36,13 @@ export const EducationCard = (props: EducationCardPropType) => {
       <TimelineContent className="edu-card">
         <Card>
           <CardContent>
-            <Grid container>
-              <Grid size={{ sm: 12, md: 9 }}>
+            <Grid container sx={{ width: "100%" }}>
+              <Grid size={{ xs: 12, md: 9 }}>
                 <Typography variant="h4" component="h3" gutterBottom>
                   {props.value.qualexam}
                 </Typography>
               </Grid>
-              <Grid size={{ sm: 12, md: 3 }} id="score">
+              <Grid size={{ xs: 12, md: 3 }} id="score">
                 <Stack>
                   <Typography variant="subtitle2" component="h3">
                     Score :

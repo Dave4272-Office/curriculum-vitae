@@ -33,7 +33,11 @@ export const Experience = () => {
   const [expDuration, setExpDuration] = useState<string>("");
   return (
     <>
-      <Grid container wrap="nowrap" sx={{ alignItems: "baseline" }}>
+      <Grid
+        container
+        wrap="nowrap"
+        sx={{ width: "100%", alignItems: "baseline" }}
+      >
         <Grid size="auto">
           <Typography variant="h2" gutterBottom className="extra-padded title">
             Experience
