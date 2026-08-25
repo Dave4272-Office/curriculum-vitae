@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import { legacyRedirects } from "./src/lib/nav";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -46,13 +45,6 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
     ];
-  },
-  async redirects() {
-    return legacyRedirects.map((route) => ({
-      source: route.source,
-      destination: route.destination,
-      permanent: true,
-    }));
   },
 };
 

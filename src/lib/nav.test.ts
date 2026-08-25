@@ -4,7 +4,6 @@ import {
   connectSectionNav,
   firstSectionId,
   isAwayFromTop,
-  legacyRedirects,
   sections,
   skipToHref,
   skipToSectionId,
@@ -103,7 +102,7 @@ function createFakeHost(init?: {
   };
 }
 
-test("one registry owns ids, labels, skip target, and legacy hashes", () => {
+test("one registry owns ids, labels, and skip target", () => {
   expect(sections.map((section) => section.id)).toEqual([
     "about",
     "experience",
@@ -115,13 +114,6 @@ test("one registry owns ids, labels, skip target, and legacy hashes", () => {
   expect(firstSectionId).toBe("about");
   expect(skipToSectionId).toBe("experience");
   expect(skipToHref).toBe("#experience");
-  expect(legacyRedirects).toEqual([
-    { source: "/exp", destination: "/#experience" },
-    { source: "/edu", destination: "/#education" },
-    { source: "/certs", destination: "/#certifications" },
-    { source: "/skills", destination: "/#skills" },
-    { source: "/interests", destination: "/#interests" },
-  ]);
 });
 
 test("scroll spy stays on about at the top of the page", () => {

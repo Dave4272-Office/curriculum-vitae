@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { expect, test, vi } from "vitest";
 import { CvPage } from "./components/cv-page";
 import { Providers } from "./app/providers";
-import { legacyRedirects, sections, skipToHref } from "./lib/nav";
+import { sections, skipToHref } from "./lib/nav";
 import nextConfig from "../next.config";
 
 vi.mock("next/image", () => ({
@@ -155,24 +155,6 @@ test("theme control exposes Light, Dark, and System", async () => {
 
   await user.click(system);
   expect(system).toHaveAttribute("aria-pressed", "true");
-});
-
-test("legacy routes redirect to hash fragments", async () => {
-  const redirects = nextConfig.redirects
-    ? await nextConfig.redirects()
-    : [];
-
-  for (const route of legacyRedirects) {
-    expect(redirects).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          source: route.source,
-          destination: route.destination,
-          permanent: true,
-        }),
-      ]),
-    );
-  }
 });
 
 test("content JSON files stay complete, including hidden include:false rows", async () => {
