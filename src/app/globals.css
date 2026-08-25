@@ -362,9 +362,9 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.15rem;
+  width: 2.85rem;
   height: 1.3rem;
-  padding: 0.12rem 0.16rem;
+  padding: 0.1rem 0.18rem;
   background: #f7f3ea;
   border: 1px solid var(--rule);
   border-radius: 2px;
