@@ -1,10 +1,10 @@
 export const sections = [
   { id: "about", label: "About" },
-  { id: "experience", label: "Experience", skipTarget: true, legacyPath: "/exp" },
-  { id: "education", label: "Education", legacyPath: "/edu" },
-  { id: "certifications", label: "Certifications", legacyPath: "/certs" },
-  { id: "skills", label: "Skills", legacyPath: "/skills" },
-  { id: "interests", label: "Interests", legacyPath: "/interests" },
+  { id: "experience", label: "Experience", skipTarget: true },
+  { id: "education", label: "Education" },
+  { id: "certifications", label: "Certifications" },
+  { id: "skills", label: "Skills" },
+  { id: "interests", label: "Interests" },
 ] as const;
 
 export type SectionId = (typeof sections)[number]["id"];
@@ -19,12 +19,6 @@ const skipSection = sections.find((section) => "skipTarget" in section);
 
 export const skipToSectionId: SectionId = skipSection?.id ?? firstSectionId;
 export const skipToHref = `#${skipToSectionId}`;
-
-export const legacyRedirects = sections.flatMap((section) =>
-  "legacyPath" in section && section.legacyPath
-    ? [{ source: section.legacyPath, destination: `/#${section.id}` as const }]
-    : [],
-);
 
 const HOLD_MS = 700;
 const HASH_RETRY_MS = [80, 320] as const;
