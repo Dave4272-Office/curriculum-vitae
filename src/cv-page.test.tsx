@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, test, vi } from "vitest";
 import { CvPage } from "./components/cv-page";
@@ -104,7 +104,9 @@ test("page section ids and skip link come from the nav registry", () => {
 test("small text nav jumps to on-page sections", () => {
   renderCv();
 
-  expect(screen.getByRole("navigation", { name: "On this page" })).toBeInTheDocument();
+  const nav = screen.getByRole("navigation", { name: "On this page" });
+  expect(nav).toBeInTheDocument();
+  expect(nav.closest(".site-nav-wrap")).toBeTruthy();
   expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
     "aria-current",
     "true",
@@ -259,4 +261,44 @@ test("nav click marks the chosen section current", async () => {
   expect(screen.getByRole("link", { name: "About" })).not.toHaveAttribute(
     "aria-current",
   );
+});
+
+test("back to top is hidden at the page top", () => {
+  renderCv();
+
+  expect(
+    screen.queryByRole("button", { name: "Back to top" }),
+  ).not.toBeInTheDocument();
+  expect(document.querySelector(".back-to-top")).toHaveAttribute("hidden");
+});
+
+test("back to top appears after scrolling and returns to the first section", async () => {
+  const user = userEvent.setup();
+  renderCv();
+
+  Object.defineProperty(window, "scrollY", {
+    configurable: true,
+    value: 400,
+  });
+  fireEvent.scroll(window);
+
+  const backToTop = screen.getByRole("button", { name: "Back to top" });
+  expect(backToTop).toBeVisible();
+
+  await user.click(screen.getByRole("link", { name: "Education" }));
+  expect(screen.getByRole("link", { name: "Education" })).toHaveAttribute(
+    "aria-current",
+    "true",
+  );
+
+  await user.click(backToTop);
+  expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
+    "aria-current",
+    "true",
+  );
+
+  Object.defineProperty(window, "scrollY", {
+    configurable: true,
+    value: 0,
+  });
 });
