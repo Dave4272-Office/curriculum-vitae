@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { BrandMark } from "./brand-mark";
 import { SiteNav } from "./site-nav";
-import { SkillIcon } from "./skill-icon";
 import { SocialList } from "./social-list";
 import { ThemeToggle } from "./theme-toggle";
 import {
@@ -13,6 +12,7 @@ import {
   getSpokenLanguages,
   totalExperienceLabel,
 } from "../lib/content";
+import { sectionIds, skipToHref, skipToSectionId } from "../lib/nav";
 
 export function CvPage() {
   const experience = getExperience();
@@ -24,8 +24,8 @@ export function CvPage() {
 
   return (
     <div className="page">
-      <a className="skip-link" href="#experience">
-        Skip to experience
+      <a className="skip-link" href={skipToHref}>
+        Skip to {skipToSectionId}
       </a>
 
       <header className="intro">
@@ -44,7 +44,7 @@ export function CvPage() {
           </div>
         </div>
 
-        <div className="intro-copy" id="about">
+        <div className="intro-copy" id={sectionIds.about}>
           <p>{bio.summary}</p>
           <p>{bio.focus}</p>
         </div>
@@ -56,7 +56,7 @@ export function CvPage() {
 
       <main className="content">
         <section
-          id="experience"
+          id={sectionIds.experience}
           className="section section--hero"
           aria-labelledby="experience-heading"
         >
@@ -103,7 +103,7 @@ export function CvPage() {
         </section>
 
         <section
-          id="education"
+          id={sectionIds.education}
           className="section"
           aria-labelledby="education-heading"
         >
@@ -111,10 +111,7 @@ export function CvPage() {
           <ol className="records">
             {education.map((item) => (
               <li key={`${item.qualexam}-${item.from}`}>
-                <p className="record-when">
-                  {item.from}
-                  {item.to ? `–${item.to}` : ""}
-                </p>
+                <p className="record-when">{item.rangeLabel}</p>
                 <div>
                   <h3>
                     {item.qualexam}
@@ -133,7 +130,7 @@ export function CvPage() {
         </section>
 
         <section
-          id="certifications"
+          id={sectionIds.certifications}
           className="section"
           aria-labelledby="certs-heading"
         >
@@ -159,7 +156,11 @@ export function CvPage() {
           </ol>
         </section>
 
-        <section id="skills" className="section" aria-labelledby="skills-heading">
+        <section
+          id={sectionIds.skills}
+          className="section"
+          aria-labelledby="skills-heading"
+        >
           <h2 id="skills-heading">Skills</h2>
           <p className="skills-lede">
             Tools I reach for on the job sit on the roles above. The short list
@@ -170,15 +171,18 @@ export function CvPage() {
               <div key={group.type} className="skill-group">
                 <dt>{group.type}</dt>
                 <dd>
-                  {group.items.map((skill, index) => (
-                    <span key={skill.label}>
-                      {index > 0 ? ", " : null}
-                      <span className="skill-inline">
-                        <SkillIcon name={skill.icon} />
-                        {skill.label}
+                  {group.items.map((skill, index) => {
+                    const Icon = skill.Icon;
+                    return (
+                      <span key={skill.label}>
+                        {index > 0 ? ", " : null}
+                        <span className="skill-inline">
+                          <Icon aria-hidden="true" className="skill-icon" />
+                          {skill.label}
+                        </span>
                       </span>
-                    </span>
-                  ))}
+                    );
+                  })}
                 </dd>
               </div>
             ))}
@@ -195,7 +199,7 @@ export function CvPage() {
         </section>
 
         <section
-          id="interests"
+          id={sectionIds.interests}
           className="section"
           aria-labelledby="interests-heading"
         >
