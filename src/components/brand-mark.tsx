@@ -17,8 +17,8 @@ export function BrandMark({ src, label }: Readonly<BrandMarkProps>) {
       <Image
         src={href}
         alt=""
-        width={48}
-        height={20}
+        width={80}
+        height={32}
         className="brand-mark__img"
         unoptimized
       />
