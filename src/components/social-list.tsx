@@ -17,7 +17,7 @@ const icons = {
   tryhackme: SiTryhackme,
 } as const;
 
-function SocialIcon({ icon }: { icon: SocialLink["icon"] }) {
+function SocialIcon({ icon }: Readonly<{ icon: SocialLink["icon"] }>) {
   const Icon = icons[icon];
   return <Icon aria-hidden="true" />;
 }

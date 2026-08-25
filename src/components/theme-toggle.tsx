@@ -19,7 +19,8 @@ export function ThemeToggle() {
   const active = mounted ? (theme ?? "system") : "system";
 
   return (
-    <div className="theme-toggle" role="group" aria-label="Color theme">
+    <fieldset className="theme-toggle">
+      <legend>Color theme</legend>
       {options.map((option) => (
         <button
           key={option.value}
@@ -31,6 +32,6 @@ export function ThemeToggle() {
           {option.label}
         </button>
       ))}
-    </div>
+    </fieldset>
   );
 }
