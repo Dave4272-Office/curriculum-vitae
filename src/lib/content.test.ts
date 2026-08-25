@@ -1,5 +1,5 @@
-import { expect, test } from "vitest";
-import { getEducation, getSkillGroups } from "./content";
+import { expect, test, vi } from "vitest";
+import { getCertificates, getEducation, getExperience, getSkillGroups } from "./content";
 import type { TechSkill } from "./types";
 
 test("skill groups resolve catalog icons and omit hidden rows", () => {
@@ -51,5 +51,61 @@ test("education records leave the content seam with a year rangeLabel", () => {
     "2016–2020",
     "2014–2016",
     "2009–2014",
+  ]);
+});
+
+test("experience leaves view-ready jobs and career length", () => {
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date("2026-08-25T12:00:00+05:30"));
+
+  try {
+    const { jobs, careerLength } = getExperience();
+
+    expect(careerLength).toBe("6 yrs");
+    expect(jobs.map((job) => job.tenureLabel)).toEqual([
+      "1 yr 8 mths",
+      "1 yr",
+      "1 yr 2 mths",
+      "2 yrs 2 mths",
+    ]);
+    expect(jobs[0]?.rangeLabel.endsWith("Present")).toBe(true);
+    expect(jobs.some((job) => job.tenureLabel.includes("12 mth"))).toBe(false);
+    expect(jobs.every((job) => !("fromDate" in job) && !("toDate" in job))).toBe(
+      true,
+    );
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
+test("experience brand marks leave as rooted hrefs", () => {
+  expect(getExperience().jobs.map((job) => job.organizationicon)).toEqual([
+    "/static/logos/third-party/Infosys.svg",
+    "/static/logos/third-party/Infosys.svg",
+    "/static/logos/third-party/Infosys.svg",
+    "/static/logos/third-party/Wipro.svg",
+  ]);
+});
+
+test("certificates leave issuedLabel in newest-first order", () => {
+  expect(
+    getCertificates().map((cert) => ({
+      issuedLabel: cert.issuedLabel,
+      issuedate: cert.issuedate,
+    })),
+  ).toEqual([
+    { issuedLabel: "2019", issuedate: "2019-07-13" },
+    { issuedLabel: "2019", issuedate: "2019-04-03" },
+    { issuedLabel: "2018", issuedate: "2018-06-07" },
+    { issuedLabel: "2018", issuedate: "2018-01-11" },
+  ]);
+});
+
+test("certificate brand marks leave as rooted hrefs", () => {
+  expect(getCertificates().map((cert) => cert.issuericon)).toEqual([
+    "/static/logos/third-party/Microsoft.png",
+    "/static/logos/third-party/IBM.png",
+    "/static/logos/third-party/DataCamp.png",
+    "/static/logos/third-party/Microsoft.png",
   ]);
 });

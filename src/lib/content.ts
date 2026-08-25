@@ -1,12 +1,54 @@
 import { DateTime } from "luxon";
 import type { IconType } from "react-icons";
+import { CgCPlusPlus } from "react-icons/cg";
+import {
+  FaAndroid,
+  FaAngular,
+  FaAws,
+  FaBootstrap,
+  FaCss3,
+  FaDocker,
+  FaGitAlt,
+  FaHtml5,
+  FaJava,
+  FaJenkins,
+  FaJs,
+  FaLinux,
+  FaMarkdown,
+  FaNodeJs,
+  FaPhp,
+  FaPython,
+  FaReact,
+  FaRust,
+  FaSass,
+  FaWordpress,
+  FaYarn,
+} from "react-icons/fa";
+import { GrMysql, GrOracle } from "react-icons/gr";
+import {
+  SiC,
+  SiCloudfoundry,
+  SiGnubash,
+  SiGo,
+  SiHibernate,
+  SiJquery,
+  SiJupyter,
+  SiKotlin,
+  SiMongodb,
+  SiNpm,
+  SiScikitlearn,
+  SiSpring,
+  SiSpringboot,
+  SiTerraform,
+  SiTypescript,
+} from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 import certJson from "../../public/static/data/cert.list.json";
 import eduJson from "../../public/static/data/edu.list.json";
 import langJson from "../../public/static/data/lang.list.json";
 import skillJson from "../../public/static/data/skill.list.json";
 import workJson from "../../public/static/data/work.list.json";
 import { durationAsString } from "../utils/date-time";
-import { skillIcons } from "./skill-icons";
 import type {
   AcademicRecord,
   Certificate,
@@ -33,20 +75,29 @@ export type SkillGroup = {
 };
 
 export type ParsedWork = WorkItem & {
-  fromDate: DateTime;
-  toDate?: DateTime;
   rangeLabel: string;
   tenureLabel: string;
 };
 
+export type Experience = {
+  jobs: ParsedWork[];
+  careerLength: string;
+};
+
 export type ParsedCertificate = Certificate & {
-  issued: DateTime;
   issuedLabel: string;
 };
 
 export type ParsedEducation = AcademicRecord & {
   rangeLabel: string;
 };
+
+function rootedHref(path: string): string {
+  if (!path) {
+    return "";
+  }
+  return path.startsWith("/") ? path : `/${path}`;
+}
 
 function monthLabel(from: DateTime, to?: DateTime): string {
   const start = from.toFormat("MMM yyyy");
@@ -58,34 +109,41 @@ function yearRangeLabel(from: string, to?: string): string {
   return to ? `${from}–${to}` : from;
 }
 
-function parseWork(item: WorkItem): ParsedWork {
-  const fromDate = DateTime.fromFormat(item.from, "yyyy-MM");
-  const toDate = item.to
+function workSpan(item: WorkItem): { from: DateTime; to?: DateTime } {
+  const from = DateTime.fromFormat(item.from, "yyyy-MM");
+  const to = item.to
     ? DateTime.fromFormat(item.to, "yyyy-MM").endOf("month")
     : undefined;
+  return { from, to };
+}
+
+function toJob(item: WorkItem, now: DateTime): ParsedWork {
+  const { from, to } = workSpan(item);
   return {
     ...item,
-    fromDate,
-    toDate,
-    rangeLabel: monthLabel(fromDate, toDate),
-    tenureLabel: durationAsString(fromDate, toDate ?? DateTime.now()),
+    organizationicon: rootedHref(item.organizationicon),
+    rangeLabel: monthLabel(from, to),
+    tenureLabel: durationAsString(from, to ?? now),
   };
 }
 
-export function getExperience(): ParsedWork[] {
-  return workItems.filter((item) => item.include).map(parseWork);
-}
-
-export function totalExperienceLabel(items: ParsedWork[]): string {
+function careerLengthOf(items: WorkItem[], now: DateTime): string {
   if (items.length === 0) {
     return "";
   }
-  const start =
-    DateTime.min(...items.map((item) => item.fromDate)) ?? DateTime.now();
-  const end =
-    DateTime.max(...items.map((item) => item.toDate ?? DateTime.now())) ??
-    DateTime.now();
+  const spans = items.map(workSpan);
+  const start = DateTime.min(...spans.map((span) => span.from)) ?? now;
+  const end = DateTime.max(...spans.map((span) => span.to ?? now)) ?? now;
   return durationAsString(start, end);
+}
+
+export function getExperience(): Experience {
+  const now = DateTime.now();
+  const published = workItems.filter((item) => item.include);
+  return {
+    jobs: published.map((item) => toJob(item, now)),
+    careerLength: careerLengthOf(published, now),
+  };
 }
 
 export function getEducation(): ParsedEducation[] {
@@ -103,12 +161,16 @@ export function getCertificates(): ParsedCertificate[] {
     .map((item) => {
       const issued = DateTime.fromFormat(item.issuedate, "yyyy-MM-dd");
       return {
-        ...item,
-        issued,
-        issuedLabel: issued.toFormat("yyyy"),
+        cert: {
+          ...item,
+          issuericon: rootedHref(item.issuericon),
+          issuedLabel: issued.toFormat("yyyy"),
+        },
+        millis: issued.toMillis(),
       };
     })
-    .sort((a, b) => b.issued.toMillis() - a.issued.toMillis());
+    .sort((a, b) => b.millis - a.millis)
+    .map((entry) => entry.cert);
 }
 
 const skillTypeOrder: TechType[] = [
@@ -119,6 +181,49 @@ const skillTypeOrder: TechType[] = [
   "Platform",
   "IDE",
 ];
+
+const skillIcons: Record<string, IconType> = {
+  FaPython,
+  FaJava,
+  CgCPlusPlus,
+  SiC,
+  SiGnubash,
+  FaJs,
+  SiTypescript,
+  SiKotlin,
+  SiGo,
+  FaRust,
+  FaPhp,
+  FaHtml5,
+  FaCss3,
+  FaSass,
+  FaMarkdown,
+  SiSpring,
+  SiSpringboot,
+  FaReact,
+  FaAngular,
+  FaNodeJs,
+  SiJquery,
+  FaBootstrap,
+  FaWordpress,
+  SiHibernate,
+  SiScikitlearn,
+  GrMysql,
+  SiOracle: GrOracle,
+  SiMongodb,
+  FaGitAlt,
+  FaDocker,
+  SiNpm,
+  FaYarn,
+  FaJenkins,
+  FaAndroid,
+  FaAws,
+  SiCloudfoundry,
+  FaLinux,
+  SiJupyter,
+  SiVisualstudiocode: VscVscode,
+  SiTerraform,
+};
 
 function resolveSkillIcon(skill: TechSkill): IconType {
   const Icon = skillIcons[skill.icon];
