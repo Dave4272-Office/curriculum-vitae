@@ -12,6 +12,7 @@
   --focus: #9a3f24;
   --section-scroll-pad: 1.5rem;
   --gutter: 2.5rem;
+  --entry-indent: 1rem;
 }
 
 .dark {
@@ -406,6 +407,11 @@ a:hover {
   color: var(--faint);
   font-size: 0.86rem;
   line-height: 1.45;
+}
+
+.job-body,
+.record-body {
+  padding-left: var(--entry-indent);
 }
 
 .job-range {

@@ -134,7 +134,7 @@ export function CvPage() {
             {education.map((item) => (
               <li key={`${item.qualexam}-${item.from}`}>
                 <p className="record-when">{item.rangeLabel}</p>
-                <div>
+                <div className="record-body">
                   <h3>
                     {item.qualexam}
                     {item.qualspec ? `, ${item.qualspec}` : ""}
@@ -161,7 +161,7 @@ export function CvPage() {
             {certificates.map((item) => (
               <li key={`${item.name}-${item.issuedate}`}>
                 <time dateTime={item.issuedate}>{item.issuedLabel}</time>
-                <div>
+                <div className="record-body">
                   <a href={item.credurl} target="_blank" rel="noreferrer noopener">
                     {item.name}
                   </a>

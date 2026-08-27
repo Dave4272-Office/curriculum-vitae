@@ -409,14 +409,14 @@ test("education and certification dates sit above their titles", () => {
   const degree = screen.getByRole("heading", {
     name: /B\. Tech, Computer Science and Engineering/,
   });
-  expect(degree.closest("li")?.querySelector(".record-when + div")).toContainElement(
+  expect(degree.closest("li")?.querySelector(".record-when + .record-body")).toContainElement(
     degree,
   );
 
   const cert = screen.getByRole("link", {
     name: /MTA: Introduction to Programming Using Python/,
   });
-  expect(cert.closest("li")?.querySelector("time + div")).toContainElement(cert);
+  expect(cert.closest("li")?.querySelector("time + .record-body")).toContainElement(cert);
 });
 
 test("Framework / Library wraps so the skill label column can shrink", () => {
