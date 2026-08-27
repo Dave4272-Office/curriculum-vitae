@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BrandMark } from "./brand-mark";
+import { DownloadCv } from "./download-cv";
 import { SiteNav } from "./site-nav";
 import { SocialList } from "./social-list";
 import { ThemeToggle } from "./theme-toggle";
@@ -51,6 +52,7 @@ export function CvPage() {
 
         <SiteNav />
         <ThemeToggle />
+        <DownloadCv />
         <SocialList />
       </header>
 
@@ -94,7 +96,12 @@ export function CvPage() {
                         <li key={line}>{line}</li>
                       ))}
                     </ul>
-                    <p className="job-skills">{job.skills.join(" · ")}</p>
+                    {job.skills.length > 0 ? (
+                      <dl className="job-tech">
+                        <dt>Technologies used:</dt>
+                        <dd>{job.skills.join(", ")}</dd>
+                      </dl>
+                    ) : null}
                   </div>
                 </article>
               </li>

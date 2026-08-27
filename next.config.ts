@@ -37,6 +37,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ["@react-pdf/renderer"],
+  outputFileTracingIncludes: {
+    "/cv.pdf": ["./src/pdf/fonts/**/*"],
+  },
   async headers() {
     return [
       {

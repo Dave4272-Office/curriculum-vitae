@@ -57,6 +57,20 @@ export type SpokenLanguage = {
   listeningspeaking: LanguageLevel;
 };
 
+export type SocialIcon =
+  | "twitter"
+  | "linkedin"
+  | "instagram"
+  | "github"
+  | "keybase"
+  | "tryhackme";
+
+export type SocialLink = {
+  label: string;
+  href: string;
+  icon: SocialIcon;
+};
+
 export type LanguageLevel =
   | "None"
   | "Basic"
