@@ -96,7 +96,12 @@ export function CvPage() {
                         <li key={line}>{line}</li>
                       ))}
                     </ul>
-                    <p className="job-skills">{job.skills.join(" · ")}</p>
+                    {job.skills.length > 0 ? (
+                      <dl className="job-tech">
+                        <dt>Technologies used:</dt>
+                        <dd>{job.skills.join(", ")}</dd>
+                      </dl>
+                    ) : null}
                   </div>
                 </article>
               </li>

@@ -400,7 +400,7 @@ a:hover {
 
 .job {
   display: grid;
-  grid-template-columns: 10.5rem minmax(0, 1fr);
+  grid-template-columns: 12.5rem minmax(0, 1fr);
   gap: 1.25rem 1.75rem;
 }
 
@@ -484,8 +484,17 @@ a:hover {
   margin-top: 0.4rem;
 }
 
-.job-skills {
-  margin-top: 0.85rem;
+.job-tech {
+  margin-top: 0.9rem;
+}
+
+.job-tech dt {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.job-tech dd {
+  margin: 0.25rem 0 0;
   color: var(--faint);
   font-size: 0.9rem;
 }

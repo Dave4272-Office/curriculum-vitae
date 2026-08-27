@@ -186,7 +186,7 @@ function SectionHeading({
 
 export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
   return (
-    <Document title={`${model.name} — CV`} author={model.name}>
+    <Document title={model.documentTitle} author={model.name}>
       <Page size="A4" style={styles.page} wrap>
         <View style={styles.main}>
           <View wrap={false}>
@@ -200,7 +200,7 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
             <SectionHeading>Experience</SectionHeading>
             {model.jobs.map((job) => (
               <View
-                key={`${job.organization}-${job.designation}-${job.periodLabel}`}
+                key={`${job.organization}-${job.designation}-${job.rangeLabel}`}
                 style={styles.job}
               >
                 <View wrap={false}>
@@ -208,7 +208,7 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
                   <Text style={styles.jobOrg}>
                     @ {job.organization}, {job.location}
                   </Text>
-                  <Text style={styles.jobWhen}>{job.periodLabel}</Text>
+                  <Text style={styles.jobWhen}>{job.rangeLabel}</Text>
                 </View>
                 {job.desc.map((line) => (
                   <View key={line} style={styles.bullet} wrap={false}>

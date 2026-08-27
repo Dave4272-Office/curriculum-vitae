@@ -1,3 +1,4 @@
+import type { IconType } from "react-icons";
 import {
   FaGithub,
   FaInstagram,
@@ -6,26 +7,30 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { SiTryhackme } from "react-icons/si";
-import { socials, type SocialLink } from "../lib/socials";
+import { getSocials } from "../lib/content";
+import type { SocialIcon } from "../lib/types";
 
-const icons = {
+const icons: Record<SocialIcon, IconType> = {
   twitter: FaTwitter,
   linkedin: FaLinkedin,
   instagram: FaInstagram,
   github: FaGithub,
   keybase: FaKeybase,
   tryhackme: SiTryhackme,
-} as const;
+};
 
-function SocialIcon({ icon }: Readonly<{ icon: SocialLink["icon"] }>) {
+function SocialIcon({ icon, label }: Readonly<{ icon: SocialIcon; label: string }>) {
   const Icon = icons[icon];
+  if (!Icon) {
+    throw new Error(`Missing social icon "${icon}" for "${label}"`);
+  }
   return <Icon aria-hidden="true" />;
 }
 
 export function SocialList() {
   return (
     <ul className="socials">
-      {socials.map((item) => (
+      {getSocials().map((item) => (
         <li key={item.href}>
           <a
             href={item.href}
@@ -33,7 +38,7 @@ export function SocialList() {
             rel="noreferrer noopener"
             aria-label={`${item.label} profile`}
           >
-            <SocialIcon icon={item.icon} />
+            <SocialIcon icon={item.icon} label={item.label} />
             <span>{item.label}</span>
           </a>
         </li>

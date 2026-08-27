@@ -4,10 +4,15 @@ import {
   getEducation,
   getExperience,
   getSkillGroups,
+  getSocials,
   getSpokenLanguages,
 } from "./content";
-import { getCvPdfModel, pdfSkillHeading } from "./cv-pdf";
-import { socials } from "./socials";
+import {
+  cvPdfDocumentTitle,
+  cvPdfFilename,
+  getCvPdfModel,
+  pdfSkillHeading,
+} from "./cv-pdf";
 
 test("PDF model uses the same jobs and education as the content seam", () => {
   vi.useFakeTimers();
@@ -28,7 +33,10 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.jobs.map((job) => job.rangeLabel)).toEqual(
       jobs.map((job) => job.rangeLabel),
     );
-    expect(model.jobs[0]?.periodLabel).toBe("January 2025 - PRESENT");
+    expect(model.jobs[0]?.rangeLabel).toBe("January 2025 – Present");
+    expect(model.jobs.every((job) => !job.rangeLabel.includes("PRESENT"))).toBe(
+      true,
+    );
     expect(model.jobs.map((job) => job.tenureLabel)).toEqual(
       jobs.map((job) => job.tenureLabel),
     );
@@ -46,7 +54,24 @@ test("PDF model uses the same jobs and education as the content seam", () => {
   }
 });
 
-test("PDF model keeps certs, spoken languages, and hidden skills aligned with the page", () => {
+test("PDF filename and document title share the generate-time date", () => {
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date("2026-08-27T09:15:00+05:30"));
+
+  try {
+    const model = getCvPdfModel();
+
+    expect(model.generatedOn).toBe("2026-08-27");
+    expect(model.filename).toBe("Debraj-Kundu-CV-2026-08-27.pdf");
+    expect(model.documentTitle).toBe("Debraj Kundu CV 2026-08-27");
+    expect(cvPdfFilename(model.generatedOn)).toBe(model.filename);
+    expect(cvPdfDocumentTitle(model.generatedOn)).toBe(model.documentTitle);
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
+test("PDF model keeps certs, spoken languages, socials, and hidden skills aligned with the page", () => {
   const model = getCvPdfModel();
   const skillLabels = model.skillGroups.flatMap((group) => group.labels);
   const pageSkillLabels = getSkillGroups().flatMap((group) =>
@@ -68,7 +93,7 @@ test("PDF model keeps certs, spoken languages, and hidden skills aligned with th
     getSpokenLanguages().map((item) => item.language),
   );
   expect(model.contacts.map((item) => item.href)).toEqual(
-    socials.map((item) => item.href),
+    getSocials().map((item) => item.href),
   );
   expect(pdfSkillHeading("Language")).toBe("Programming");
   expect(pdfSkillHeading("Framework / Library")).toBe("Frameworks/Libraries");

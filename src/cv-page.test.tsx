@@ -50,9 +50,11 @@ test("renders employment-first editorial page from existing JSON", () => {
   ).toBeInTheDocument();
   expect(screen.getByText("Senior Associate Consultant")).toBeInTheDocument();
   expect(screen.getAllByText(/Infosys/).length).toBeGreaterThan(0);
+  expect(screen.getAllByText("Technologies used:")).toHaveLength(4);
   expect(
-    screen.getAllByText(/AWS Lambda · Amazon API Gateway/).length,
+    screen.getAllByText(/AWS Lambda, Amazon API Gateway/).length,
   ).toBeGreaterThan(0);
+  expect(screen.getByText("January 2025 – Present")).toBeInTheDocument();
 
   expect(screen.getByRole("heading", { name: "Education" })).toBeInTheDocument();
   expect(screen.getByText(/B\. Tech/)).toBeInTheDocument();
@@ -77,6 +79,15 @@ test("renders employment-first editorial page from existing JSON", () => {
 
   expect(screen.getByRole("heading", { name: "Interests" })).toBeInTheDocument();
   expect(screen.getByText(/Novels fill the quieter hours/)).toBeInTheDocument();
+
+  expect(screen.getByRole("link", { name: "Twitter profile" })).toHaveAttribute(
+    "href",
+    "https://twitter.com/Dave4272dk",
+  );
+  expect(screen.getByRole("link", { name: "GitHub profile" })).toHaveAttribute(
+    "href",
+    "https://github.com/Dave4272-Office",
+  );
 });
 
 test("does not render the old Material chrome or rotating titles", () => {
@@ -139,7 +150,7 @@ test("intro offers a download of the generated CV PDF", () => {
 
   const link = screen.getByRole("link", { name: "Download CV (PDF)" });
   expect(link).toHaveAttribute("href", cvPdfPath);
-  expect(link).toHaveAttribute("download", cvPdfFilename);
+  expect(link).toHaveAttribute("download", cvPdfFilename());
 });
 
 test("theme control exposes Light, Dark, and System", async () => {
@@ -167,12 +178,13 @@ test("theme control exposes Light, Dark, and System", async () => {
 });
 
 test("content JSON files stay complete, including hidden include:false rows", async () => {
-  const [work, edu, certs, skills, langs] = await Promise.all([
+  const [work, edu, certs, skills, langs, socials] = await Promise.all([
     import("../public/static/data/work.list.json"),
     import("../public/static/data/edu.list.json"),
     import("../public/static/data/cert.list.json"),
     import("../public/static/data/skill.list.json"),
     import("../public/static/data/lang.list.json"),
+    import("../public/static/data/social.list.json"),
   ]);
 
   expect(work.default).toHaveLength(4);
@@ -180,6 +192,7 @@ test("content JSON files stay complete, including hidden include:false rows", as
   expect(certs.default).toHaveLength(4);
   expect(skills.default).toHaveLength(40);
   expect(langs.default).toHaveLength(3);
+  expect(socials.default).toHaveLength(6);
 
   expect(work.default[0]).toEqual(
     expect.objectContaining({
@@ -196,6 +209,14 @@ test("content JSON files stay complete, including hidden include:false rows", as
       credurl: expect.stringContaining("credly.com"),
     }),
   );
+  expect(socials.default.map((item) => item.icon)).toEqual([
+    "twitter",
+    "linkedin",
+    "instagram",
+    "github",
+    "keybase",
+    "tryhackme",
+  ]);
 });
 
 test("draws employer and issuer logos from JSON paths", () => {

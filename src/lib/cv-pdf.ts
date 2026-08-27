@@ -5,12 +5,29 @@ import {
   getEducation,
   getExperience,
   getSkillGroups,
+  getSocials,
   getSpokenLanguages,
 } from "./content";
-import { socials } from "./socials";
 
 export const cvPdfPath = "/cv.pdf";
-export const cvPdfFilename = "Debraj-Kundu-CV.pdf";
+
+export function cvPdfGeneratedOn(now = DateTime.now()): string {
+  return now.toFormat("yyyy-MM-dd");
+}
+
+export function cvPdfFilename(
+  generatedOn = cvPdfGeneratedOn(),
+  name = bio.name,
+): string {
+  return `${name.replaceAll(" ", "-")}-CV-${generatedOn}.pdf`;
+}
+
+export function cvPdfDocumentTitle(
+  generatedOn = cvPdfGeneratedOn(),
+  name = bio.name,
+): string {
+  return `${name} CV ${generatedOn}`;
+}
 
 export type CvPdfContact = {
   label: string;
@@ -24,7 +41,6 @@ export type CvPdfJob = {
   emptype: string;
   location: string;
   rangeLabel: string;
-  periodLabel: string;
   tenureLabel: string;
   desc: string[];
   skills: string[];
@@ -61,6 +77,9 @@ export type CvPdfLanguage = {
 
 export type CvPdfModel = {
   name: string;
+  documentTitle: string;
+  filename: string;
+  generatedOn: string;
   currentTitle: string;
   interests: string;
   contacts: CvPdfContact[];
@@ -76,14 +95,6 @@ function displayHref(href: string): string {
   return href.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "");
 }
 
-function pdfPeriodLabel(from: string, to?: string): string {
-  const start = DateTime.fromFormat(from, "yyyy-MM").toFormat("MMMM yyyy");
-  if (!to) {
-    return `${start} - PRESENT`;
-  }
-  return `${start} - ${DateTime.fromFormat(to, "yyyy-MM").toFormat("MMMM yyyy")}`;
-}
-
 const skillHeadingByType: Record<string, string> = {
   Language: "Programming",
   "Framework / Library": "Frameworks/Libraries",
@@ -97,14 +108,18 @@ export function pdfSkillHeading(type: string): string {
   return skillHeadingByType[type] ?? type;
 }
 
-export function getCvPdfModel(): CvPdfModel {
-  const { jobs, careerLength } = getExperience();
+export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
+  const { jobs, careerLength } = getExperience(now);
+  const generatedOn = cvPdfGeneratedOn(now);
 
   return {
     name: bio.name,
+    documentTitle: cvPdfDocumentTitle(generatedOn),
+    filename: cvPdfFilename(generatedOn),
+    generatedOn,
     currentTitle: jobs[0]?.designation ?? "",
     interests: bio.interests,
-    contacts: socials.map((item) => ({
+    contacts: getSocials().map((item) => ({
       label: item.label,
       href: item.href,
       display: displayHref(item.href),
@@ -116,7 +131,6 @@ export function getCvPdfModel(): CvPdfModel {
       emptype: job.emptype,
       location: job.location,
       rangeLabel: job.rangeLabel,
-      periodLabel: pdfPeriodLabel(job.from, job.to),
       tenureLabel: job.tenureLabel,
       desc: job.desc,
       skills: job.skills,

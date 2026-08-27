@@ -3,6 +3,7 @@
 import { inflateSync } from "node:zlib";
 import { expect, test, vi } from "vitest";
 import { getEducation, getExperience } from "../lib/content";
+import { getCvPdfModel } from "../lib/cv-pdf";
 import { renderCvPdf } from "./render-cv-pdf";
 
 function pdfPageCount(pdf: Buffer): number {
@@ -83,12 +84,15 @@ test("rendered PDF includes current titles and employers from content", async ()
   vi.setSystemTime(new Date("2026-08-25T12:00:00+05:30"));
 
   try {
-    const pdf = await renderCvPdf();
+    const model = getCvPdfModel();
+    const pdf = await renderCvPdf(model);
     const bytes = Buffer.from(pdf);
+    const latin = bytes.toString("latin1").replaceAll("\0", "");
 
     expect(bytes.subarray(0, 5).toString()).toBe("%PDF-");
     expect(pdfPageCount(bytes)).toBeLessThanOrEqual(2);
-    expect(bytes.toString("latin1")).toContain("LiberationSans");
+    expect(latin).toContain("LiberationSans");
+    expect(latin).toContain(model.documentTitle);
 
     const text = pdfPlainText(bytes);
     const { jobs } = getExperience();
@@ -106,6 +110,9 @@ test("rendered PDF includes current titles and employers from content", async ()
     expect(text).toContain("Programming:");
     expect(text).toContain("@ Infosys,");
     expect(text).toContain("Technologies used:");
+    expect(text).toContain("January 2025");
+    expect(text).toContain("Present");
+    expect(text).not.toContain("PRESENT");
     expect(text).toContain("I want to think with a pencil");
     expect(text).not.toContain("Rust");
     expect(text).not.toContain("7980014080");

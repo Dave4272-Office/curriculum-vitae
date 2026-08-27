@@ -1,5 +1,11 @@
 import { expect, test, vi } from "vitest";
-import { getCertificates, getEducation, getExperience, getSkillGroups } from "./content";
+import {
+  getCertificates,
+  getEducation,
+  getExperience,
+  getSkillGroups,
+  getSocials,
+} from "./content";
 import type { TechSkill } from "./types";
 
 test("skill groups resolve catalog icons and omit hidden rows", () => {
@@ -68,7 +74,13 @@ test("experience leaves view-ready jobs and career length", () => {
       "1 yr 2 mths",
       "2 yrs 2 mths",
     ]);
-    expect(jobs[0]?.rangeLabel.endsWith("Present")).toBe(true);
+    expect(jobs[0]?.rangeLabel).toBe("January 2025 – Present");
+    expect(jobs.map((job) => job.rangeLabel)).toEqual([
+      "January 2025 – Present",
+      "January 2024 – December 2024",
+      "November 2022 – December 2023",
+      "September 2020 – October 2022",
+    ]);
     expect(jobs.some((job) => job.tenureLabel.includes("12 mth"))).toBe(false);
     expect(jobs.every((job) => !("fromDate" in job) && !("toDate" in job))).toBe(
       true,
@@ -107,5 +119,40 @@ test("certificate brand marks leave as rooted hrefs", () => {
     "/static/logos/third-party/IBM.png",
     "/static/logos/third-party/DataCamp.png",
     "/static/logos/third-party/Microsoft.png",
+  ]);
+});
+
+test("socials leave the content seam from JSON in catalog order", () => {
+  expect(getSocials().map((item) => ({ label: item.label, href: item.href, icon: item.icon }))).toEqual([
+    {
+      label: "Twitter",
+      href: "https://twitter.com/Dave4272dk",
+      icon: "twitter",
+    },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/debraj-kundu/",
+      icon: "linkedin",
+    },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/dave4272dk/",
+      icon: "instagram",
+    },
+    {
+      label: "GitHub",
+      href: "https://github.com/Dave4272-Office",
+      icon: "github",
+    },
+    {
+      label: "Keybase",
+      href: "https://keybase.io/dave4272",
+      icon: "keybase",
+    },
+    {
+      label: "TryHackMe",
+      href: "https://tryhackme.com/p/Dave4272",
+      icon: "tryhackme",
+    },
   ]);
 });
