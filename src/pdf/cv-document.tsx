@@ -191,8 +191,8 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
         <View style={styles.main}>
           <View wrap={false}>
             <Text style={styles.name}>{model.name}</Text>
-            {model.currentTitle ? (
-              <Text style={styles.title}>{model.currentTitle}</Text>
+            {model.tagline ? (
+              <Text style={styles.title}>{model.tagline}</Text>
             ) : null}
           </View>
 

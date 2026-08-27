@@ -83,7 +83,8 @@ export type SkillGroup = {
 };
 
 export type ParsedWork = WorkItem & {
-  rangeLabel: string;
+  rangeLabelShort: string;
+  rangeLabelLong: string;
   tenureLabel: string;
 };
 
@@ -107,9 +108,13 @@ function rootedHref(path: string): string {
   return path.startsWith("/") ? path : `/${path}`;
 }
 
-function monthLabel(from: DateTime, to?: DateTime): string {
-  const start = from.toFormat("MMMM yyyy");
-  const end = to ? to.toFormat("MMMM yyyy") : "Present";
+function monthRangeLabel(
+  from: DateTime,
+  to: DateTime | undefined,
+  monthFormat: "MMM" | "MMMM",
+): string {
+  const start = from.toFormat(`${monthFormat} yyyy`);
+  const end = to ? to.toFormat(`${monthFormat} yyyy`) : "Present";
   return `${start} – ${end}`;
 }
 
@@ -130,7 +135,8 @@ function toJob(item: WorkItem, now: DateTime): ParsedWork {
   return {
     ...item,
     organizationicon: rootedHref(item.organizationicon),
-    rangeLabel: monthLabel(from, to),
+    rangeLabelShort: monthRangeLabel(from, to, "MMM"),
+    rangeLabelLong: monthRangeLabel(from, to, "MMMM"),
     tenureLabel: durationAsString(from, to ?? now),
   };
 }
@@ -188,6 +194,28 @@ const skillTypeOrder: TechType[] = [
   "Platform",
   "IDE",
 ];
+
+/** Job tech lists use the long name; the skills catalog uses the short one. */
+const skillLabelAliases: Readonly<Record<string, string>> = {
+  "Serverless Framework": "Serverless",
+  "GitHub Actions": "GHA",
+};
+
+export function catalogSkillLabel(name: string): string {
+  return skillLabelAliases[name] ?? name;
+}
+
+export function skillEntryForLabel(
+  label: string,
+  items: readonly TechSkill[] = skillItems,
+): SkillEntry | undefined {
+  const key = catalogSkillLabel(label);
+  const skill = items.find((item) => catalogSkillLabel(item.label) === key);
+  if (!skill) {
+    return undefined;
+  }
+  return { label: skill.label, Icon: resolveSkillIcon(skill) };
+}
 
 const skillIcons: Record<string, IconType> = {
   FaPython,
@@ -249,11 +277,17 @@ export function getSkillGroups(
   items: readonly TechSkill[] = skillItems,
 ): SkillGroup[] {
   const grouped = new Map<TechType, SkillEntry[]>();
+  const seen = new Set<string>();
   for (const skill of items) {
     const Icon = resolveSkillIcon(skill);
     if (!skill.include || skill.type === "None") {
       continue;
     }
+    const key = catalogSkillLabel(skill.label);
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
     const groupItems = grouped.get(skill.type) ?? [];
     groupItems.push({ label: skill.label, Icon });
     grouped.set(skill.type, groupItems);
@@ -273,6 +307,7 @@ export function getSocials(): SocialLink[] {
 
 export const bio = {
   name: "Debraj Kundu",
+  tagline: "Developer | Learner | Full Stack | Linux | Open Source",
   summary:
     "I am a learner at heart, an experimenter in mind, an adventurer from the soul. I thrive on challenges.",
   focus:

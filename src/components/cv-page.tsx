@@ -73,7 +73,7 @@ export function CvPage() {
               <li key={`${job.organization}-${job.designation}-${job.from}`}>
                 <article className="job">
                   <div className="job-when">
-                    <p className="job-range">{job.rangeLabel}</p>
+                    <p className="job-range">{job.rangeLabelShort}</p>
                     <p className="job-tenure">{job.tenureLabel}</p>
                   </div>
                   <div className="job-body">

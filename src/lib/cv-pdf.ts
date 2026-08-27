@@ -80,7 +80,7 @@ export type CvPdfModel = {
   documentTitle: string;
   filename: string;
   generatedOn: string;
-  currentTitle: string;
+  tagline: string;
   interests: string;
   contacts: CvPdfContact[];
   careerLength: string;
@@ -108,6 +108,18 @@ export function pdfSkillHeading(type: string): string {
   return skillHeadingByType[type] ?? type;
 }
 
+const pdfStateAbbreviations: Readonly<Record<string, string>> = {
+  Karnataka: "KN",
+  "West Bengal": "WB",
+};
+
+export function pdfExperienceLocation(location: string): string {
+  return location
+    .split(", ")
+    .map((part) => pdfStateAbbreviations[part] ?? part)
+    .join(", ");
+}
+
 export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
   const { jobs, careerLength } = getExperience(now);
   const generatedOn = cvPdfGeneratedOn(now);
@@ -117,7 +129,7 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
     documentTitle: cvPdfDocumentTitle(generatedOn),
     filename: cvPdfFilename(generatedOn),
     generatedOn,
-    currentTitle: jobs[0]?.designation ?? "",
+    tagline: bio.tagline,
     interests: bio.interests,
     contacts: getSocials().map((item) => ({
       label: item.label,
@@ -129,8 +141,8 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
       designation: job.designation,
       organization: job.organization,
       emptype: job.emptype,
-      location: job.location,
-      rangeLabel: job.rangeLabel,
+      location: pdfExperienceLocation(job.location),
+      rangeLabel: job.rangeLabelLong,
       tenureLabel: job.tenureLabel,
       desc: job.desc,
       skills: job.skills,

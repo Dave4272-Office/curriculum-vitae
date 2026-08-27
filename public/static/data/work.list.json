@@ -19,12 +19,12 @@
       "Amazon API Gateway",
       "Amazon Route53",
       "Amazon Aurora",
-      "Serverless",
+      "Serverless Framework",
       "Node.js",
       "Angular",
       "Java",
       "Terraform",
-      "GHA",
+      "GitHub Actions",
       "Spring Boot",
       "Amazon ECS"
     ]
@@ -49,12 +49,12 @@
       "Amazon API Gateway",
       "Amazon Route53",
       "Amazon Aurora",
-      "Serverless",
+      "Serverless Framework",
       "Node.js",
       "Angular",
       "Java",
       "Terraform",
-      "GHA"
+      "GitHub Actions"
     ]
   },
   {
@@ -76,7 +76,7 @@
     "skills": [
       "Kubernetes",
       "AWS Lambda",
-      "Serverless",
+      "Serverless Framework",
       "Node.js",
       "Express.js",
       "Java",
@@ -90,7 +90,7 @@
     "designation": "Project Engineer",
     "from": "2020-09",
     "to": "2022-10",
-    "organization": "Wipro Limited",
+    "organization": "Wipro",
     "organizationicon": "static/logos/third-party/Wipro.svg",
     "emptype": "Full Time",
     "location": "Bengaluru, Karnataka, India",

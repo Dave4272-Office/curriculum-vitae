@@ -1,10 +1,12 @@
 import { expect, test, vi } from "vitest";
 import {
+  catalogSkillLabel,
   getCertificates,
   getEducation,
   getExperience,
   getSkillGroups,
   getSocials,
+  skillEntryForLabel,
 } from "./content";
 import type { TechSkill } from "./types";
 
@@ -46,6 +48,46 @@ test("missing icon keys fail at the content seam", () => {
   );
 });
 
+test("skill aliases join job-tech names to catalog labels without throwing", () => {
+  expect(catalogSkillLabel("Serverless Framework")).toBe("Serverless");
+  expect(catalogSkillLabel("Serverless")).toBe("Serverless");
+  expect(catalogSkillLabel("GitHub Actions")).toBe("GHA");
+  expect(catalogSkillLabel("GHA")).toBe("GHA");
+  expect(catalogSkillLabel("Java")).toBe("Java");
+
+  const serverless = skillEntryForLabel("Serverless Framework");
+  const gha = skillEntryForLabel("GitHub Actions");
+  expect(serverless?.label).toBe("Serverless");
+  expect(gha?.label).toBe("GHA");
+  expect(typeof serverless?.Icon).toBe("function");
+  expect(typeof gha?.Icon).toBe("function");
+  expect(skillEntryForLabel("AWS Lambda")).toBeUndefined();
+
+  for (const job of getExperience().jobs) {
+    for (const name of job.skills) {
+      expect(() => skillEntryForLabel(name)).not.toThrow();
+    }
+  }
+
+  const dual: TechSkill[] = [
+    {
+      include: true,
+      icon: "SiServerless",
+      label: "Serverless",
+      type: "Framework / Library",
+    },
+    {
+      include: true,
+      icon: "SiServerless",
+      label: "Serverless Framework",
+      type: "Framework / Library",
+    },
+  ];
+  expect(getSkillGroups(dual).flatMap((group) => group.items.map((item) => item.label))).toEqual(
+    ["Serverless"],
+  );
+});
+
 test("hidden catalog rows still fail if their icon key is missing", () => {
   const broken: TechSkill[] = [
     {
@@ -83,13 +125,21 @@ test("experience leaves view-ready jobs and career length", () => {
       "1 yr 2 mths",
       "2 yrs 2 mths",
     ]);
-    expect(jobs[0]?.rangeLabel).toBe("January 2025 – Present");
-    expect(jobs.map((job) => job.rangeLabel)).toEqual([
+    expect(jobs[0]?.rangeLabelShort).toBe("Jan 2025 – Present");
+    expect(jobs[0]?.rangeLabelLong).toBe("January 2025 – Present");
+    expect(jobs.map((job) => job.rangeLabelShort)).toEqual([
+      "Jan 2025 – Present",
+      "Jan 2024 – Dec 2024",
+      "Nov 2022 – Dec 2023",
+      "Sep 2020 – Oct 2022",
+    ]);
+    expect(jobs.map((job) => job.rangeLabelLong)).toEqual([
       "January 2025 – Present",
       "January 2024 – December 2024",
       "November 2022 – December 2023",
       "September 2020 – October 2022",
     ]);
+    expect(jobs.every((job) => !("rangeLabel" in job))).toBe(true);
     expect(jobs.some((job) => job.tenureLabel.includes("12 mth"))).toBe(false);
     expect(jobs.every((job) => !("fromDate" in job) && !("toDate" in job))).toBe(
       true,
@@ -105,6 +155,18 @@ test("experience brand marks leave as rooted hrefs", () => {
     "/static/logos/third-party/Infosys.svg",
     "/static/logos/third-party/Infosys.svg",
     "/static/logos/third-party/Wipro.svg",
+  ]);
+  expect(getExperience().jobs.map((job) => job.organization)).toEqual([
+    "Infosys",
+    "Infosys",
+    "Infosys",
+    "Wipro",
+  ]);
+  expect(getExperience().jobs.map((job) => job.location)).toEqual([
+    "Kolkata, West Bengal, India",
+    "Bengaluru, Karnataka, India",
+    "Bengaluru, Karnataka, India",
+    "Bengaluru, Karnataka, India",
   ]);
 });
 
