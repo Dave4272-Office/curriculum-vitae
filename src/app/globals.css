@@ -491,7 +491,7 @@ a:hover {
 
 .job-desc {
   margin: 0.85rem 0 0;
-  padding-left: 1.1rem;
+  padding-left: calc(var(--entry-indent) + 1.1rem);
 }
 
 .job-desc li + li {
@@ -500,6 +500,7 @@ a:hover {
 
 .job-tech {
   margin-top: 0.9rem;
+  padding-left: var(--entry-indent);
 }
 
 .job-tech dt {
