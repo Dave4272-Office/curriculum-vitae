@@ -14,6 +14,22 @@ import {
 import { brandColorVars } from "../lib/brand-colors";
 import { sectionIds, skipToHref, skipToSectionId } from "../lib/nav";
 
+function stackedSlashLabel(label: string) {
+  const mark = " / ";
+  const at = label.indexOf(mark);
+  if (at === -1) {
+    return label;
+  }
+
+  return (
+    <>
+      {label.slice(0, at)}{" "}
+      <br />
+      / {label.slice(at + mark.length)}
+    </>
+  );
+}
+
 export function CvPage() {
   const { jobs, careerLength } = getExperience();
   const education = getEducation();
@@ -175,7 +191,7 @@ export function CvPage() {
           <dl className="skill-groups">
             {skillGroups.map((group) => (
               <div key={group.type} className="skill-group">
-                <dt>{group.type}</dt>
+                <dt>{stackedSlashLabel(group.type)}</dt>
                 <dd>
                   {group.items.map((skill, index) => {
                     const Icon = skill.Icon;

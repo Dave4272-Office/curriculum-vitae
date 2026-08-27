@@ -11,6 +11,7 @@
   --rule: #d7d0c3;
   --focus: #9a3f24;
   --section-scroll-pad: 1.5rem;
+  --gutter: 2.5rem;
 }
 
 .dark {
@@ -142,7 +143,7 @@ a:hover {
 .page {
   display: grid;
   grid-template-columns: minmax(240px, 22rem) minmax(0, 1fr);
-  gap: 4.5rem;
+  gap: var(--gutter);
   max-width: 1120px;
   margin: 0 auto;
   padding: 4.5rem 2.5rem 6rem;
@@ -397,8 +398,8 @@ a:hover {
 
 .job {
   display: grid;
-  grid-template-columns: 12.5rem minmax(0, 1fr);
-  gap: 1.25rem 1.75rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.45rem;
 }
 
 .job-when {
@@ -516,8 +517,8 @@ a:hover {
 .records li,
 .certs li {
   display: grid;
-  grid-template-columns: 6.5rem minmax(0, 1fr);
-  gap: 0.35rem 1.25rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.35rem;
 }
 
 .record-when,
@@ -550,15 +551,25 @@ a:hover {
 }
 
 .skill-groups {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: var(--gutter);
   margin: 1.35rem 0 0;
 }
 
 .skill-group {
   display: grid;
-  grid-template-columns: 10.5rem minmax(0, 1fr);
-  gap: 0.25rem 1.25rem;
+  grid-template-columns: max-content minmax(0, 1fr);
+  grid-column: 1 / -1;
+  gap: 0.25rem var(--gutter);
   padding: 0.7rem 0;
   border-top: 1px solid var(--rule);
+}
+
+@supports (grid-template-columns: subgrid) {
+  .skill-group {
+    grid-template-columns: subgrid;
+  }
 }
 
 .skill-group:last-child {
@@ -657,6 +668,14 @@ a:hover {
 
   .socials {
     margin-bottom: 2.75rem;
+  }
+
+  .skill-groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .skill-group dt br {
+    display: none;
   }
 
   .job,

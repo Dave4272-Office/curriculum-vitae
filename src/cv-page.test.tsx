@@ -393,6 +393,47 @@ test("Experience still renders", () => {
   expect(screen.getByText("Senior Associate Consultant")).toBeInTheDocument();
 });
 
+test("job dates stay with the title block instead of a side column", () => {
+  renderCv();
+
+  const title = screen.getByRole("heading", {
+    name: "Senior Associate Consultant",
+  });
+  const job = title.closest("article.job");
+  expect(job?.querySelector(".job-when + .job-body")).toContainElement(title);
+});
+
+test("education and certification dates sit above their titles", () => {
+  renderCv();
+
+  const degree = screen.getByRole("heading", {
+    name: /B\. Tech, Computer Science and Engineering/,
+  });
+  expect(degree.closest("li")?.querySelector(".record-when + div")).toContainElement(
+    degree,
+  );
+
+  const cert = screen.getByRole("link", {
+    name: /MTA: Introduction to Programming Using Python/,
+  });
+  expect(cert.closest("li")?.querySelector("time + div")).toContainElement(cert);
+});
+
+test("Framework / Library wraps so the skill label column can shrink", () => {
+  renderCv();
+
+  const dts = [...document.querySelectorAll(".skill-group dt")];
+  const framework = dts.find((dt) => dt.textContent?.includes("Framework"));
+  const language = dts.find((dt) => dt.textContent === "Language");
+
+  expect(framework?.textContent?.replace(/\s+/g, " ").trim()).toBe(
+    "Framework / Library",
+  );
+  expect(framework?.querySelector("br")).toBeTruthy();
+  expect(language).toBeTruthy();
+  expect(language?.querySelector("br")).toBeFalsy();
+});
+
 test("CSP allows the GA collect fallback and does not open unpkg.com", async () => {
   const headers = nextConfig.headers ? await nextConfig.headers() : [];
   const csp =
