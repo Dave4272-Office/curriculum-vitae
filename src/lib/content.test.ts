@@ -196,6 +196,11 @@ test("certificate brand marks leave as rooted hrefs", () => {
 test("socials leave the content seam from JSON in catalog order", () => {
   expect(getSocials().map((item) => ({ label: item.label, href: item.href, icon: item.icon }))).toEqual([
     {
+      label: "download",
+      href: "/cv.pdf",
+      icon: "pdf",
+    },
+    {
       label: "Twitter",
       href: "https://twitter.com/Dave4272dk",
       icon: "twitter",

@@ -58,7 +58,7 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.queryByText("January 2025 – Present")).not.toBeInTheDocument();
   expect(screen.getByText(/Wipro/)).toBeInTheDocument();
   expect(screen.queryByText(/Wipro Limited/)).not.toBeInTheDocument();
-  expect(screen.getAllByText(/Bengaluru, Karnataka, India/).length).toBe(3);
+  expect(screen.getAllByText(/Bengaluru, Karnataka, India/)).toHaveLength(3);
   expect(screen.getByText(/Kolkata, West Bengal, India/)).toBeInTheDocument();
   expect(screen.queryByText(/Bengaluru, KN/)).not.toBeInTheDocument();
 
@@ -165,12 +165,15 @@ test("small text nav jumps to on-page sections", () => {
   );
 });
 
-test("intro offers a download of the generated CV PDF", () => {
+test("intro offers a download of the generated CV PDF among socials", () => {
   renderCv();
 
   const link = screen.getByRole("link", { name: "Download CV (PDF)" });
   expect(link).toHaveAttribute("href", cvPdfPath);
   expect(link).toHaveAttribute("download", cvPdfFilename());
+  expect(link).toHaveTextContent("download");
+  expect(link.closest(".socials")).toBeTruthy();
+  expect(screen.queryByText("Download CV (PDF)")).not.toBeInTheDocument();
 });
 
 test("theme control exposes Light, Dark, and System", async () => {
@@ -212,7 +215,7 @@ test("content JSON files stay complete, including hidden include:false rows", as
   expect(certs.default).toHaveLength(4);
   expect(skills.default).toHaveLength(45);
   expect(langs.default).toHaveLength(3);
-  expect(socials.default).toHaveLength(6);
+  expect(socials.default).toHaveLength(7);
 
   expect(work.default[0]).toEqual(
     expect.objectContaining({
@@ -281,6 +284,7 @@ test("content JSON files stay complete, including hidden include:false rows", as
     }),
   );
   expect(socials.default.map((item) => item.icon)).toEqual([
+    "pdf",
     "twitter",
     "linkedin",
     "instagram",

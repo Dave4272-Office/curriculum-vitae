@@ -1,5 +1,10 @@
 [
   {
+    "label": "download",
+    "href": "/cv.pdf",
+    "icon": "pdf"
+  },
+  {
     "label": "Twitter",
     "href": "https://twitter.com/Dave4272dk",
     "icon": "twitter"

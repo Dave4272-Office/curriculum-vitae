@@ -58,6 +58,7 @@ export type SpokenLanguage = {
 };
 
 export type SocialIcon =
+  | "pdf"
   | "twitter"
   | "linkedin"
   | "instagram"

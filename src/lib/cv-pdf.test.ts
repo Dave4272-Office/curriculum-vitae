@@ -10,6 +10,7 @@ import {
 import {
   cvPdfDocumentTitle,
   cvPdfFilename,
+  cvPdfPath,
   getCvPdfModel,
   pdfSkillHeading,
 } from "./cv-pdf";
@@ -132,8 +133,11 @@ test("PDF model keeps certs, spoken languages, socials, and hidden skills aligne
     getSpokenLanguages().map((item) => item.language),
   );
   expect(model.contacts.map((item) => item.href)).toEqual(
-    getSocials().map((item) => item.href),
+    getSocials()
+      .filter((item) => item.href !== cvPdfPath)
+      .map((item) => item.href),
   );
+  expect(model.contacts.some((item) => item.href === cvPdfPath)).toBe(false);
   expect(pdfSkillHeading("Language")).toBe("Programming");
   expect(pdfSkillHeading("Framework / Library")).toBe("Frameworks/Libraries");
 });

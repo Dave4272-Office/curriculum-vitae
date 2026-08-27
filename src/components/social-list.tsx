@@ -1,5 +1,6 @@
 import type { IconType } from "react-icons";
 import {
+  FaFilePdf,
   FaGithub,
   FaInstagram,
   FaKeybase,
@@ -8,9 +9,11 @@ import {
 } from "react-icons/fa";
 import { SiTryhackme } from "react-icons/si";
 import { getSocials } from "../lib/content";
-import type { SocialIcon } from "../lib/types";
+import { cvPdfFilename, cvPdfPath } from "../lib/cv-pdf";
+import type { SocialIcon, SocialLink } from "../lib/types";
 
 const icons: Record<SocialIcon, IconType> = {
+  pdf: FaFilePdf,
   twitter: FaTwitter,
   linkedin: FaLinkedin,
   instagram: FaInstagram,
@@ -27,17 +30,27 @@ function SocialIcon({ icon, label }: Readonly<{ icon: SocialIcon; label: string 
   return <Icon aria-hidden="true" />;
 }
 
+function socialAnchorProps(item: SocialLink) {
+  if (item.href === cvPdfPath) {
+    return {
+      download: cvPdfFilename(),
+      "aria-label": "Download CV (PDF)",
+    };
+  }
+
+  return {
+    target: "_blank" as const,
+    rel: "noreferrer noopener",
+    "aria-label": `${item.label} profile`,
+  };
+}
+
 export function SocialList() {
   return (
     <ul className="socials">
       {getSocials().map((item) => (
         <li key={item.href}>
-          <a
-            href={item.href}
-            target="_blank"
-            rel="noreferrer noopener"
-            aria-label={`${item.label} profile`}
-          >
+          <a href={item.href} {...socialAnchorProps(item)}>
             <SocialIcon icon={item.icon} label={item.label} />
             <span>{item.label}</span>
           </a>
