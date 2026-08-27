@@ -197,7 +197,6 @@ export function CvPage() {
                     const Icon = skill.Icon;
                     return (
                       <span key={skill.label}>
-                        {index > 0 ? ", " : null}
                         <span className="skill-inline">
                           <Icon
                             aria-hidden="true"
@@ -206,6 +205,7 @@ export function CvPage() {
                           />
                           {skill.label}
                         </span>
+                        {index < group.items.length - 1 ? "," : null}
                       </span>
                     );
                   })}

@@ -450,6 +450,16 @@ test("Framework / Library wraps so the skill label column can shrink", () => {
   expect(language?.querySelector("br")).toBeFalsy();
 });
 
+test("skill commas stay attached to the preceding name", () => {
+  renderCv();
+
+  const pythonItem = screen.getByText("Python").parentElement;
+  expect(pythonItem?.textContent).toBe("Python,");
+  expect(
+    screen.getByText("Java").closest(".skill-inline")?.previousSibling,
+  ).toBeNull();
+});
+
 test("CSP allows the GA collect fallback and does not open unpkg.com", async () => {
   const headers = nextConfig.headers ? await nextConfig.headers() : [];
   const csp =

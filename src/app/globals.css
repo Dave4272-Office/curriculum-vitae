@@ -470,6 +470,10 @@ a:hover {
   white-space: nowrap;
 }
 
+.skill-group dd > span + span {
+  margin-left: 0.4rem;
+}
+
 .skill-icon {
   display: inline-block;
   width: 0.85em;
