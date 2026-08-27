@@ -45,8 +45,14 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 3,
-    marginBottom: 8,
+    marginBottom: 3,
     fontSize: 10.5,
+  },
+  site: {
+    fontSize: 10.5,
+    color: link,
+    textDecoration: "underline",
+    marginBottom: 8,
   },
   contact: {
     fontSize: 10,
@@ -56,6 +62,10 @@ const styles = StyleSheet.create({
   },
   contactBlock: {
     marginBottom: 12,
+  },
+  address: {
+    fontSize: 10,
+    marginBottom: 1.5,
   },
   section: {
     marginBottom: 6,
@@ -194,6 +204,11 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
             {model.tagline ? (
               <Text style={styles.title}>{model.tagline}</Text>
             ) : null}
+            {model.site ? (
+              <Link src={model.siteHref} style={styles.site}>
+                {model.site}
+              </Link>
+            ) : null}
           </View>
 
           <View style={styles.section}>
@@ -284,6 +299,9 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
 
         <View style={styles.sidebar}>
           <View style={styles.contactBlock}>
+            {model.address ? (
+              <Text style={styles.address}>{model.address}</Text>
+            ) : null}
             {model.contacts.map((item) => (
               <Link key={item.href} src={item.href} style={styles.contact}>
                 {item.display}

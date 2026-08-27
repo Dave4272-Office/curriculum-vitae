@@ -12,6 +12,8 @@ import {
   cvPdfFilename,
   cvPdfPath,
   getCvPdfModel,
+  pdfContactAddress,
+  pdfSiteHref,
   pdfSkillHeading,
 } from "./cv-pdf";
 
@@ -54,6 +56,15 @@ test("PDF model uses the same jobs and education as the content seam", () => {
       "Developer | Learner | Full Stack | Linux | Open Source",
     );
     expect(model.tagline).not.toBe(jobs[0]?.designation);
+    expect(model.site).toBe("cv.corpdk.com");
+    expect(model.siteHref).toBe("https://cv.corpdk.com");
+    expect(pdfSiteHref()).toBe("https://cv.corpdk.com");
+    expect(pdfSiteHref("https://cv.corpdk.com")).toBe("https://cv.corpdk.com");
+    expect(model.address).toBe("Kolkata, West Bengal, India");
+    expect(pdfContactAddress()).toBe("Kolkata, West Bengal, India");
+    expect(model.address).not.toContain("WB");
+    expect(model.address).not.toContain("16/5");
+    expect(model.address).not.toContain("Ghosh");
     expect(model.jobs.map((job) => job.organization)).toContain("Wipro");
     expect(model.jobs.map((job) => job.organization)).not.toContain(
       "Wipro Limited",

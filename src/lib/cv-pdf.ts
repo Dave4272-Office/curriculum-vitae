@@ -81,6 +81,9 @@ export type CvPdfModel = {
   filename: string;
   generatedOn: string;
   tagline: string;
+  site: string;
+  siteHref: string;
+  address: string;
   interests: string;
   contacts: CvPdfContact[];
   careerLength: string;
@@ -90,6 +93,16 @@ export type CvPdfModel = {
   skillGroups: CvPdfSkillGroup[];
   languages: CvPdfLanguage[];
 };
+
+export function pdfContactAddress(
+  location: Pick<typeof bio, "city" | "state" | "country"> = bio,
+): string {
+  return `${location.city}, ${location.state}, ${location.country}`;
+}
+
+export function pdfSiteHref(site = bio.site): string {
+  return /^https?:\/\//i.test(site) ? site : `https://${site}`;
+}
 
 function displayHref(href: string): string {
   return href.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "");
@@ -130,6 +143,9 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
     filename: cvPdfFilename(generatedOn),
     generatedOn,
     tagline: bio.tagline,
+    site: displayHref(pdfSiteHref()),
+    siteHref: pdfSiteHref(),
+    address: pdfContactAddress(),
     interests: bio.interests,
     contacts: getPdfSocials().map((item) => ({
       label: item.label,
