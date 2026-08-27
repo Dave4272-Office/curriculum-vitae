@@ -74,7 +74,9 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.getByText("Java")).toBeInTheDocument();
   expect(screen.getByText("Java").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
   expect(screen.getByText("Amazon Web Services")).toBeInTheDocument();
-  expect(screen.getByText("Serverless Framework")).toBeInTheDocument();
+  expect(screen.getByText("Serverless")).toBeInTheDocument();
+  expect(screen.getByText("Jenkins")).toBeInTheDocument();
+  expect(screen.getByText("GHA")).toBeInTheDocument();
   expect(screen.getByText("Kubernetes")).toBeInTheDocument();
   expect(screen.getByText("Express.js")).toBeInTheDocument();
   expect(screen.getByText("Redis")).toBeInTheDocument();
@@ -195,7 +197,7 @@ test("content JSON files stay complete, including hidden include:false rows", as
   expect(work.default).toHaveLength(4);
   expect(edu.default).toHaveLength(3);
   expect(certs.default).toHaveLength(4);
-  expect(skills.default).toHaveLength(44);
+  expect(skills.default).toHaveLength(45);
   expect(langs.default).toHaveLength(3);
   expect(socials.default).toHaveLength(6);
 
@@ -205,6 +207,23 @@ test("content JSON files stay complete, including hidden include:false rows", as
       location: "Kolkata, West Bengal, India",
     }),
   );
+  expect(work.default.map((job) => job.designation)).toEqual([
+    "Senior Associate Consultant",
+    "Associate Consultant",
+    "Associate Business Analyst",
+    "Project Engineer",
+  ]);
+  expect(work.default[0]?.skills).toContain("GHA");
+  expect(work.default[1]?.skills).toContain("GHA");
+  expect(work.default[2]?.skills).toContain("Jenkins");
+  expect(work.default[3]?.skills).toContain("Jenkins");
+  expect(work.default[0]?.skills).not.toContain("Jenkins");
+  expect(work.default[1]?.skills).not.toContain("Jenkins");
+  expect(work.default[2]?.skills).not.toContain("GHA");
+  expect(work.default[3]?.skills).not.toContain("GHA");
+  expect(
+    work.default.every((job) => !job.skills.includes("Serverless Framework")),
+  ).toBe(true);
   expect(skills.default.some((skill) => skill.label === "Rust" && !skill.include)).toBe(
     true,
   );
@@ -215,8 +234,14 @@ test("content JSON files stay complete, including hidden include:false rows", as
   ).toBe(true);
   expect(
     skills.default.some(
-      (skill) => skill.label === "Serverless Framework" && skill.include,
+      (skill) => skill.label === "Serverless" && skill.include,
     ),
+  ).toBe(true);
+  expect(
+    skills.default.some((skill) => skill.label === "Jenkins" && skill.include),
+  ).toBe(true);
+  expect(
+    skills.default.some((skill) => skill.label === "GHA" && skill.include),
   ).toBe(true);
   expect(
     skills.default.some(

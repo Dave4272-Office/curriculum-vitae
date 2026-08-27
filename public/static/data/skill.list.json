@@ -134,7 +134,7 @@
   {
     "include": true,
     "icon": "SiServerless",
-    "label": "Serverless Framework",
+    "label": "Serverless",
     "type": "Framework / Library"
   },
   {
@@ -222,9 +222,15 @@
     "type": "Tool"
   },
   {
-    "include": false,
+    "include": true,
     "icon": "FaJenkins",
     "label": "Jenkins",
+    "type": "Tool"
+  },
+  {
+    "include": true,
+    "icon": "SiGithubactions",
+    "label": "GHA",
     "type": "Tool"
   },
   {

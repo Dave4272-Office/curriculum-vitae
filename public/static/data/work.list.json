@@ -19,11 +19,12 @@
       "Amazon API Gateway",
       "Amazon Route53",
       "Amazon Aurora",
-      "Serverless Framework",
+      "Serverless",
       "Node.js",
       "Angular",
       "Java",
       "Terraform",
+      "GHA",
       "Spring Boot",
       "Amazon ECS"
     ]
@@ -48,11 +49,12 @@
       "Amazon API Gateway",
       "Amazon Route53",
       "Amazon Aurora",
-      "Serverless Framework",
+      "Serverless",
       "Node.js",
       "Angular",
       "Java",
-      "Terraform"
+      "Terraform",
+      "GHA"
     ]
   },
   {
@@ -74,12 +76,13 @@
     "skills": [
       "Kubernetes",
       "AWS Lambda",
-      "Serverless Framework",
+      "Serverless",
       "Node.js",
       "Express.js",
       "Java",
       "Angular",
-      "Spring Boot"
+      "Spring Boot",
+      "Jenkins"
     ]
   },
   {
@@ -103,7 +106,8 @@
       "Redis",
       "PCF",
       "Oracle Database",
-      "Angular"
+      "Angular",
+      "Jenkins"
     ]
   }
 ]

@@ -81,7 +81,9 @@ test("PDF model keeps certs, spoken languages, socials, and hidden skills aligne
   expect(skillLabels).toEqual(pageSkillLabels);
   expect(skillLabels).toContain("Python");
   expect(skillLabels).toContain("Amazon Web Services");
-  expect(skillLabels).toContain("Serverless Framework");
+  expect(skillLabels).toContain("Serverless");
+  expect(skillLabels).toContain("Jenkins");
+  expect(skillLabels).toContain("GHA");
   expect(skillLabels).toContain("Kubernetes");
   expect(skillLabels).toContain("Express.js");
   expect(skillLabels).toContain("Redis");
