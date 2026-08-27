@@ -194,9 +194,10 @@ test("intro offers a download of the generated CV PDF among socials", () => {
   expect(link).toHaveTextContent("Download");
   expect(link.closest(".socials")).toBeTruthy();
   expect(screen.queryByText("Download CV (PDF)")).not.toBeInTheDocument();
-  expect(link.querySelector("svg")?.getAttribute("style") ?? "").not.toContain(
-    "--brand-color",
+  expect(link.querySelector("svg")?.getAttribute("style")).toContain(
+    "--brand-color: #EC1C24",
   );
+  expect(link.querySelector("span")?.getAttribute("style")).toBeNull();
 });
 
 test("social glyphs use brand colors without recoloring labels", () => {

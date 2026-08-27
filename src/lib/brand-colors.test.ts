@@ -22,15 +22,15 @@ test("every catalog skill icon has a Simple Icons brand hex", () => {
   }
 });
 
-test("social glyphs that have a brand keep it; PDF download does not", () => {
+test("every social glyph has a Simple Icons brand hex", () => {
+  expect(socialBrandColor("pdf")).toBe("#EC1C24");
   expect(socialBrandColor("twitter")).toBe("#1DA1F2");
   expect(socialBrandColor("linkedin")).toBe("#0A66C2");
   expect(socialBrandColor("instagram")).toBe("#FF0069");
   expect(socialBrandColor("github")).toBe("#181717");
   expect(socialBrandColor("keybase")).toBe("#33A0FF");
   expect(socialBrandColor("tryhackme")).toBe("#212C42");
-  expect(socialBrandColor("pdf")).toBeUndefined();
-  expect("pdf" in socialBrandColors).toBe(false);
+  expect(socialBrandColors.pdf).toBe("#EC1C24");
 });
 
 test("dark-mode fallback only kicks in when official hex disappears", () => {
