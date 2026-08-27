@@ -304,20 +304,6 @@ a:hover {
   color: var(--fg);
 }
 
-.download-cv {
-  display: inline-flex;
-  align-self: start;
-  color: var(--accent);
-  font-size: 0.88rem;
-  text-decoration: none;
-}
-
-.download-cv:hover,
-.download-cv:focus-visible {
-  color: var(--accent-hover);
-  text-decoration: underline;
-}
-
 .socials {
   display: flex;
   flex-wrap: wrap;
@@ -648,10 +634,6 @@ a:hover {
     margin-bottom: 1.15rem;
   }
 
-  .download-cv {
-    margin-bottom: 0.35rem;
-  }
-
   .socials {
     margin-bottom: 2.75rem;
   }
@@ -695,9 +677,9 @@ a:hover {
   }
 
   .theme-toggle,
-  .download-cv,
   .skip-link,
-  .site-nav-wrap {
+  .site-nav-wrap,
+  .socials a[download] {
     display: none;
   }
 

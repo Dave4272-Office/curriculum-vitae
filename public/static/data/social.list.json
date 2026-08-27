@@ -1,32 +1,51 @@
 [
   {
+    "include": true,
+    "pdf": false,
     "label": "Twitter",
     "href": "https://twitter.com/Dave4272dk",
     "icon": "twitter"
   },
   {
+    "include": true,
+    "pdf": true,
     "label": "LinkedIn",
     "href": "https://www.linkedin.com/in/debraj-kundu/",
     "icon": "linkedin"
   },
   {
+    "include": true,
+    "pdf": false,
     "label": "Instagram",
     "href": "https://www.instagram.com/dave4272dk/",
     "icon": "instagram"
   },
   {
+    "include": true,
+    "pdf": true,
     "label": "GitHub",
     "href": "https://github.com/Dave4272-Office",
     "icon": "github"
   },
   {
+    "include": true,
+    "pdf": false,
     "label": "Keybase",
     "href": "https://keybase.io/dave4272",
     "icon": "keybase"
   },
   {
+    "include": true,
+    "pdf": false,
     "label": "TryHackMe",
     "href": "https://tryhackme.com/p/Dave4272",
     "icon": "tryhackme"
+  },
+  {
+    "include": true,
+    "pdf": false,
+    "label": "Download",
+    "href": "/cv.pdf",
+    "icon": "pdf"
   }
 ]

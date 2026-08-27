@@ -121,8 +121,20 @@
   },
   {
     "include": true,
+    "icon": "SiExpress",
+    "label": "Express.js",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
     "icon": "SiTerraform",
     "label": "Terraform",
+    "type": "Framework / Library"
+  },
+  {
+    "include": true,
+    "icon": "SiServerless",
+    "label": "Serverless",
     "type": "Framework / Library"
   },
   {
@@ -175,6 +187,12 @@
   },
   {
     "include": true,
+    "icon": "SiRedis",
+    "label": "Redis",
+    "type": "Database"
+  },
+  {
+    "include": true,
     "icon": "FaGitAlt",
     "label": "Git",
     "type": "Tool"
@@ -183,6 +201,12 @@
     "include": true,
     "icon": "FaDocker",
     "label": "Docker",
+    "type": "Tool"
+  },
+  {
+    "include": true,
+    "icon": "SiKubernetes",
+    "label": "Kubernetes",
     "type": "Tool"
   },
   {
@@ -198,9 +222,15 @@
     "type": "Tool"
   },
   {
-    "include": false,
+    "include": true,
     "icon": "FaJenkins",
     "label": "Jenkins",
+    "type": "Tool"
+  },
+  {
+    "include": true,
+    "icon": "SiGithubactions",
+    "label": "GHA",
     "type": "Tool"
   },
   {
@@ -210,7 +240,7 @@
     "type": "Platform"
   },
   {
-    "include": false,
+    "include": true,
     "icon": "FaAws",
     "label": "Amazon Web Services",
     "type": "Platform"

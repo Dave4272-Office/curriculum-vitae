@@ -28,15 +28,20 @@ import { GrMysql, GrOracle } from "react-icons/gr";
 import {
   SiC,
   SiCloudfoundry,
+  SiExpress,
+  SiGithubactions,
   SiGnubash,
   SiGo,
   SiHibernate,
   SiJquery,
   SiJupyter,
   SiKotlin,
+  SiKubernetes,
   SiMongodb,
   SiNpm,
+  SiRedis,
   SiScikitlearn,
+  SiServerless,
   SiSpring,
   SiSpringboot,
   SiTerraform,
@@ -78,7 +83,8 @@ export type SkillGroup = {
 };
 
 export type ParsedWork = WorkItem & {
-  rangeLabel: string;
+  rangeLabelShort: string;
+  rangeLabelLong: string;
   tenureLabel: string;
 };
 
@@ -102,9 +108,13 @@ function rootedHref(path: string): string {
   return path.startsWith("/") ? path : `/${path}`;
 }
 
-function monthLabel(from: DateTime, to?: DateTime): string {
-  const start = from.toFormat("MMMM yyyy");
-  const end = to ? to.toFormat("MMMM yyyy") : "Present";
+function monthRangeLabel(
+  from: DateTime,
+  to: DateTime | undefined,
+  monthFormat: "MMM" | "MMMM",
+): string {
+  const start = from.toFormat(`${monthFormat} yyyy`);
+  const end = to ? to.toFormat(`${monthFormat} yyyy`) : "Present";
   return `${start} – ${end}`;
 }
 
@@ -125,7 +135,8 @@ function toJob(item: WorkItem, now: DateTime): ParsedWork {
   return {
     ...item,
     organizationicon: rootedHref(item.organizationicon),
-    rangeLabel: monthLabel(from, to),
+    rangeLabelShort: monthRangeLabel(from, to, "MMM"),
+    rangeLabelLong: monthRangeLabel(from, to, "MMMM"),
     tenureLabel: durationAsString(from, to ?? now),
   };
 }
@@ -184,6 +195,35 @@ const skillTypeOrder: TechType[] = [
   "IDE",
 ];
 
+/** Job-tech display names map to the skills-catalog label used for icons and grouping. */
+const skillLabelAliases: Readonly<Record<string, string>> = {
+  "Serverless Framework": "Serverless",
+  "GitHub Actions": "GHA",
+  AWS: "Amazon Web Services",
+  "Amazon AWS": "Amazon Web Services",
+  "AWS Lambda": "Amazon Web Services",
+  "Amazon API Gateway": "Amazon Web Services",
+  "Amazon Route53": "Amazon Web Services",
+  "Amazon Aurora": "Amazon Web Services",
+  "Amazon ECS": "Amazon Web Services",
+};
+
+export function catalogSkillLabel(name: string): string {
+  return skillLabelAliases[name] ?? name;
+}
+
+export function skillEntryForLabel(
+  label: string,
+  items: readonly TechSkill[] = skillItems,
+): SkillEntry | undefined {
+  const key = catalogSkillLabel(label);
+  const skill = items.find((item) => catalogSkillLabel(item.label) === key);
+  if (!skill) {
+    return undefined;
+  }
+  return { label: skill.label, Icon: resolveSkillIcon(skill) };
+}
+
 const skillIcons: Record<string, IconType> = {
   FaPython,
   FaJava,
@@ -205,19 +245,24 @@ const skillIcons: Record<string, IconType> = {
   FaReact,
   FaAngular,
   FaNodeJs,
+  SiExpress,
   SiJquery,
   FaBootstrap,
   FaWordpress,
   SiHibernate,
   SiScikitlearn,
+  SiServerless,
   GrMysql,
   SiOracle: GrOracle,
   SiMongodb,
+  SiRedis,
   FaGitAlt,
   FaDocker,
+  SiKubernetes,
   SiNpm,
   FaYarn,
   FaJenkins,
+  SiGithubactions,
   FaAndroid,
   FaAws,
   SiCloudfoundry,
@@ -239,11 +284,17 @@ export function getSkillGroups(
   items: readonly TechSkill[] = skillItems,
 ): SkillGroup[] {
   const grouped = new Map<TechType, SkillEntry[]>();
+  const seen = new Set<string>();
   for (const skill of items) {
     const Icon = resolveSkillIcon(skill);
     if (!skill.include || skill.type === "None") {
       continue;
     }
+    const key = catalogSkillLabel(skill.label);
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
     const groupItems = grouped.get(skill.type) ?? [];
     groupItems.push({ label: skill.label, Icon });
     grouped.set(skill.type, groupItems);
@@ -257,12 +308,21 @@ export function getSpokenLanguages(): SpokenLanguage[] {
   return languageItems;
 }
 
-export function getSocials(): SocialLink[] {
-  return socialItems;
+export function getSocials(
+  items: readonly SocialLink[] = socialItems,
+): SocialLink[] {
+  return items.filter((item) => item.include);
+}
+
+export function getPdfSocials(
+  items: readonly SocialLink[] = socialItems,
+): SocialLink[] {
+  return items.filter((item) => item.pdf);
 }
 
 export const bio = {
   name: "Debraj Kundu",
+  tagline: "Developer | Learner | Full Stack | Linux | Open Source",
   summary:
     "I am a learner at heart, an experimenter in mind, an adventurer from the soul. I thrive on challenges.",
   focus:

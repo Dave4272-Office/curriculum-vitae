@@ -4,12 +4,13 @@ import {
   getEducation,
   getExperience,
   getSkillGroups,
-  getSocials,
+  getPdfSocials,
   getSpokenLanguages,
 } from "./content";
 import {
   cvPdfDocumentTitle,
   cvPdfFilename,
+  cvPdfPath,
   getCvPdfModel,
   pdfSkillHeading,
 } from "./cv-pdf";
@@ -31,11 +32,31 @@ test("PDF model uses the same jobs and education as the content seam", () => {
       jobs.map((job) => job.organization),
     );
     expect(model.jobs.map((job) => job.rangeLabel)).toEqual(
-      jobs.map((job) => job.rangeLabel),
+      jobs.map((job) => job.rangeLabelLong),
     );
     expect(model.jobs[0]?.rangeLabel).toBe("January 2025 – Present");
     expect(model.jobs.every((job) => !job.rangeLabel.includes("PRESENT"))).toBe(
       true,
+    );
+    expect(model.jobs.map((job) => job.location)).toEqual([
+      "Kolkata, WB, India",
+      "Bengaluru, KN, India",
+      "Bengaluru, KN, India",
+      "Bengaluru, KN, India",
+    ]);
+    expect(jobs.map((job) => job.location)).toEqual([
+      "Kolkata, West Bengal, India",
+      "Bengaluru, Karnataka, India",
+      "Bengaluru, Karnataka, India",
+      "Bengaluru, Karnataka, India",
+    ]);
+    expect(model.tagline).toBe(
+      "Developer | Learner | Full Stack | Linux | Open Source",
+    );
+    expect(model.tagline).not.toBe(jobs[0]?.designation);
+    expect(model.jobs.map((job) => job.organization)).toContain("Wipro");
+    expect(model.jobs.map((job) => job.organization)).not.toContain(
+      "Wipro Limited",
     );
     expect(model.jobs.map((job) => job.tenureLabel)).toEqual(
       jobs.map((job) => job.tenureLabel),
@@ -80,6 +101,44 @@ test("PDF model keeps certs, spoken languages, socials, and hidden skills aligne
 
   expect(skillLabels).toEqual(pageSkillLabels);
   expect(skillLabels).toContain("Python");
+  expect(skillLabels).toContain("Amazon Web Services");
+  expect(skillLabels).toContain("Serverless");
+  expect(skillLabels).toContain("Jenkins");
+  expect(skillLabels).toContain("GHA");
+  expect(skillLabels).not.toContain("Serverless Framework");
+  expect(skillLabels).not.toContain("GitHub Actions");
+  expect(skillLabels).not.toContain("AWS Lambda");
+  expect(skillLabels).not.toContain("Amazon API Gateway");
+  expect(skillLabels).not.toContain("Amazon Route53");
+  expect(skillLabels).not.toContain("Amazon Aurora");
+  expect(skillLabels).not.toContain("Amazon ECS");
+  expect(
+    model.jobs.some((job) => job.skills.includes("Serverless Framework")),
+  ).toBe(true);
+  expect(model.jobs.some((job) => job.skills.includes("GitHub Actions"))).toBe(
+    true,
+  );
+  expect(model.jobs.some((job) => job.skills.includes("AWS Lambda"))).toBe(true);
+  expect(
+    model.jobs.some((job) => job.skills.includes("Amazon API Gateway")),
+  ).toBe(true);
+  expect(model.jobs.some((job) => job.skills.includes("Amazon Route53"))).toBe(
+    true,
+  );
+  expect(model.jobs.some((job) => job.skills.includes("Amazon Aurora"))).toBe(
+    true,
+  );
+  expect(model.jobs.some((job) => job.skills.includes("Amazon ECS"))).toBe(true);
+  expect(model.jobs.every((job) => !job.skills.includes("Serverless"))).toBe(
+    true,
+  );
+  expect(model.jobs.every((job) => !job.skills.includes("GHA"))).toBe(true);
+  expect(
+    model.jobs.every((job) => !job.skills.includes("Amazon Web Services")),
+  ).toBe(true);
+  expect(skillLabels).toContain("Kubernetes");
+  expect(skillLabels).toContain("Express.js");
+  expect(skillLabels).toContain("Redis");
   expect(skillLabels).not.toContain("Rust");
   expect(skillLabels).not.toContain("Kotlin");
 
@@ -93,8 +152,9 @@ test("PDF model keeps certs, spoken languages, socials, and hidden skills aligne
     getSpokenLanguages().map((item) => item.language),
   );
   expect(model.contacts.map((item) => item.href)).toEqual(
-    getSocials().map((item) => item.href),
+    getPdfSocials().map((item) => item.href),
   );
+  expect(model.contacts.some((item) => item.href === cvPdfPath)).toBe(false);
   expect(pdfSkillHeading("Language")).toBe("Programming");
   expect(pdfSkillHeading("Framework / Library")).toBe("Frameworks/Libraries");
 });

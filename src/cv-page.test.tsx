@@ -54,7 +54,13 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(
     screen.getAllByText(/AWS Lambda, Amazon API Gateway/).length,
   ).toBeGreaterThan(0);
-  expect(screen.getByText("January 2025 – Present")).toBeInTheDocument();
+  expect(screen.getByText("Jan 2025 – Present")).toBeInTheDocument();
+  expect(screen.queryByText("January 2025 – Present")).not.toBeInTheDocument();
+  expect(screen.getByText(/Wipro/)).toBeInTheDocument();
+  expect(screen.queryByText(/Wipro Limited/)).not.toBeInTheDocument();
+  expect(screen.getAllByText(/Bengaluru, Karnataka, India/)).toHaveLength(3);
+  expect(screen.getByText(/Kolkata, West Bengal, India/)).toBeInTheDocument();
+  expect(screen.queryByText(/Bengaluru, KN/)).not.toBeInTheDocument();
 
   expect(screen.getByRole("heading", { name: "Education" })).toBeInTheDocument();
   expect(screen.getByText(/B\. Tech/)).toBeInTheDocument();
@@ -73,12 +79,26 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.getByText("Python").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
   expect(screen.getByText("Java")).toBeInTheDocument();
   expect(screen.getByText("Java").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
+  expect(screen.getByText("Amazon Web Services")).toBeInTheDocument();
+  expect(screen.getByText("Serverless")).toBeInTheDocument();
+  expect(screen.getByText("Jenkins")).toBeInTheDocument();
+  expect(screen.getByText("GHA")).toBeInTheDocument();
+  expect(
+    screen.getAllByText(/Serverless Framework/).length,
+  ).toBeGreaterThan(0);
+  expect(screen.getAllByText(/GitHub Actions/).length).toBeGreaterThan(0);
+  expect(screen.getByText("Kubernetes")).toBeInTheDocument();
+  expect(screen.getByText("Express.js")).toBeInTheDocument();
+  expect(screen.getByText("Redis")).toBeInTheDocument();
   expect(screen.getByText(/English\./)).toBeInTheDocument();
   expect(screen.queryByText("Rust")).not.toBeInTheDocument();
   expect(screen.queryByText("Kotlin")).not.toBeInTheDocument();
 
   expect(screen.getByRole("heading", { name: "Interests" })).toBeInTheDocument();
   expect(screen.getByText(/Novels fill the quieter hours/)).toBeInTheDocument();
+  expect(
+    screen.queryByText("Developer | Learner | Full Stack | Linux | Open Source"),
+  ).not.toBeInTheDocument();
 
   expect(screen.getByRole("link", { name: "Twitter profile" })).toHaveAttribute(
     "href",
@@ -145,12 +165,15 @@ test("small text nav jumps to on-page sections", () => {
   );
 });
 
-test("intro offers a download of the generated CV PDF", () => {
+test("intro offers a download of the generated CV PDF among socials", () => {
   renderCv();
 
   const link = screen.getByRole("link", { name: "Download CV (PDF)" });
   expect(link).toHaveAttribute("href", cvPdfPath);
   expect(link).toHaveAttribute("download", cvPdfFilename());
+  expect(link).toHaveTextContent("Download");
+  expect(link.closest(".socials")).toBeTruthy();
+  expect(screen.queryByText("Download CV (PDF)")).not.toBeInTheDocument();
 });
 
 test("theme control exposes Light, Dark, and System", async () => {
@@ -190,9 +213,9 @@ test("content JSON files stay complete, including hidden include:false rows", as
   expect(work.default).toHaveLength(4);
   expect(edu.default).toHaveLength(3);
   expect(certs.default).toHaveLength(4);
-  expect(skills.default).toHaveLength(40);
+  expect(skills.default).toHaveLength(45);
   expect(langs.default).toHaveLength(3);
-  expect(socials.default).toHaveLength(6);
+  expect(socials.default).toHaveLength(7);
 
   expect(work.default[0]).toEqual(
     expect.objectContaining({
@@ -200,9 +223,66 @@ test("content JSON files stay complete, including hidden include:false rows", as
       location: "Kolkata, West Bengal, India",
     }),
   );
+  expect(work.default.map((job) => job.designation)).toEqual([
+    "Senior Associate Consultant",
+    "Associate Consultant",
+    "Associate Business Analyst",
+    "Project Engineer",
+  ]);
+  expect(work.default[0]?.skills).toContain("GitHub Actions");
+  expect(work.default[1]?.skills).toContain("GitHub Actions");
+  expect(work.default[2]?.skills).toContain("Jenkins");
+  expect(work.default[3]?.skills).toContain("Jenkins");
+  expect(work.default[0]?.skills).not.toContain("Jenkins");
+  expect(work.default[1]?.skills).not.toContain("Jenkins");
+  expect(work.default[2]?.skills).not.toContain("GitHub Actions");
+  expect(work.default[3]?.skills).not.toContain("GitHub Actions");
+  expect(work.default[3]?.organization).toBe("Wipro");
+  expect(
+    work.default.some((job) => job.skills.includes("Serverless Framework")),
+  ).toBe(true);
+  expect(work.default.every((job) => !job.skills.includes("Serverless"))).toBe(
+    true,
+  );
+  expect(work.default.every((job) => !job.skills.includes("GHA"))).toBe(true);
+  expect(
+    work.default.every((job) => !job.skills.includes("Amazon Web Services")),
+  ).toBe(true);
+  expect(
+    work.default.some((job) => job.skills.includes("AWS Lambda")),
+  ).toBe(true);
   expect(skills.default.some((skill) => skill.label === "Rust" && !skill.include)).toBe(
     true,
   );
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Amazon Web Services" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Serverless" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some((skill) => skill.label === "Jenkins" && skill.include),
+  ).toBe(true);
+  expect(
+    skills.default.some((skill) => skill.label === "GHA" && skill.include),
+  ).toBe(true);
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Kubernetes" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Express.js" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some((skill) => skill.label === "Redis" && skill.include),
+  ).toBe(true);
   expect(certs.default[0]).toEqual(
     expect.objectContaining({
       issuericon: "static/logos/third-party/Microsoft.png",
@@ -216,6 +296,29 @@ test("content JSON files stay complete, including hidden include:false rows", as
     "github",
     "keybase",
     "tryhackme",
+    "pdf",
+  ]);
+  expect(socials.default.at(-1)).toEqual(
+    expect.objectContaining({
+      label: "Download",
+      include: true,
+      pdf: false,
+    }),
+  );
+  expect(
+    socials.default.map((item) => ({
+      label: item.label,
+      include: item.include,
+      pdf: item.pdf,
+    })),
+  ).toEqual([
+    { label: "Twitter", include: true, pdf: false },
+    { label: "LinkedIn", include: true, pdf: true },
+    { label: "Instagram", include: true, pdf: false },
+    { label: "GitHub", include: true, pdf: true },
+    { label: "Keybase", include: true, pdf: false },
+    { label: "TryHackMe", include: true, pdf: false },
+    { label: "Download", include: true, pdf: false },
   ]);
 });
 

@@ -58,6 +58,7 @@ export type SpokenLanguage = {
 };
 
 export type SocialIcon =
+  | "pdf"
   | "twitter"
   | "linkedin"
   | "instagram"
@@ -66,6 +67,8 @@ export type SocialIcon =
   | "tryhackme";
 
 export type SocialLink = {
+  include: boolean;
+  pdf: boolean;
   label: string;
   href: string;
   icon: SocialIcon;

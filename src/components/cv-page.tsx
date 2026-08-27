@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { BrandMark } from "./brand-mark";
-import { DownloadCv } from "./download-cv";
 import { SiteNav } from "./site-nav";
 import { SocialList } from "./social-list";
 import { ThemeToggle } from "./theme-toggle";
@@ -52,7 +51,6 @@ export function CvPage() {
 
         <SiteNav />
         <ThemeToggle />
-        <DownloadCv />
         <SocialList />
       </header>
 
@@ -73,7 +71,7 @@ export function CvPage() {
               <li key={`${job.organization}-${job.designation}-${job.from}`}>
                 <article className="job">
                   <div className="job-when">
-                    <p className="job-range">{job.rangeLabel}</p>
+                    <p className="job-range">{job.rangeLabelShort}</p>
                     <p className="job-tenure">{job.tenureLabel}</p>
                   </div>
                   <div className="job-body">

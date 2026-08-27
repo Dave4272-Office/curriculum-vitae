@@ -24,6 +24,7 @@
       "Angular",
       "Java",
       "Terraform",
+      "GitHub Actions",
       "Spring Boot",
       "Amazon ECS"
     ]
@@ -52,7 +53,8 @@
       "Node.js",
       "Angular",
       "Java",
-      "Terraform"
+      "Terraform",
+      "GitHub Actions"
     ]
   },
   {
@@ -79,7 +81,8 @@
       "Express.js",
       "Java",
       "Angular",
-      "Spring Boot"
+      "Spring Boot",
+      "Jenkins"
     ]
   },
   {
@@ -87,7 +90,7 @@
     "designation": "Project Engineer",
     "from": "2020-09",
     "to": "2022-10",
-    "organization": "Wipro Limited",
+    "organization": "Wipro",
     "organizationicon": "static/logos/third-party/Wipro.svg",
     "emptype": "Full Time",
     "location": "Bengaluru, Karnataka, India",
@@ -103,7 +106,8 @@
       "Redis",
       "PCF",
       "Oracle Database",
-      "Angular"
+      "Angular",
+      "Jenkins"
     ]
   }
 ]

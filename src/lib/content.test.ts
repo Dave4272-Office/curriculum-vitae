@@ -1,12 +1,15 @@
 import { expect, test, vi } from "vitest";
 import {
+  catalogSkillLabel,
   getCertificates,
   getEducation,
   getExperience,
+  getPdfSocials,
   getSkillGroups,
   getSocials,
+  skillEntryForLabel,
 } from "./content";
-import type { TechSkill } from "./types";
+import type { SocialLink, TechSkill } from "./types";
 
 test("skill groups resolve catalog icons and omit hidden rows", () => {
   const groups = getSkillGroups();
@@ -14,6 +17,15 @@ test("skill groups resolve catalog icons and omit hidden rows", () => {
 
   expect(items.some((skill) => skill.label === "Python")).toBe(true);
   expect(items.some((skill) => skill.label === "Java")).toBe(true);
+  expect(items.some((skill) => skill.label === "Amazon Web Services")).toBe(
+    true,
+  );
+  expect(items.some((skill) => skill.label === "Serverless")).toBe(true);
+  expect(items.some((skill) => skill.label === "Jenkins")).toBe(true);
+  expect(items.some((skill) => skill.label === "GHA")).toBe(true);
+  expect(items.some((skill) => skill.label === "Kubernetes")).toBe(true);
+  expect(items.some((skill) => skill.label === "Express.js")).toBe(true);
+  expect(items.some((skill) => skill.label === "Redis")).toBe(true);
   expect(items.some((skill) => skill.label === "Rust")).toBe(false);
   expect(items.some((skill) => skill.label === "Kotlin")).toBe(false);
 
@@ -35,6 +47,80 @@ test("missing icon keys fail at the content seam", () => {
   expect(() => getSkillGroups(broken)).toThrow(
     'Missing skill icon "NotARealIcon" for "Nope"',
   );
+});
+
+test("skill aliases join job-tech names to catalog labels without throwing", () => {
+  expect(catalogSkillLabel("Serverless Framework")).toBe("Serverless");
+  expect(catalogSkillLabel("Serverless")).toBe("Serverless");
+  expect(catalogSkillLabel("GitHub Actions")).toBe("GHA");
+  expect(catalogSkillLabel("GHA")).toBe("GHA");
+  expect(catalogSkillLabel("Java")).toBe("Java");
+  expect(catalogSkillLabel("AWS")).toBe("Amazon Web Services");
+  expect(catalogSkillLabel("Amazon Web Services")).toBe("Amazon Web Services");
+
+  const serverless = skillEntryForLabel("Serverless Framework");
+  const gha = skillEntryForLabel("GitHub Actions");
+  expect(serverless?.label).toBe("Serverless");
+  expect(gha?.label).toBe("GHA");
+  expect(typeof serverless?.Icon).toBe("function");
+  expect(typeof gha?.Icon).toBe("function");
+
+  const awsProducts = [
+    "AWS Lambda",
+    "Amazon API Gateway",
+    "Amazon Route53",
+    "Amazon Aurora",
+    "Amazon ECS",
+  ];
+  for (const name of awsProducts) {
+    expect(catalogSkillLabel(name)).toBe("Amazon Web Services");
+    const aws = skillEntryForLabel(name);
+    expect(aws?.label).toBe("Amazon Web Services");
+    expect(typeof aws?.Icon).toBe("function");
+  }
+  expect(skillEntryForLabel("AWS")?.label).toBe("Amazon Web Services");
+
+  for (const job of getExperience().jobs) {
+    for (const name of job.skills) {
+      expect(() => skillEntryForLabel(name)).not.toThrow();
+    }
+  }
+
+  const dual: TechSkill[] = [
+    {
+      include: true,
+      icon: "SiServerless",
+      label: "Serverless",
+      type: "Framework / Library",
+    },
+    {
+      include: true,
+      icon: "SiServerless",
+      label: "Serverless Framework",
+      type: "Framework / Library",
+    },
+  ];
+  expect(getSkillGroups(dual).flatMap((group) => group.items.map((item) => item.label))).toEqual(
+    ["Serverless"],
+  );
+
+  const awsDual: TechSkill[] = [
+    {
+      include: true,
+      icon: "FaAws",
+      label: "Amazon Web Services",
+      type: "Platform",
+    },
+    {
+      include: true,
+      icon: "FaAws",
+      label: "AWS Lambda",
+      type: "Platform",
+    },
+  ];
+  expect(
+    getSkillGroups(awsDual).flatMap((group) => group.items.map((item) => item.label)),
+  ).toEqual(["Amazon Web Services"]);
 });
 
 test("hidden catalog rows still fail if their icon key is missing", () => {
@@ -74,13 +160,21 @@ test("experience leaves view-ready jobs and career length", () => {
       "1 yr 2 mths",
       "2 yrs 2 mths",
     ]);
-    expect(jobs[0]?.rangeLabel).toBe("January 2025 – Present");
-    expect(jobs.map((job) => job.rangeLabel)).toEqual([
+    expect(jobs[0]?.rangeLabelShort).toBe("Jan 2025 – Present");
+    expect(jobs[0]?.rangeLabelLong).toBe("January 2025 – Present");
+    expect(jobs.map((job) => job.rangeLabelShort)).toEqual([
+      "Jan 2025 – Present",
+      "Jan 2024 – Dec 2024",
+      "Nov 2022 – Dec 2023",
+      "Sep 2020 – Oct 2022",
+    ]);
+    expect(jobs.map((job) => job.rangeLabelLong)).toEqual([
       "January 2025 – Present",
       "January 2024 – December 2024",
       "November 2022 – December 2023",
       "September 2020 – October 2022",
     ]);
+    expect(jobs.every((job) => !("rangeLabel" in job))).toBe(true);
     expect(jobs.some((job) => job.tenureLabel.includes("12 mth"))).toBe(false);
     expect(jobs.every((job) => !("fromDate" in job) && !("toDate" in job))).toBe(
       true,
@@ -96,6 +190,18 @@ test("experience brand marks leave as rooted hrefs", () => {
     "/static/logos/third-party/Infosys.svg",
     "/static/logos/third-party/Infosys.svg",
     "/static/logos/third-party/Wipro.svg",
+  ]);
+  expect(getExperience().jobs.map((job) => job.organization)).toEqual([
+    "Infosys",
+    "Infosys",
+    "Infosys",
+    "Wipro",
+  ]);
+  expect(getExperience().jobs.map((job) => job.location)).toEqual([
+    "Kolkata, West Bengal, India",
+    "Bengaluru, Karnataka, India",
+    "Bengaluru, Karnataka, India",
+    "Bengaluru, Karnataka, India",
   ]);
 });
 
@@ -122,37 +228,112 @@ test("certificate brand marks leave as rooted hrefs", () => {
   ]);
 });
 
-test("socials leave the content seam from JSON in catalog order", () => {
-  expect(getSocials().map((item) => ({ label: item.label, href: item.href, icon: item.icon }))).toEqual([
-    {
-      label: "Twitter",
-      href: "https://twitter.com/Dave4272dk",
-      icon: "twitter",
-    },
+const siteAndPdfSocials = [
+  {
+    label: "Twitter",
+    href: "https://twitter.com/Dave4272dk",
+    icon: "twitter",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/debraj-kundu/",
+    icon: "linkedin",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/dave4272dk/",
+    icon: "instagram",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/Dave4272-Office",
+    icon: "github",
+  },
+  {
+    label: "Keybase",
+    href: "https://keybase.io/dave4272",
+    icon: "keybase",
+  },
+  {
+    label: "TryHackMe",
+    href: "https://tryhackme.com/p/Dave4272",
+    icon: "tryhackme",
+  },
+  {
+    label: "Download",
+    href: "/cv.pdf",
+    icon: "pdf",
+  },
+] as const;
+
+const mixedVisibilitySocials: SocialLink[] = [
+  {
+    include: true,
+    pdf: false,
+    label: "download",
+    href: "/cv.pdf",
+    icon: "pdf",
+  },
+  {
+    include: false,
+    pdf: true,
+    label: "PDF only",
+    href: "https://pdf-only.example",
+    icon: "twitter",
+  },
+  {
+    include: true,
+    pdf: true,
+    label: "Both",
+    href: "https://both.example",
+    icon: "github",
+  },
+  {
+    include: false,
+    pdf: false,
+    label: "Neither",
+    href: "https://neither.example",
+    icon: "keybase",
+  },
+];
+
+test("site socials keep download and omit include:false rows", () => {
+  expect(
+    getSocials().map((item) => ({
+      label: item.label,
+      href: item.href,
+      icon: item.icon,
+    })),
+  ).toEqual([...siteAndPdfSocials]);
+  expect(getSocials().some((item) => item.href === "/cv.pdf")).toBe(true);
+
+  expect(
+    getSocials(mixedVisibilitySocials).map((item) => item.label),
+  ).toEqual(["download", "Both"]);
+});
+
+test("PDF socials omit download and include pdf:true rows that are hidden on the site", () => {
+  expect(
+    getPdfSocials().map((item) => ({
+      label: item.label,
+      href: item.href,
+      icon: item.icon,
+    })),
+  ).toEqual([
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/debraj-kundu/",
       icon: "linkedin",
     },
     {
-      label: "Instagram",
-      href: "https://www.instagram.com/dave4272dk/",
-      icon: "instagram",
-    },
-    {
       label: "GitHub",
       href: "https://github.com/Dave4272-Office",
       icon: "github",
     },
-    {
-      label: "Keybase",
-      href: "https://keybase.io/dave4272",
-      icon: "keybase",
-    },
-    {
-      label: "TryHackMe",
-      href: "https://tryhackme.com/p/Dave4272",
-      icon: "tryhackme",
-    },
   ]);
+  expect(getPdfSocials().some((item) => item.href === "/cv.pdf")).toBe(false);
+
+  expect(
+    getPdfSocials(mixedVisibilitySocials).map((item) => item.label),
+  ).toEqual(["PDF only", "Both"]);
 });
