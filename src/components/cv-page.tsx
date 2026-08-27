@@ -11,6 +11,7 @@ import {
   getSkillGroups,
   getSpokenLanguages,
 } from "../lib/content";
+import { brandColorVars } from "../lib/brand-colors";
 import { sectionIds, skipToHref, skipToSectionId } from "../lib/nav";
 
 export function CvPage() {
@@ -182,7 +183,11 @@ export function CvPage() {
                       <span key={skill.label}>
                         {index > 0 ? ", " : null}
                         <span className="skill-inline">
-                          <Icon aria-hidden="true" className="skill-icon" />
+                          <Icon
+                            aria-hidden="true"
+                            className="skill-icon"
+                            style={brandColorVars(skill.color)}
+                          />
                           {skill.label}
                         </span>
                       </span>

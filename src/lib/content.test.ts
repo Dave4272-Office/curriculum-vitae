@@ -32,7 +32,17 @@ test("skill groups resolve catalog icons and omit hidden rows", () => {
 
   for (const skill of items) {
     expect(typeof skill.Icon).toBe("function");
+    expect(skill.color).toMatch(/^#[0-9A-F]{6}$/);
   }
+  expect(items.find((skill) => skill.label === "Python")?.color).toBe("#3776AB");
+  expect(items.find((skill) => skill.label === "JavaScript")?.color).toBe(
+    "#F7DF1E",
+  );
+  expect(items.find((skill) => skill.label === "React")?.color).toBe("#61DAFB");
+  expect(items.find((skill) => skill.label === "Docker")?.color).toBe("#2496ED");
+  expect(
+    items.find((skill) => skill.label === "Amazon Web Services")?.color,
+  ).toBe("#FF9900");
 });
 
 test("missing icon keys fail at the content seam", () => {
@@ -65,6 +75,8 @@ test("skill aliases join job-tech names to catalog labels without throwing", () 
   expect(gha?.label).toBe("GHA");
   expect(typeof serverless?.Icon).toBe("function");
   expect(typeof gha?.Icon).toBe("function");
+  expect(serverless?.color).toBe("#FD5750");
+  expect(gha?.color).toBe("#2088FF");
 
   const awsProducts = [
     "AWS Lambda",
