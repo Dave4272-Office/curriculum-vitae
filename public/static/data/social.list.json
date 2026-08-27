@@ -2,13 +2,6 @@
   {
     "include": true,
     "pdf": false,
-    "label": "download",
-    "href": "/cv.pdf",
-    "icon": "pdf"
-  },
-  {
-    "include": true,
-    "pdf": true,
     "label": "Twitter",
     "href": "https://twitter.com/Dave4272dk",
     "icon": "twitter"
@@ -22,7 +15,7 @@
   },
   {
     "include": true,
-    "pdf": true,
+    "pdf": false,
     "label": "Instagram",
     "href": "https://www.instagram.com/dave4272dk/",
     "icon": "instagram"
@@ -36,16 +29,23 @@
   },
   {
     "include": true,
-    "pdf": true,
+    "pdf": false,
     "label": "Keybase",
     "href": "https://keybase.io/dave4272",
     "icon": "keybase"
   },
   {
     "include": true,
-    "pdf": true,
+    "pdf": false,
     "label": "TryHackMe",
     "href": "https://tryhackme.com/p/Dave4272",
     "icon": "tryhackme"
+  },
+  {
+    "include": true,
+    "pdf": false,
+    "label": "Download",
+    "href": "/cv.pdf",
+    "icon": "pdf"
   }
 ]

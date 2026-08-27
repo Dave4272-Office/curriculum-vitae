@@ -196,11 +196,6 @@ test("certificate brand marks leave as rooted hrefs", () => {
 
 const siteAndPdfSocials = [
   {
-    label: "download",
-    href: "/cv.pdf",
-    icon: "pdf",
-  },
-  {
     label: "Twitter",
     href: "https://twitter.com/Dave4272dk",
     icon: "twitter",
@@ -229,6 +224,11 @@ const siteAndPdfSocials = [
     label: "TryHackMe",
     href: "https://tryhackme.com/p/Dave4272",
     icon: "tryhackme",
+  },
+  {
+    label: "Download",
+    href: "/cv.pdf",
+    icon: "pdf",
   },
 ] as const;
 
@@ -287,34 +287,14 @@ test("PDF socials omit download and include pdf:true rows that are hidden on the
     })),
   ).toEqual([
     {
-      label: "Twitter",
-      href: "https://twitter.com/Dave4272dk",
-      icon: "twitter",
-    },
-    {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/debraj-kundu/",
       icon: "linkedin",
     },
     {
-      label: "Instagram",
-      href: "https://www.instagram.com/dave4272dk/",
-      icon: "instagram",
-    },
-    {
       label: "GitHub",
       href: "https://github.com/Dave4272-Office",
       icon: "github",
-    },
-    {
-      label: "Keybase",
-      href: "https://keybase.io/dave4272",
-      icon: "keybase",
-    },
-    {
-      label: "TryHackMe",
-      href: "https://tryhackme.com/p/Dave4272",
-      icon: "tryhackme",
     },
   ]);
   expect(getPdfSocials().some((item) => item.href === "/cv.pdf")).toBe(false);

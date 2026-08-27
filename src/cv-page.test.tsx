@@ -171,7 +171,7 @@ test("intro offers a download of the generated CV PDF among socials", () => {
   const link = screen.getByRole("link", { name: "Download CV (PDF)" });
   expect(link).toHaveAttribute("href", cvPdfPath);
   expect(link).toHaveAttribute("download", cvPdfFilename());
-  expect(link).toHaveTextContent("download");
+  expect(link).toHaveTextContent("Download");
   expect(link.closest(".socials")).toBeTruthy();
   expect(screen.queryByText("Download CV (PDF)")).not.toBeInTheDocument();
 });
@@ -284,24 +284,36 @@ test("content JSON files stay complete, including hidden include:false rows", as
     }),
   );
   expect(socials.default.map((item) => item.icon)).toEqual([
-    "pdf",
     "twitter",
     "linkedin",
     "instagram",
     "github",
     "keybase",
     "tryhackme",
+    "pdf",
   ]);
-  expect(socials.default[0]).toEqual(
+  expect(socials.default.at(-1)).toEqual(
     expect.objectContaining({
-      label: "download",
+      label: "Download",
       include: true,
       pdf: false,
     }),
   );
   expect(
-    socials.default.slice(1).every((item) => item.include && item.pdf),
-  ).toBe(true);
+    socials.default.map((item) => ({
+      label: item.label,
+      include: item.include,
+      pdf: item.pdf,
+    })),
+  ).toEqual([
+    { label: "Twitter", include: true, pdf: false },
+    { label: "LinkedIn", include: true, pdf: true },
+    { label: "Instagram", include: true, pdf: false },
+    { label: "GitHub", include: true, pdf: true },
+    { label: "Keybase", include: true, pdf: false },
+    { label: "TryHackMe", include: true, pdf: false },
+    { label: "Download", include: true, pdf: false },
+  ]);
 });
 
 test("draws employer and issuer logos from JSON paths", () => {
