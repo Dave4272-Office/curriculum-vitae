@@ -73,6 +73,11 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.getByText("Python").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
   expect(screen.getByText("Java")).toBeInTheDocument();
   expect(screen.getByText("Java").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
+  expect(screen.getByText("Amazon Web Services")).toBeInTheDocument();
+  expect(screen.getByText("Serverless Framework")).toBeInTheDocument();
+  expect(screen.getByText("Kubernetes")).toBeInTheDocument();
+  expect(screen.getByText("Express.js")).toBeInTheDocument();
+  expect(screen.getByText("Redis")).toBeInTheDocument();
   expect(screen.getByText(/English\./)).toBeInTheDocument();
   expect(screen.queryByText("Rust")).not.toBeInTheDocument();
   expect(screen.queryByText("Kotlin")).not.toBeInTheDocument();
@@ -190,7 +195,7 @@ test("content JSON files stay complete, including hidden include:false rows", as
   expect(work.default).toHaveLength(4);
   expect(edu.default).toHaveLength(3);
   expect(certs.default).toHaveLength(4);
-  expect(skills.default).toHaveLength(40);
+  expect(skills.default).toHaveLength(44);
   expect(langs.default).toHaveLength(3);
   expect(socials.default).toHaveLength(6);
 
@@ -203,6 +208,29 @@ test("content JSON files stay complete, including hidden include:false rows", as
   expect(skills.default.some((skill) => skill.label === "Rust" && !skill.include)).toBe(
     true,
   );
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Amazon Web Services" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Serverless Framework" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Kubernetes" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some(
+      (skill) => skill.label === "Express.js" && skill.include,
+    ),
+  ).toBe(true);
+  expect(
+    skills.default.some((skill) => skill.label === "Redis" && skill.include),
+  ).toBe(true);
   expect(certs.default[0]).toEqual(
     expect.objectContaining({
       issuericon: "static/logos/third-party/Microsoft.png",

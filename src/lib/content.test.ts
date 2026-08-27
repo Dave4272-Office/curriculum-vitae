@@ -14,6 +14,15 @@ test("skill groups resolve catalog icons and omit hidden rows", () => {
 
   expect(items.some((skill) => skill.label === "Python")).toBe(true);
   expect(items.some((skill) => skill.label === "Java")).toBe(true);
+  expect(items.some((skill) => skill.label === "Amazon Web Services")).toBe(
+    true,
+  );
+  expect(items.some((skill) => skill.label === "Serverless Framework")).toBe(
+    true,
+  );
+  expect(items.some((skill) => skill.label === "Kubernetes")).toBe(true);
+  expect(items.some((skill) => skill.label === "Express.js")).toBe(true);
+  expect(items.some((skill) => skill.label === "Redis")).toBe(true);
   expect(items.some((skill) => skill.label === "Rust")).toBe(false);
   expect(items.some((skill) => skill.label === "Kotlin")).toBe(false);
 
