@@ -14,6 +14,22 @@ import {
 import { brandColorVars } from "../lib/brand-colors";
 import { sectionIds, skipToHref, skipToSectionId } from "../lib/nav";
 
+function stackedSlashLabel(label: string) {
+  const mark = " / ";
+  const at = label.indexOf(mark);
+  if (at === -1) {
+    return label;
+  }
+
+  return (
+    <>
+      {label.slice(0, at)}{" "}
+      <br />
+      / {label.slice(at + mark.length)}
+    </>
+  );
+}
+
 export function CvPage() {
   const { jobs, careerLength } = getExperience();
   const education = getEducation();
@@ -118,7 +134,7 @@ export function CvPage() {
             {education.map((item) => (
               <li key={`${item.qualexam}-${item.from}`}>
                 <p className="record-when">{item.rangeLabel}</p>
-                <div>
+                <div className="record-body">
                   <h3>
                     {item.qualexam}
                     {item.qualspec ? `, ${item.qualspec}` : ""}
@@ -145,7 +161,7 @@ export function CvPage() {
             {certificates.map((item) => (
               <li key={`${item.name}-${item.issuedate}`}>
                 <time dateTime={item.issuedate}>{item.issuedLabel}</time>
-                <div>
+                <div className="record-body">
                   <a href={item.credurl} target="_blank" rel="noreferrer noopener">
                     {item.name}
                   </a>
@@ -175,13 +191,12 @@ export function CvPage() {
           <dl className="skill-groups">
             {skillGroups.map((group) => (
               <div key={group.type} className="skill-group">
-                <dt>{group.type}</dt>
+                <dt>{stackedSlashLabel(group.type)}</dt>
                 <dd>
                   {group.items.map((skill, index) => {
                     const Icon = skill.Icon;
                     return (
                       <span key={skill.label}>
-                        {index > 0 ? ", " : null}
                         <span className="skill-inline">
                           <Icon
                             aria-hidden="true"
@@ -190,6 +205,7 @@ export function CvPage() {
                           />
                           {skill.label}
                         </span>
+                        {index < group.items.length - 1 ? "," : null}
                       </span>
                     );
                   })}

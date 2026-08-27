@@ -393,6 +393,73 @@ test("Experience still renders", () => {
   expect(screen.getByText("Senior Associate Consultant")).toBeInTheDocument();
 });
 
+test("technology names nest under the Technologies used label in every job", () => {
+  renderCv();
+
+  const labels = screen.getAllByText("Technologies used:");
+  expect(labels).toHaveLength(4);
+  for (const label of labels) {
+    expect(label.tagName).toBe("DT");
+    const tech = label.closest(".job-tech");
+    const items = tech?.querySelector("dd");
+    expect(items?.textContent?.length).toBeGreaterThan(0);
+    expect(label.compareDocumentPosition(items!)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+  }
+});
+
+test("job dates stay with the title block instead of a side column", () => {
+  renderCv();
+
+  const title = screen.getByRole("heading", {
+    name: "Senior Associate Consultant",
+  });
+  const job = title.closest("article.job");
+  expect(job?.querySelector(".job-when + .job-body")).toContainElement(title);
+});
+
+test("education and certification dates sit above their titles", () => {
+  renderCv();
+
+  const degree = screen.getByRole("heading", {
+    name: /B\. Tech, Computer Science and Engineering/,
+  });
+  expect(degree.closest("li")?.querySelector(".record-when + .record-body")).toContainElement(
+    degree,
+  );
+
+  const cert = screen.getByRole("link", {
+    name: /MTA: Introduction to Programming Using Python/,
+  });
+  expect(cert.closest("li")?.querySelector("time + .record-body")).toContainElement(cert);
+});
+
+test("Framework / Library wraps so the skill label column can shrink", () => {
+  renderCv();
+
+  const dts = [...document.querySelectorAll(".skill-group dt")];
+  const framework = dts.find((dt) => dt.textContent?.includes("Framework"));
+  const language = dts.find((dt) => dt.textContent === "Language");
+
+  expect(framework?.textContent?.replace(/\s+/g, " ").trim()).toBe(
+    "Framework / Library",
+  );
+  expect(framework?.querySelector("br")).toBeTruthy();
+  expect(language).toBeTruthy();
+  expect(language?.querySelector("br")).toBeFalsy();
+});
+
+test("skill commas stay attached to the preceding name", () => {
+  renderCv();
+
+  const pythonItem = screen.getByText("Python").parentElement;
+  expect(pythonItem?.textContent).toBe("Python,");
+  expect(
+    screen.getByText("Java").closest(".skill-inline")?.previousSibling,
+  ).toBeNull();
+});
+
 test("CSP allows the GA collect fallback and does not open unpkg.com", async () => {
   const headers = nextConfig.headers ? await nextConfig.headers() : [];
   const csp =
