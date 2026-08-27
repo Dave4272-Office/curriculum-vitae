@@ -118,6 +118,12 @@ test("rendered PDF includes current titles and employers from content", async ()
     expect(text).toContain("Technologies used:");
     expect(text).toContain("Serverless Framework");
     expect(text).toContain("GitHub Actions");
+    expect(text).toContain("AWS Lambda");
+    expect(text).toContain("Amazon API Gateway");
+    expect(text).toContain("Amazon Route53");
+    expect(text).toContain("Amazon Aurora");
+    expect(text).toContain("Amazon ECS");
+    expect(text).toContain("Amazon Web Services");
     expect(text).toContain("January 2025");
     expect(text).toContain("Present");
     expect(text).not.toContain("PRESENT");

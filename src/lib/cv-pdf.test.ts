@@ -107,16 +107,35 @@ test("PDF model keeps certs, spoken languages, socials, and hidden skills aligne
   expect(skillLabels).toContain("GHA");
   expect(skillLabels).not.toContain("Serverless Framework");
   expect(skillLabels).not.toContain("GitHub Actions");
+  expect(skillLabels).not.toContain("AWS Lambda");
+  expect(skillLabels).not.toContain("Amazon API Gateway");
+  expect(skillLabels).not.toContain("Amazon Route53");
+  expect(skillLabels).not.toContain("Amazon Aurora");
+  expect(skillLabels).not.toContain("Amazon ECS");
   expect(
     model.jobs.some((job) => job.skills.includes("Serverless Framework")),
   ).toBe(true);
   expect(model.jobs.some((job) => job.skills.includes("GitHub Actions"))).toBe(
     true,
   );
+  expect(model.jobs.some((job) => job.skills.includes("AWS Lambda"))).toBe(true);
+  expect(
+    model.jobs.some((job) => job.skills.includes("Amazon API Gateway")),
+  ).toBe(true);
+  expect(model.jobs.some((job) => job.skills.includes("Amazon Route53"))).toBe(
+    true,
+  );
+  expect(model.jobs.some((job) => job.skills.includes("Amazon Aurora"))).toBe(
+    true,
+  );
+  expect(model.jobs.some((job) => job.skills.includes("Amazon ECS"))).toBe(true);
   expect(model.jobs.every((job) => !job.skills.includes("Serverless"))).toBe(
     true,
   );
   expect(model.jobs.every((job) => !job.skills.includes("GHA"))).toBe(true);
+  expect(
+    model.jobs.every((job) => !job.skills.includes("Amazon Web Services")),
+  ).toBe(true);
   expect(skillLabels).toContain("Kubernetes");
   expect(skillLabels).toContain("Express.js");
   expect(skillLabels).toContain("Redis");

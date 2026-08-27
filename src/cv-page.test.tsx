@@ -245,6 +245,12 @@ test("content JSON files stay complete, including hidden include:false rows", as
     true,
   );
   expect(work.default.every((job) => !job.skills.includes("GHA"))).toBe(true);
+  expect(
+    work.default.every((job) => !job.skills.includes("Amazon Web Services")),
+  ).toBe(true);
+  expect(
+    work.default.some((job) => job.skills.includes("AWS Lambda")),
+  ).toBe(true);
   expect(skills.default.some((skill) => skill.label === "Rust" && !skill.include)).toBe(
     true,
   );

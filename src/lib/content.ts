@@ -195,10 +195,17 @@ const skillTypeOrder: TechType[] = [
   "IDE",
 ];
 
-/** Job tech lists use the long name; the skills catalog uses the short one. */
+/** Job-tech display names map to the skills-catalog label used for icons and grouping. */
 const skillLabelAliases: Readonly<Record<string, string>> = {
   "Serverless Framework": "Serverless",
   "GitHub Actions": "GHA",
+  AWS: "Amazon Web Services",
+  "Amazon AWS": "Amazon Web Services",
+  "AWS Lambda": "Amazon Web Services",
+  "Amazon API Gateway": "Amazon Web Services",
+  "Amazon Route53": "Amazon Web Services",
+  "Amazon Aurora": "Amazon Web Services",
+  "Amazon ECS": "Amazon Web Services",
 };
 
 export function catalogSkillLabel(name: string): string {

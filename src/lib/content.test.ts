@@ -55,6 +55,8 @@ test("skill aliases join job-tech names to catalog labels without throwing", () 
   expect(catalogSkillLabel("GitHub Actions")).toBe("GHA");
   expect(catalogSkillLabel("GHA")).toBe("GHA");
   expect(catalogSkillLabel("Java")).toBe("Java");
+  expect(catalogSkillLabel("AWS")).toBe("Amazon Web Services");
+  expect(catalogSkillLabel("Amazon Web Services")).toBe("Amazon Web Services");
 
   const serverless = skillEntryForLabel("Serverless Framework");
   const gha = skillEntryForLabel("GitHub Actions");
@@ -62,7 +64,21 @@ test("skill aliases join job-tech names to catalog labels without throwing", () 
   expect(gha?.label).toBe("GHA");
   expect(typeof serverless?.Icon).toBe("function");
   expect(typeof gha?.Icon).toBe("function");
-  expect(skillEntryForLabel("AWS Lambda")).toBeUndefined();
+
+  const awsProducts = [
+    "AWS Lambda",
+    "Amazon API Gateway",
+    "Amazon Route53",
+    "Amazon Aurora",
+    "Amazon ECS",
+  ];
+  for (const name of awsProducts) {
+    expect(catalogSkillLabel(name)).toBe("Amazon Web Services");
+    const aws = skillEntryForLabel(name);
+    expect(aws?.label).toBe("Amazon Web Services");
+    expect(typeof aws?.Icon).toBe("function");
+  }
+  expect(skillEntryForLabel("AWS")?.label).toBe("Amazon Web Services");
 
   for (const job of getExperience().jobs) {
     for (const name of job.skills) {
@@ -87,6 +103,24 @@ test("skill aliases join job-tech names to catalog labels without throwing", () 
   expect(getSkillGroups(dual).flatMap((group) => group.items.map((item) => item.label))).toEqual(
     ["Serverless"],
   );
+
+  const awsDual: TechSkill[] = [
+    {
+      include: true,
+      icon: "FaAws",
+      label: "Amazon Web Services",
+      type: "Platform",
+    },
+    {
+      include: true,
+      icon: "FaAws",
+      label: "AWS Lambda",
+      type: "Platform",
+    },
+  ];
+  expect(
+    getSkillGroups(awsDual).flatMap((group) => group.items.map((item) => item.label)),
+  ).toEqual(["Amazon Web Services"]);
 });
 
 test("hidden catalog rows still fail if their icon key is missing", () => {
