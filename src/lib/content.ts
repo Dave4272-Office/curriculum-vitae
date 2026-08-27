@@ -323,6 +323,7 @@ export function getPdfSocials(
 export const bio = {
   name: "Debraj Kundu",
   tagline: "Developer | Learner | Full Stack | Linux | Open Source",
+  site: "cv.corpdk.com",
   city: "Kolkata",
   state: "West Bengal",
   country: "India",

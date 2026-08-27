@@ -45,8 +45,14 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 3,
-    marginBottom: 8,
+    marginBottom: 3,
     fontSize: 10.5,
+  },
+  site: {
+    fontSize: 10.5,
+    color: link,
+    textDecoration: "underline",
+    marginBottom: 8,
   },
   contact: {
     fontSize: 10,
@@ -197,6 +203,11 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
             <Text style={styles.name}>{model.name}</Text>
             {model.tagline ? (
               <Text style={styles.title}>{model.tagline}</Text>
+            ) : null}
+            {model.site ? (
+              <Link src={model.siteHref} style={styles.site}>
+                {model.site}
+              </Link>
             ) : null}
           </View>
 

@@ -343,6 +343,7 @@ test("bio contact location is city, state, and country only", () => {
   expect(bio.city).toBe("Kolkata");
   expect(bio.state).toBe("West Bengal");
   expect(bio.country).toBe("India");
+  expect(bio.site).toBe("cv.corpdk.com");
   expect(bio).not.toHaveProperty("street");
   expect(bio).not.toHaveProperty("line1");
   expect(bio).not.toHaveProperty("line2");
