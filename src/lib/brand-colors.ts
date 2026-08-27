@@ -57,14 +57,14 @@ export const skillBrandColors = {
   SiVisualstudiocode: "#007ACC", // Simple Icons 9 `visualstudiocode` (later removed)
 } as const satisfies Record<string, `#${string}`>;
 
-export const socialBrandColors = {
+export const socialBrandColors: Partial<Record<SocialIcon, `#${string}`>> = {
   twitter: "#1DA1F2", // Simple Icons 8 `twitter` (bird glyph; `x` is #000000)
   linkedin: "#0A66C2",
   instagram: "#FF0069",
   github: "#181717",
   keybase: "#33A0FF",
   tryhackme: "#212C42",
-} as const satisfies Partial<Record<SocialIcon, `#${string}`>>;
+};
 
 const darkPageBg = "#141210";
 const darkPageFg = "#f0ebe3";
