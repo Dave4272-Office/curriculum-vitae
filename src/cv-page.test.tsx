@@ -393,6 +393,22 @@ test("Experience still renders", () => {
   expect(screen.getByText("Senior Associate Consultant")).toBeInTheDocument();
 });
 
+test("technology names nest under the Technologies used label in every job", () => {
+  renderCv();
+
+  const labels = screen.getAllByText("Technologies used:");
+  expect(labels).toHaveLength(4);
+  for (const label of labels) {
+    expect(label.tagName).toBe("DT");
+    const tech = label.closest(".job-tech");
+    const items = tech?.querySelector("dd");
+    expect(items?.textContent?.length).toBeGreaterThan(0);
+    expect(label.compareDocumentPosition(items!)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+  }
+});
+
 test("job dates stay with the title block instead of a side column", () => {
   renderCv();
 

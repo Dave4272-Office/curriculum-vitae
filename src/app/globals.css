@@ -510,6 +510,7 @@ a:hover {
 
 .job-tech dd {
   margin: 0.25rem 0 0;
+  padding-left: var(--entry-indent);
   color: var(--faint);
   font-size: 0.9rem;
 }
