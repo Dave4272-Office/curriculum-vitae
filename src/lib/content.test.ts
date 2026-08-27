@@ -1,5 +1,6 @@
 import { expect, test, vi } from "vitest";
 import {
+  bio,
   catalogSkillLabel,
   getCertificates,
   getEducation,
@@ -336,4 +337,15 @@ test("PDF socials omit download and include pdf:true rows that are hidden on the
   expect(
     getPdfSocials(mixedVisibilitySocials).map((item) => item.label),
   ).toEqual(["PDF only", "Both"]);
+});
+
+test("bio contact location is city, state, and country only", () => {
+  expect(bio.city).toBe("Kolkata");
+  expect(bio.state).toBe("West Bengal");
+  expect(bio.country).toBe("India");
+  expect(bio).not.toHaveProperty("street");
+  expect(bio).not.toHaveProperty("line1");
+  expect(bio).not.toHaveProperty("line2");
+  expect(JSON.stringify(bio)).not.toContain("16/5");
+  expect(JSON.stringify(bio)).not.toContain("Ghosh");
 });

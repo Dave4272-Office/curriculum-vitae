@@ -323,6 +323,9 @@ export function getPdfSocials(
 export const bio = {
   name: "Debraj Kundu",
   tagline: "Developer | Learner | Full Stack | Linux | Open Source",
+  city: "Kolkata",
+  state: "West Bengal",
+  country: "India",
   summary:
     "I am a learner at heart, an experimenter in mind, an adventurer from the soul. I thrive on challenges.",
   focus:

@@ -115,6 +115,9 @@ test("rendered PDF includes current titles and employers from content", async ()
     expect(text).toContain("Kolkata, WB, India");
     expect(text).not.toContain("Karnataka");
     expect(text).toContain("Developer | Learner | Full Stack | Linux | Open Source");
+    expect(text).toContain("Kolkata, West Bengal, India");
+    expect(text).not.toContain("Ghosh");
+    expect(text).not.toContain("16/5");
     expect(text).toContain("Technologies used:");
     expect(text).toContain("Serverless Framework");
     expect(text).toContain("GitHub Actions");
