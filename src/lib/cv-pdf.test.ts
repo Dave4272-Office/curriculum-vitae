@@ -4,7 +4,7 @@ import {
   getEducation,
   getExperience,
   getSkillGroups,
-  getSocials,
+  getPdfSocials,
   getSpokenLanguages,
 } from "./content";
 import {
@@ -133,9 +133,7 @@ test("PDF model keeps certs, spoken languages, socials, and hidden skills aligne
     getSpokenLanguages().map((item) => item.language),
   );
   expect(model.contacts.map((item) => item.href)).toEqual(
-    getSocials()
-      .filter((item) => item.href !== cvPdfPath)
-      .map((item) => item.href),
+    getPdfSocials().map((item) => item.href),
   );
   expect(model.contacts.some((item) => item.href === cvPdfPath)).toBe(false);
   expect(pdfSkillHeading("Language")).toBe("Programming");

@@ -292,6 +292,16 @@ test("content JSON files stay complete, including hidden include:false rows", as
     "keybase",
     "tryhackme",
   ]);
+  expect(socials.default[0]).toEqual(
+    expect.objectContaining({
+      label: "download",
+      include: true,
+      pdf: false,
+    }),
+  );
+  expect(
+    socials.default.slice(1).every((item) => item.include && item.pdf),
+  ).toBe(true);
 });
 
 test("draws employer and issuer logos from JSON paths", () => {

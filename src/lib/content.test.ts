@@ -4,11 +4,12 @@ import {
   getCertificates,
   getEducation,
   getExperience,
+  getPdfSocials,
   getSkillGroups,
   getSocials,
   skillEntryForLabel,
 } from "./content";
-import type { TechSkill } from "./types";
+import type { SocialLink, TechSkill } from "./types";
 
 test("skill groups resolve catalog icons and omit hidden rows", () => {
   const groups = getSkillGroups();
@@ -193,13 +194,98 @@ test("certificate brand marks leave as rooted hrefs", () => {
   ]);
 });
 
-test("socials leave the content seam from JSON in catalog order", () => {
-  expect(getSocials().map((item) => ({ label: item.label, href: item.href, icon: item.icon }))).toEqual([
-    {
-      label: "download",
-      href: "/cv.pdf",
-      icon: "pdf",
-    },
+const siteAndPdfSocials = [
+  {
+    label: "download",
+    href: "/cv.pdf",
+    icon: "pdf",
+  },
+  {
+    label: "Twitter",
+    href: "https://twitter.com/Dave4272dk",
+    icon: "twitter",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/debraj-kundu/",
+    icon: "linkedin",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/dave4272dk/",
+    icon: "instagram",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/Dave4272-Office",
+    icon: "github",
+  },
+  {
+    label: "Keybase",
+    href: "https://keybase.io/dave4272",
+    icon: "keybase",
+  },
+  {
+    label: "TryHackMe",
+    href: "https://tryhackme.com/p/Dave4272",
+    icon: "tryhackme",
+  },
+] as const;
+
+const mixedVisibilitySocials: SocialLink[] = [
+  {
+    include: true,
+    pdf: false,
+    label: "download",
+    href: "/cv.pdf",
+    icon: "pdf",
+  },
+  {
+    include: false,
+    pdf: true,
+    label: "PDF only",
+    href: "https://pdf-only.example",
+    icon: "twitter",
+  },
+  {
+    include: true,
+    pdf: true,
+    label: "Both",
+    href: "https://both.example",
+    icon: "github",
+  },
+  {
+    include: false,
+    pdf: false,
+    label: "Neither",
+    href: "https://neither.example",
+    icon: "keybase",
+  },
+];
+
+test("site socials keep download and omit include:false rows", () => {
+  expect(
+    getSocials().map((item) => ({
+      label: item.label,
+      href: item.href,
+      icon: item.icon,
+    })),
+  ).toEqual([...siteAndPdfSocials]);
+  expect(getSocials().some((item) => item.href === "/cv.pdf")).toBe(true);
+
+  expect(
+    getSocials(mixedVisibilitySocials).map((item) => item.label),
+  ).toEqual(["download", "Both"]);
+});
+
+test("PDF socials omit download and include pdf:true rows that are hidden on the site", () => {
+  expect(
+    getPdfSocials().map((item) => ({
+      label: item.label,
+      href: item.href,
+      icon: item.icon,
+    })),
+  ).toEqual([
     {
       label: "Twitter",
       href: "https://twitter.com/Dave4272dk",
@@ -231,4 +317,9 @@ test("socials leave the content seam from JSON in catalog order", () => {
       icon: "tryhackme",
     },
   ]);
+  expect(getPdfSocials().some((item) => item.href === "/cv.pdf")).toBe(false);
+
+  expect(
+    getPdfSocials(mixedVisibilitySocials).map((item) => item.label),
+  ).toEqual(["PDF only", "Both"]);
 });

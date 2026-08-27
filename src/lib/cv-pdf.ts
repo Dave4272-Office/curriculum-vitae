@@ -5,7 +5,7 @@ import {
   getEducation,
   getExperience,
   getSkillGroups,
-  getSocials,
+  getPdfSocials,
   getSpokenLanguages,
 } from "./content";
 
@@ -131,13 +131,11 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
     generatedOn,
     tagline: bio.tagline,
     interests: bio.interests,
-    contacts: getSocials()
-      .filter((item) => item.href !== cvPdfPath)
-      .map((item) => ({
-        label: item.label,
-        href: item.href,
-        display: displayHref(item.href),
-      })),
+    contacts: getPdfSocials().map((item) => ({
+      label: item.label,
+      href: item.href,
+      display: displayHref(item.href),
+    })),
     careerLength,
     jobs: jobs.map((job) => ({
       designation: job.designation,

@@ -301,8 +301,16 @@ export function getSpokenLanguages(): SpokenLanguage[] {
   return languageItems;
 }
 
-export function getSocials(): SocialLink[] {
-  return socialItems;
+export function getSocials(
+  items: readonly SocialLink[] = socialItems,
+): SocialLink[] {
+  return items.filter((item) => item.include);
+}
+
+export function getPdfSocials(
+  items: readonly SocialLink[] = socialItems,
+): SocialLink[] {
+  return items.filter((item) => item.pdf);
 }
 
 export const bio = {
