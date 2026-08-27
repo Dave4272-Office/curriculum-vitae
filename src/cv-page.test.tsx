@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { expect, test, vi } from "vitest";
 import { CvPage } from "./components/cv-page";
 import { Providers } from "./app/providers";
+import { cvPdfFilename, cvPdfPath } from "./lib/cv-pdf";
 import { sections, skipToHref } from "./lib/nav";
 import nextConfig from "../next.config";
 
@@ -131,6 +132,14 @@ test("small text nav jumps to on-page sections", () => {
     "href",
     "#interests",
   );
+});
+
+test("intro offers a download of the generated CV PDF", () => {
+  renderCv();
+
+  const link = screen.getByRole("link", { name: "Download CV (PDF)" });
+  expect(link).toHaveAttribute("href", cvPdfPath);
+  expect(link).toHaveAttribute("download", cvPdfFilename);
 });
 
 test("theme control exposes Light, Dark, and System", async () => {
