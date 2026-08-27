@@ -1,160 +1,158 @@
-import { Document, Font, Link, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
-import type { CvPdfLanguage, CvPdfModel } from "../lib/cv-pdf";
+import { Document, Link, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import type { CvPdfLanguage, CvPdfModel, CvPdfSkillGroup } from "../lib/cv-pdf";
+import { pdfSkillHeading } from "../lib/cv-pdf";
+import { cvPdfFontFamily, registerCvPdfFonts } from "./cv-fonts";
 
-Font.registerHyphenationCallback((word) => [word]);
+registerCvPdfFonts();
 
-const ink = "#1a1714";
-const muted = "#4a453e";
-const faint = "#7a7368";
-const accent = "#9a3f24";
-const rule = "#d7d0c3";
+const ink = "#000000";
+const heading = "#8a2386";
+const link = "#1154cc";
+
+const skillOrder = [
+  "Language",
+  "Framework / Library",
+  "Tool",
+  "Platform",
+  "Database",
+  "IDE",
+];
 
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
-    paddingTop: 24,
-    paddingBottom: 24,
-    paddingHorizontal: 32,
-    fontFamily: "Helvetica",
-    fontSize: 8.5,
+    paddingTop: 32,
+    paddingBottom: 28,
+    paddingHorizontal: 40,
+    fontFamily: cvPdfFontFamily,
+    fontSize: 10.5,
     color: ink,
-    lineHeight: 1.28,
-  },
-  header: {
-    marginBottom: 8,
-    paddingBottom: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: rule,
-  },
-  name: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 16,
-  },
-  title: {
-    marginTop: 2,
-    fontSize: 9.5,
-    color: muted,
-  },
-  body: {
-    flexDirection: "row",
-    gap: 14,
-  },
-  sidebar: {
-    width: 152,
-    flexGrow: 0,
-    flexShrink: 0,
+    lineHeight: 1.26,
   },
   main: {
-    width: 365,
-    flexGrow: 0,
-    flexShrink: 0,
+    width: 346,
+  },
+  sidebar: {
+    position: "absolute",
+    top: 32,
+    right: 40,
+    width: 170,
+  },
+  name: {
+    fontSize: 26,
+    fontWeight: 400,
+    lineHeight: 1.12,
+  },
+  title: {
+    marginTop: 3,
+    marginBottom: 8,
+    fontSize: 10.5,
+  },
+  contact: {
+    fontSize: 10,
+    color: link,
+    textDecoration: "underline",
+    marginBottom: 1.5,
+  },
+  contactBlock: {
+    marginBottom: 12,
   },
   section: {
     marginBottom: 6,
   },
   sectionHead: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "baseline",
-    marginBottom: 5,
-    paddingBottom: 2,
-    borderBottomWidth: 0.75,
-    borderBottomColor: rule,
+    alignSelf: "flex-start",
+    marginBottom: 4,
+    borderBottomWidth: 0.8,
+    borderBottomColor: heading,
   },
-  heading: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 8,
-    letterSpacing: 0.6,
-    textTransform: "uppercase",
-    color: accent,
+  headingLarge: {
+    fontSize: 15,
+    fontWeight: 400,
+    color: heading,
+    lineHeight: 1.2,
   },
-  meta: {
-    fontSize: 7.5,
-    color: faint,
-  },
-  contact: {
-    fontSize: 7.5,
-    color: accent,
-    textDecoration: "none",
-    marginBottom: 2,
+  headingSmall: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: heading,
+    lineHeight: 1.2,
   },
   skillGroup: {
-    marginBottom: 5,
+    marginBottom: 7,
+  },
+  skillTypeRule: {
+    alignSelf: "flex-start",
+    marginBottom: 3,
+    borderBottomWidth: 0.7,
+    borderBottomColor: ink,
   },
   skillType: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 7.5,
-    color: muted,
-    marginBottom: 1,
+    fontSize: 12,
+    fontWeight: 400,
   },
   skillLabels: {
-    fontSize: 7.5,
-    color: ink,
-    lineHeight: 1.35,
+    fontSize: 10,
+    lineHeight: 1.3,
   },
   language: {
-    fontSize: 7.5,
-    marginBottom: 2,
-    color: ink,
+    fontSize: 10.5,
+    marginBottom: 1.5,
   },
   job: {
     marginBottom: 5,
   },
   jobTitle: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 9.5,
+    fontSize: 12,
+    fontWeight: 700,
   },
   jobOrg: {
-    marginTop: 1,
-    fontSize: 8,
-    color: muted,
+    fontSize: 12,
+    fontWeight: 700,
   },
   jobWhen: {
-    marginTop: 1,
-    fontSize: 7.5,
-    color: faint,
+    marginTop: 3,
+    marginBottom: 3,
+    fontSize: 10.5,
   },
   bullet: {
     flexDirection: "row",
-    marginTop: 1.5,
-    paddingRight: 2,
+    marginBottom: 1.5,
+    paddingRight: 4,
   },
   bulletMark: {
-    width: 8,
-    fontSize: 8,
-    color: faint,
+    width: 13,
+    fontSize: 10.5,
   },
   bulletText: {
     flexGrow: 1,
     flexShrink: 1,
-    fontSize: 8,
-    color: ink,
+    fontSize: 10.5,
   },
-  jobSkills: {
-    marginTop: 2,
-    fontSize: 7.5,
-    color: faint,
+  nestedBullet: {
+    flexDirection: "row",
+    marginBottom: 2,
+    marginLeft: 14,
+    paddingRight: 4,
   },
   record: {
-    marginBottom: 5,
+    marginBottom: 4,
   },
   recordTitle: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 8.5,
+    fontSize: 10.5,
+    fontWeight: 700,
   },
   recordDetail: {
-    fontSize: 8,
-    color: muted,
+    fontSize: 10.5,
   },
   certName: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 8,
-    color: ink,
-    textDecoration: "none",
+    fontSize: 10.5,
+    fontWeight: 700,
+    color: link,
+    textDecoration: "underline",
   },
   interests: {
-    fontSize: 8,
-    color: muted,
+    fontSize: 10.5,
   },
 });
 
@@ -165,14 +163,23 @@ function languageLine(lang: CvPdfLanguage): string {
   return `${lang.language} (${lang.listeningspeaking}; RW ${lang.readwrite})`;
 }
 
+function orderedSkillGroups(groups: CvPdfSkillGroup[]): CvPdfSkillGroup[] {
+  return [...groups].sort((a, b) => {
+    const left = skillOrder.indexOf(a.type);
+    const right = skillOrder.indexOf(b.type);
+    return (left === -1 ? skillOrder.length : left) - (right === -1 ? skillOrder.length : right);
+  });
+}
+
 function SectionHeading({
   children,
-  meta,
-}: Readonly<{ children: string; meta?: string }>) {
+  size = "large",
+}: Readonly<{ children: string; size?: "large" | "small" }>) {
   return (
-    <View style={styles.sectionHead}>
-      <Text style={styles.heading}>{children}</Text>
-      {meta ? <Text style={styles.meta}>{meta}</Text> : null}
+    <View style={styles.sectionHead} wrap={false}>
+      <Text style={size === "small" ? styles.headingSmall : styles.headingLarge}>
+        {children}:
+      </Text>
     </View>
   );
 }
@@ -181,114 +188,128 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
   return (
     <Document title={`${model.name} — CV`} author={model.name}>
       <Page size="A4" style={styles.page} wrap>
-        <View style={styles.header} wrap={false}>
-          <Text style={styles.name}>{model.name}</Text>
-          {model.currentTitle ? (
-            <Text style={styles.title}>{model.currentTitle}</Text>
-          ) : null}
-        </View>
-
-        <View style={styles.body}>
-          <View style={styles.sidebar}>
-            <View style={styles.section} wrap={false}>
-              <SectionHeading>Contact</SectionHeading>
-              {model.contacts.map((item) => (
-                <Link key={item.href} src={item.href} style={styles.contact}>
-                  {item.display}
-                </Link>
-              ))}
-            </View>
-
-            <View style={styles.section}>
-              <SectionHeading>Skills</SectionHeading>
-              {model.skillGroups.map((group) => (
-                <View key={group.type} style={styles.skillGroup} wrap={false}>
-                  <Text style={styles.skillType}>{group.type}</Text>
-                  <Text style={styles.skillLabels}>{group.labels.join(", ")}</Text>
-                </View>
-              ))}
-            </View>
-
-            <View style={styles.section} wrap={false}>
-              <SectionHeading>Languages</SectionHeading>
-              {model.languages.map((lang) => (
-                <Text key={lang.language} style={styles.language}>
-                  {languageLine(lang)}
-                </Text>
-              ))}
-            </View>
+        <View style={styles.main}>
+          <View wrap={false}>
+            <Text style={styles.name}>{model.name}</Text>
+            {model.currentTitle ? (
+              <Text style={styles.title}>{model.currentTitle}</Text>
+            ) : null}
           </View>
 
-          <View style={styles.main}>
-            <View style={styles.section}>
-              <SectionHeading meta={model.careerLength || undefined}>
-                Experience
-              </SectionHeading>
-              {model.jobs.map((job) => (
-                <View
-                  key={`${job.organization}-${job.designation}-${job.rangeLabel}`}
-                  style={styles.job}
-                >
-                  <View wrap={false}>
-                    <Text style={styles.jobTitle}>{job.designation}</Text>
-                    <Text style={styles.jobOrg}>
-                      {job.organization} · {job.emptype} · {job.location}
-                    </Text>
-                    <Text style={styles.jobWhen}>
-                      {job.rangeLabel} · {job.tenureLabel}
-                    </Text>
+          <View style={styles.section}>
+            <SectionHeading>Experience</SectionHeading>
+            {model.jobs.map((job) => (
+              <View
+                key={`${job.organization}-${job.designation}-${job.periodLabel}`}
+                style={styles.job}
+              >
+                <View wrap={false}>
+                  <Text style={styles.jobTitle}>{job.designation}</Text>
+                  <Text style={styles.jobOrg}>
+                    @ {job.organization}, {job.location}
+                  </Text>
+                  <Text style={styles.jobWhen}>{job.periodLabel}</Text>
+                </View>
+                {job.desc.map((line) => (
+                  <View key={line} style={styles.bullet} wrap={false}>
+                    <Text style={styles.bulletMark}>•</Text>
+                    <Text style={styles.bulletText}>{line}</Text>
                   </View>
-                  {job.desc.map((line) => (
-                    <View key={line} style={styles.bullet} wrap={false}>
+                ))}
+                {job.skills.length > 0 ? (
+                  <View wrap={false}>
+                    <View style={styles.bullet}>
                       <Text style={styles.bulletMark}>•</Text>
-                      <Text style={styles.bulletText}>{line}</Text>
+                      <Text style={styles.bulletText}>Technologies used:</Text>
                     </View>
-                  ))}
-                  {job.skills.length > 0 ? (
-                    <Text style={styles.jobSkills}>{job.skills.join(" · ")}</Text>
-                  ) : null}
-                </View>
-              ))}
-            </View>
+                    <View style={styles.nestedBullet}>
+                      <Text style={styles.bulletMark}>○</Text>
+                      <Text style={styles.bulletText}>{job.skills.join(", ")}</Text>
+                    </View>
+                  </View>
+                ) : null}
+              </View>
+            ))}
+          </View>
 
-            <View style={styles.section} wrap={false}>
-              <SectionHeading>Education</SectionHeading>
-              {model.education.map((item) => (
-                <View key={`${item.qualexam}-${item.rangeLabel}`} style={styles.record}>
-                  <Text style={styles.recordTitle}>
-                    {item.qualexam}
-                    {item.qualspec ? `, ${item.qualspec}` : ""}
-                  </Text>
+          <View style={styles.section}>
+            <SectionHeading>Education</SectionHeading>
+            {model.education.map((item) => (
+              <View
+                key={`${item.qualexam}-${item.rangeLabel}`}
+                style={styles.record}
+                wrap={false}
+              >
+                <Text style={styles.recordTitle}>{item.qualexam} -</Text>
+                <Text style={styles.recordTitle}>
+                  {item.institutename} ({item.certauthname})
+                </Text>
+                <Text style={styles.recordDetail}>
+                  {item.rangeLabel}, {item.score}
+                </Text>
+                {item.qualspec ? (
                   <Text style={styles.recordDetail}>
-                    {item.institutename} · {item.certauthname}
+                    {item.qualspectype}: {item.qualspec}
                   </Text>
-                  <Text style={styles.meta}>
-                    {item.rangeLabel} · {item.score}
-                  </Text>
-                </View>
-              ))}
-            </View>
+                ) : null}
+              </View>
+            ))}
+          </View>
 
-            <View style={styles.section} wrap={false}>
-              <SectionHeading>Certifications</SectionHeading>
-              {model.certificates.map((item) => (
-                <View key={`${item.name}-${item.issuedLabel}`} style={styles.record}>
-                  <Link src={item.credurl} style={styles.certName}>
-                    {item.name}
-                  </Link>
-                  <Text style={styles.recordDetail}>
-                    {item.issuer}
-                    {item.certid ? ` · ${item.certid}` : ""}
-                  </Text>
-                  <Text style={styles.meta}>{item.issuedLabel}</Text>
-                </View>
-              ))}
-            </View>
+          <View style={styles.section}>
+            <SectionHeading>Certifications</SectionHeading>
+            {model.certificates.map((item) => (
+              <View
+                key={`${item.name}-${item.issuedLabel}`}
+                style={styles.record}
+                wrap={false}
+              >
+                <Link src={item.credurl} style={styles.certName}>
+                  {item.name}
+                </Link>
+                <Text style={styles.recordDetail}>
+                  {item.issuer}
+                  {item.certid ? ` · ${item.certid}` : ""}
+                </Text>
+                <Text style={styles.recordDetail}>{item.issuedLabel}</Text>
+              </View>
+            ))}
+          </View>
 
-            <View style={styles.section} wrap={false}>
-              <SectionHeading>Interests</SectionHeading>
-              <Text style={styles.interests}>{model.interests}</Text>
-            </View>
+          <View style={styles.section}>
+            <SectionHeading size="small">Interests</SectionHeading>
+            <Text style={styles.interests}>{model.interests}</Text>
+          </View>
+        </View>
+
+        <View style={styles.sidebar}>
+          <View style={styles.contactBlock}>
+            {model.contacts.map((item) => (
+              <Link key={item.href} src={item.href} style={styles.contact}>
+                {item.display}
+              </Link>
+            ))}
+          </View>
+
+          <View style={styles.section}>
+            <SectionHeading size="small">Skills</SectionHeading>
+            {orderedSkillGroups(model.skillGroups).map((group) => (
+              <View key={group.type} style={styles.skillGroup}>
+                <View style={styles.skillTypeRule}>
+                  <Text style={styles.skillType}>{pdfSkillHeading(group.type)}:</Text>
+                </View>
+                <Text style={styles.skillLabels}>{group.labels.join(", ")}</Text>
+              </View>
+            ))}
+          </View>
+
+          <View style={styles.section}>
+            <SectionHeading size="small">Languages</SectionHeading>
+            {model.languages.map((lang) => (
+              <Text key={lang.language} style={styles.language}>
+                {languageLine(lang)}
+              </Text>
+            ))}
           </View>
         </View>
       </Page>

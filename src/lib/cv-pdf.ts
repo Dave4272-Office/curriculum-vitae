@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import {
   bio,
   getCertificates,
@@ -23,6 +24,7 @@ export type CvPdfJob = {
   emptype: string;
   location: string;
   rangeLabel: string;
+  periodLabel: string;
   tenureLabel: string;
   desc: string[];
   skills: string[];
@@ -31,6 +33,7 @@ export type CvPdfJob = {
 export type CvPdfEducation = {
   rangeLabel: string;
   qualexam: string;
+  qualspectype: string;
   qualspec: string;
   institutename: string;
   certauthname: string;
@@ -73,6 +76,27 @@ function displayHref(href: string): string {
   return href.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "");
 }
 
+function pdfPeriodLabel(from: string, to?: string): string {
+  const start = DateTime.fromFormat(from, "yyyy-MM").toFormat("MMMM yyyy");
+  if (!to) {
+    return `${start} - PRESENT`;
+  }
+  return `${start} - ${DateTime.fromFormat(to, "yyyy-MM").toFormat("MMMM yyyy")}`;
+}
+
+const skillHeadingByType: Record<string, string> = {
+  Language: "Programming",
+  "Framework / Library": "Frameworks/Libraries",
+  Tool: "Tools",
+  Platform: "Platforms",
+  Database: "Database",
+  IDE: "IDE",
+};
+
+export function pdfSkillHeading(type: string): string {
+  return skillHeadingByType[type] ?? type;
+}
+
 export function getCvPdfModel(): CvPdfModel {
   const { jobs, careerLength } = getExperience();
 
@@ -92,6 +116,7 @@ export function getCvPdfModel(): CvPdfModel {
       emptype: job.emptype,
       location: job.location,
       rangeLabel: job.rangeLabel,
+      periodLabel: pdfPeriodLabel(job.from, job.to),
       tenureLabel: job.tenureLabel,
       desc: job.desc,
       skills: job.skills,
@@ -99,6 +124,7 @@ export function getCvPdfModel(): CvPdfModel {
     education: getEducation().map((item) => ({
       rangeLabel: item.rangeLabel,
       qualexam: item.qualexam,
+      qualspectype: item.qualspectype,
       qualspec: item.qualspec,
       institutename: item.institutename,
       certauthname: item.certauthname,

@@ -6,7 +6,7 @@ import {
   getSkillGroups,
   getSpokenLanguages,
 } from "./content";
-import { getCvPdfModel } from "./cv-pdf";
+import { getCvPdfModel, pdfSkillHeading } from "./cv-pdf";
 import { socials } from "./socials";
 
 test("PDF model uses the same jobs and education as the content seam", () => {
@@ -28,6 +28,7 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.jobs.map((job) => job.rangeLabel)).toEqual(
       jobs.map((job) => job.rangeLabel),
     );
+    expect(model.jobs[0]?.periodLabel).toBe("January 2025 - PRESENT");
     expect(model.jobs.map((job) => job.tenureLabel)).toEqual(
       jobs.map((job) => job.tenureLabel),
     );
@@ -36,6 +37,9 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     );
     expect(model.education.map((item) => item.qualexam)).toEqual(
       education.map((item) => item.qualexam),
+    );
+    expect(model.education.map((item) => item.qualspectype)).toEqual(
+      education.map((item) => item.qualspectype),
     );
   } finally {
     vi.useRealTimers();
@@ -66,4 +70,6 @@ test("PDF model keeps certs, spoken languages, and hidden skills aligned with th
   expect(model.contacts.map((item) => item.href)).toEqual(
     socials.map((item) => item.href),
   );
+  expect(pdfSkillHeading("Language")).toBe("Programming");
+  expect(pdfSkillHeading("Framework / Library")).toBe("Frameworks/Libraries");
 });
