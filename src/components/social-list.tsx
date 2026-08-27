@@ -8,6 +8,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { SiTryhackme } from "react-icons/si";
+import { brandColorVars, socialBrandColor } from "../lib/brand-colors";
 import { getSocials } from "../lib/content";
 import { cvPdfFilename, cvPdfPath } from "../lib/cv-pdf";
 import type { SocialIcon, SocialLink } from "../lib/types";
@@ -27,7 +28,13 @@ function SocialIcon({ icon, label }: Readonly<{ icon: SocialIcon; label: string 
   if (!Icon) {
     throw new Error(`Missing social icon "${icon}" for "${label}"`);
   }
-  return <Icon aria-hidden="true" />;
+  const color = socialBrandColor(icon);
+  return (
+    <Icon
+      aria-hidden="true"
+      style={color ? brandColorVars(color) : undefined}
+    />
+  );
 }
 
 function socialAnchorProps(item: SocialLink) {

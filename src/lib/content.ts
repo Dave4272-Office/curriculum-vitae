@@ -55,6 +55,7 @@ import skillJson from "../../public/static/data/skill.list.json";
 import socialJson from "../../public/static/data/social.list.json";
 import workJson from "../../public/static/data/work.list.json";
 import { durationAsString } from "../utils/date-time";
+import { skillBrandColor } from "./brand-colors";
 import type {
   AcademicRecord,
   Certificate,
@@ -75,6 +76,7 @@ const socialItems = socialJson as SocialLink[];
 export type SkillEntry = {
   label: string;
   Icon: IconType;
+  color: string;
 };
 
 export type SkillGroup = {
@@ -221,7 +223,7 @@ export function skillEntryForLabel(
   if (!skill) {
     return undefined;
   }
-  return { label: skill.label, Icon: resolveSkillIcon(skill) };
+  return toSkillEntry(skill);
 }
 
 const skillIcons: Record<string, IconType> = {
@@ -280,13 +282,31 @@ function resolveSkillIcon(skill: TechSkill): IconType {
   return Icon;
 }
 
+function resolveSkillBrandColor(skill: TechSkill): string {
+  const color = skillBrandColor(skill.icon);
+  if (!color) {
+    throw new Error(
+      `Missing skill brand color "${skill.icon}" for "${skill.label}"`,
+    );
+  }
+  return color;
+}
+
+function toSkillEntry(skill: TechSkill): SkillEntry {
+  return {
+    label: skill.label,
+    Icon: resolveSkillIcon(skill),
+    color: resolveSkillBrandColor(skill),
+  };
+}
+
 export function getSkillGroups(
   items: readonly TechSkill[] = skillItems,
 ): SkillGroup[] {
   const grouped = new Map<TechType, SkillEntry[]>();
   const seen = new Set<string>();
   for (const skill of items) {
-    const Icon = resolveSkillIcon(skill);
+    const entry = toSkillEntry(skill);
     if (!skill.include || skill.type === "None") {
       continue;
     }
@@ -296,7 +316,7 @@ export function getSkillGroups(
     }
     seen.add(key);
     const groupItems = grouped.get(skill.type) ?? [];
-    groupItems.push({ label: skill.label, Icon });
+    groupItems.push(entry);
     grouped.set(skill.type, groupItems);
   }
   return skillTypeOrder

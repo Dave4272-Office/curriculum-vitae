@@ -77,6 +77,26 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.getByRole("heading", { name: "Skills" })).toBeInTheDocument();
   expect(screen.getByText("Python")).toBeInTheDocument();
   expect(screen.getByText("Python").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
+  expect(
+    screen.getByText("Python").closest(".skill-inline")?.querySelector("svg")?.getAttribute("style"),
+  ).toContain("--brand-color: #3776AB");
+  expect(screen.getByText("Python").closest(".skill-inline")?.getAttribute("style")).toBeNull();
+  expect(
+    screen.getByText("JavaScript").closest(".skill-inline")?.querySelector("svg")?.getAttribute("style"),
+  ).toContain("--brand-color: #F7DF1E");
+  expect(
+    screen.getByText("React").closest(".skill-inline")?.querySelector("svg")?.getAttribute("style"),
+  ).toContain("--brand-color: #61DAFB");
+  expect(
+    screen.getByText("Docker").closest(".skill-inline")?.querySelector("svg")?.getAttribute("style"),
+  ).toContain("--brand-color: #2496ED");
+  expect(
+    screen
+      .getByText("Amazon Web Services")
+      .closest(".skill-inline")
+      ?.querySelector("svg")
+      ?.getAttribute("style"),
+  ).toContain("--brand-color: #FF9900");
   expect(screen.getByText("Java")).toBeInTheDocument();
   expect(screen.getByText("Java").closest(".skill-inline")?.querySelector("svg")).toBeTruthy();
   expect(screen.getByText("Amazon Web Services")).toBeInTheDocument();
@@ -174,6 +194,26 @@ test("intro offers a download of the generated CV PDF among socials", () => {
   expect(link).toHaveTextContent("Download");
   expect(link.closest(".socials")).toBeTruthy();
   expect(screen.queryByText("Download CV (PDF)")).not.toBeInTheDocument();
+  expect(link.querySelector("svg")?.getAttribute("style")).toContain(
+    "--brand-color: #EC1C24",
+  );
+  expect(link.querySelector("span")?.getAttribute("style")).toBeNull();
+});
+
+test("social glyphs use brand colors without recoloring labels", () => {
+  renderCv();
+
+  const github = screen.getByRole("link", { name: "GitHub profile" });
+  expect(github.querySelector("svg")?.getAttribute("style")).toContain(
+    "--brand-color: #181717",
+  );
+  expect(github.querySelector("span")?.getAttribute("style")).toBeNull();
+
+  const twitter = screen.getByRole("link", { name: "Twitter profile" });
+  expect(twitter.querySelector("svg")?.getAttribute("style")).toContain(
+    "--brand-color: #1DA1F2",
+  );
+  expect(twitter.querySelector("span")?.textContent).toBe("Twitter");
 });
 
 test("theme control exposes Light, Dark, and System", async () => {

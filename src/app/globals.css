@@ -331,6 +331,17 @@ a:hover {
 .socials svg {
   width: 0.95rem;
   height: 0.95rem;
+  color: var(--brand-color, currentColor);
+}
+
+.dark .socials svg {
+  color: var(--brand-color-dark, var(--brand-color, currentColor));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .socials svg {
+    color: var(--brand-color-dark, var(--brand-color, currentColor));
+  }
 }
 
 .content {
@@ -458,7 +469,17 @@ a:hover {
   height: 0.85em;
   margin-right: 0.28em;
   vertical-align: -0.12em;
-  color: var(--faint);
+  color: var(--brand-color);
+}
+
+.dark .skill-icon {
+  color: var(--brand-color-dark, var(--brand-color));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .skill-icon {
+    color: var(--brand-color-dark, var(--brand-color));
+  }
 }
 
 .job-desc {
