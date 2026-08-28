@@ -108,6 +108,7 @@ test("rendered PDF includes current titles and employers from content", async ()
     }
     expect(text).toContain("AISSE (Secondary | X)");
     expect(text).toContain("AISSCE (Sr. Secondary | XII)");
+    expect(text).toContain("Bachelor of Technology (Bachelors)");
     expect(text).toContain("Sainik School Purulia (CBSE)");
     expect(text).toContain(
       "Birbhum Institute of Engineering and Technology, Suri (MAKAUT)",

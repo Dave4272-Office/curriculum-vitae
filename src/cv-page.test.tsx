@@ -278,7 +278,7 @@ test("content JSON files stay complete, including hidden include:false rows", as
   expect(edu.default.map((item) => item.qualexammoniker)).toEqual([
     "Secondary | X",
     "Sr. Secondary | XII",
-    null,
+    "Bachelors",
   ]);
   expect(edu.default.map((item) => item.certauthabbr)).toEqual([
     "CBSE",

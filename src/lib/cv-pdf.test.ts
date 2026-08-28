@@ -97,7 +97,7 @@ test("PDF model uses the same jobs and education as the content seam", () => {
       education.map((item) => item.qualspecabbr),
     );
     expect(model.education.map((item) => pdfEducationExam(item))).toEqual([
-      "Bachelor of Technology",
+      "Bachelor of Technology (Bachelors)",
       "AISSCE (Sr. Secondary | XII)",
       "AISSE (Secondary | X)",
     ]);
