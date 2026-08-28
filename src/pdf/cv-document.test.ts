@@ -4,6 +4,7 @@ import { inflateSync } from "node:zlib";
 import { expect, test, vi } from "vitest";
 import { getEducation, getExperience } from "../lib/content";
 import { getCvPdfModel } from "../lib/cv-pdf";
+import { cvPdfLayout } from "./cv-document";
 import { renderCvPdf } from "./render-cv-pdf";
 
 function pdfPageCount(pdf: Buffer): number {
@@ -140,7 +141,24 @@ test("rendered PDF includes current titles and employers from content", async ()
     expect(text).not.toContain("Rust");
     expect(text).not.toContain("7980014080");
     expect(text).not.toContain("kundudebraj4272@gmail.com");
+    expect(text).toContain("GHA");
+    expect(text).not.toMatch(/GHA\|/);
+    const tools = model.skillGroups.find((group) => group.type === "Tool");
+    expect(tools?.labels.at(-1)).toBe("GHA");
+    expect(tools?.labels.join(", ")).not.toContain("|");
   } finally {
     vi.useRealTimers();
   }
 }, 20_000);
+
+test("PDF columns leave a 12pt gutter so experience cannot collide with skills", () => {
+  expect(cvPdfLayout.columnGutter).toBe(12);
+  expect(cvPdfLayout.sidebarWidth).toBe(160);
+  expect(
+    cvPdfLayout.mainWidth +
+      cvPdfLayout.columnGutter +
+      cvPdfLayout.sidebarWidth,
+  ).toBeCloseTo(cvPdfLayout.contentWidth);
+  expect(cvPdfLayout.mainWidth).toBeLessThan(346);
+  expect(cvPdfLayout.mainWidth).toBeGreaterThan(300);
+});
