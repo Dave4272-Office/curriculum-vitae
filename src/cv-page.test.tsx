@@ -81,8 +81,17 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(
     screen.getByText("Major: Computer Science and Engineering"),
   ).toBeInTheDocument();
+  expect(
+    screen.getByText(
+      "Subjects: English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+    ),
+  ).toBeInTheDocument();
+  expect(screen.getByText("Subjects: General Education")).toBeInTheDocument();
   expect(screen.getByText("8.32 DGPA")).toBeInTheDocument();
   expect(screen.queryByText(/\(CSE\)/)).not.toBeInTheDocument();
+  expect(
+    screen.queryByText("ENG, PHY, CHEM, MATH, CS(C++)"),
+  ).not.toBeInTheDocument();
   expect(screen.getAllByText("Sainik School Purulia (SSP)")).toHaveLength(2);
   expect(
     screen.getAllByText("Central Board of Secondary Education (CBSE)"),
@@ -305,6 +314,11 @@ test("content JSON files stay complete, including hidden include:false rows", as
     "ENG, PHY, CHEM, MATH, CS(C++)",
     "CSE",
   ]);
+  expect(edu.default.map((item) => item.qualspec)).toEqual([
+    "General Education",
+    "English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+    "Computer Science and Engineering",
+  ]);
   expect(edu.default.map((item) => item.score)).toEqual([
     "9.2 CGPA (87.4 %)",
     "84 %",
@@ -317,8 +331,10 @@ test("content JSON files stay complete, including hidden include:false rows", as
     expect(item.qualexam).not.toMatch(/ \(.+\)$/);
     expect(item.certauthname).not.toMatch(/ \(.+\)$/);
     expect(item.institutename).not.toMatch(/ \(.+\)$/);
-    expect(item.qualspec).not.toMatch(/\([^)]+\)$/);
   }
+  expect(edu.default[0]?.qualspec).not.toMatch(/\([^)]+\)$/);
+  expect(edu.default[1]?.qualspec).toMatch(/ \(C\+\+\)$/);
+  expect(edu.default[2]?.qualspec).not.toMatch(/\([^)]+\)$/);
   expect(certs.default).toHaveLength(4);
   expect(skills.default).toHaveLength(45);
   expect(langs.default).toHaveLength(3);

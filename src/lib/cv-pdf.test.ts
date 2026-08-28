@@ -112,8 +112,8 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     ]);
     expect(model.education.map((item) => pdfEducationSpec(item))).toEqual([
       "Computer Science and Engineering",
-      "English, Physics, Chemistry, Mathematics, Computer Science",
-      "General Education",
+      "ENG, PHY, CHEM, MATH, CS(C++)",
+      null,
     ]);
     expect(model.education.map((item) => pdfEducationOutcome(item))).toEqual([
       "2020, 8.32 DGPA",
@@ -132,6 +132,35 @@ test("PDF model uses the same jobs and education as the content seam", () => {
         qualexammoniker: null,
       }),
     ).toBe("Bachelor of Technology");
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Major",
+        qualspec: "Computer Science and Engineering",
+        qualspecabbr: "CSE",
+      }),
+    ).toBe("Computer Science and Engineering");
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Subjects",
+        qualspec:
+          "English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+        qualspecabbr: "ENG, PHY, CHEM, MATH, CS(C++)",
+      }),
+    ).toBe("ENG, PHY, CHEM, MATH, CS(C++)");
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Subjects",
+        qualspec: "General Education",
+        qualspecabbr: null,
+      }),
+    ).toBeNull();
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Subjects",
+        qualspec: "General Education",
+        qualspecabbr: "",
+      }),
+    ).toBeNull();
   } finally {
     vi.useRealTimers();
   }

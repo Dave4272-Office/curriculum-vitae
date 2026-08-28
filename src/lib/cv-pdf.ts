@@ -75,9 +75,13 @@ export function pdfEducationPlace(
 }
 
 export function pdfEducationSpec(
-  item: Pick<CvPdfEducation, "qualspec">,
-): string {
-  return item.qualspec;
+  item: Pick<CvPdfEducation, "qualspectype" | "qualspec" | "qualspecabbr">,
+): string | null {
+  if (item.qualspectype === "Subjects") {
+    const abbr = item.qualspecabbr?.trim();
+    return abbr ? abbr : null;
+  }
+  return item.qualspec || null;
 }
 
 export function pdfEducationOutcome(

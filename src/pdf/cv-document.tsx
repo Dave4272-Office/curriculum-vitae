@@ -33,6 +33,11 @@ export const cvPdfLayout = {
   sidebarWidth: SIDEBAR_WIDTH,
   contentWidth: A4_WIDTH - PAGE_PADDING_X * 2,
   mainWidth: A4_WIDTH - PAGE_PADDING_X * 2 - COLUMN_GUTTER - SIDEBAR_WIDTH,
+  /** Space between education entries. */
+  educationRecordMarginBottom: 9,
+  /** Space after a skill group; keep above 0 so wrapped rows cannot collide. */
+  skillGroupMarginBottom: 4,
+  skillLabelsLineHeight: 1.45,
 } as const;
 
 const skillOrder = [
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.2,
   },
   skillGroup: {
-    marginBottom: 12,
+    marginBottom: cvPdfLayout.skillGroupMarginBottom,
   },
   skillTypeRule: {
     alignSelf: "flex-start",
@@ -132,8 +137,8 @@ const styles = StyleSheet.create({
   skillLabels: {
     width: cvPdfLayout.sidebarWidth,
     fontSize: 10,
-    lineHeight: 1.45,
-    marginBottom: 4,
+    lineHeight: cvPdfLayout.skillLabelsLineHeight,
+    marginBottom: 2,
   },
   language: {
     fontSize: 10.5,
@@ -185,6 +190,9 @@ const styles = StyleSheet.create({
   },
   record: {
     marginBottom: 3,
+  },
+  eduRecord: {
+    marginBottom: cvPdfLayout.educationRecordMarginBottom,
   },
   recordTitle: {
     fontSize: 10.5,
@@ -289,28 +297,31 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
 
           <View style={styles.section}>
             <SectionHeading>Education</SectionHeading>
-            {model.education.map((item) => (
-              <View
-                key={`${item.qualexam}-${item.rangeLabel}`}
-                style={styles.record}
-                wrap={false}
-              >
-                <Text style={styles.recordTitle}>
-                  {pdfEducationExam(item)}
-                </Text>
-                <Text style={styles.recordTitle}>
-                  {pdfEducationPlace(item)}
-                </Text>
-                <Text style={styles.recordDetail}>
-                  {pdfEducationOutcome(item)}
-                </Text>
-                {item.qualspec ? (
-                  <Text style={styles.recordDetail}>
-                    {item.qualspectype}: {pdfEducationSpec(item)}
+            {model.education.map((item) => {
+              const spec = pdfEducationSpec(item);
+              return (
+                <View
+                  key={`${item.qualexam}-${item.rangeLabel}`}
+                  style={styles.eduRecord}
+                  wrap={false}
+                >
+                  <Text style={styles.recordTitle}>
+                    {pdfEducationExam(item)}
                   </Text>
-                ) : null}
-              </View>
-            ))}
+                  <Text style={styles.recordTitle}>
+                    {pdfEducationPlace(item)}
+                  </Text>
+                  <Text style={styles.recordDetail}>
+                    {pdfEducationOutcome(item)}
+                  </Text>
+                  {spec ? (
+                    <Text style={styles.recordDetail}>
+                      {item.qualspectype}: {spec}
+                    </Text>
+                  ) : null}
+                </View>
+              );
+            })}
           </View>
 
           <View style={styles.section}>

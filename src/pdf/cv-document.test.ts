@@ -119,11 +119,13 @@ test("rendered PDF includes current titles and employers from content", async ()
     expect(text).toContain("2014, 9.2 CGPA (87.4 %)");
     expect(text).not.toContain("2016–2020, 8.32 DGPA");
     expect(text).toContain("Major: Computer Science and Engineering");
-    expect(text).toContain(
+    expect(text).toContain("Subjects: ENG, PHY, CHEM, MATH, CS(C++)");
+    expect(text).not.toContain("Major: CSE");
+    expect(text).not.toContain(
       "Subjects: English, Physics, Chemistry, Mathematics, Computer Science",
     );
-    expect(text).not.toContain("Major: CSE");
-    expect(text).not.toContain("ENG, PHY, CHEM, MATH, CS(C++)");
+    expect(text).not.toContain("Subjects: General Education");
+    expect(text).not.toContain("General Education");
     expect(text).toContain("84 %");
     expect(text).toContain("87.4 %");
     expect(text).not.toContain("84.00");
@@ -186,4 +188,10 @@ test("PDF columns leave a 12pt gutter so experience cannot collide with skills",
   ).toBeCloseTo(cvPdfLayout.contentWidth);
   expect(cvPdfLayout.mainWidth).toBeLessThan(346);
   expect(cvPdfLayout.mainWidth).toBeGreaterThan(300);
+});
+
+test("PDF education entries are spaced apart and skill groups stay tight without collapsing line-height", () => {
+  expect(cvPdfLayout.educationRecordMarginBottom).toBe(9);
+  expect(cvPdfLayout.skillGroupMarginBottom).toBe(4);
+  expect(cvPdfLayout.skillLabelsLineHeight).toBe(1.45);
 });
