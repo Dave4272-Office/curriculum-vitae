@@ -109,12 +109,21 @@ test("rendered PDF includes current titles and employers from content", async ()
     expect(text).toContain("AISSE (Secondary | X)");
     expect(text).toContain("AISSCE (Sr. Secondary | XII)");
     expect(text).toContain("Bachelor of Technology (Bachelors)");
+    expect(text).not.toContain("Bachelor of Technology (Bachelors) -");
     expect(text).toContain("Sainik School Purulia (CBSE)");
     expect(text).toContain(
       "Birbhum Institute of Engineering and Technology, Suri (MAKAUT)",
     );
-    expect(text).toContain("ENG, PHY, CHEM, MATH, CS(C++)");
-    expect(text).toContain("Major: CSE");
+    expect(text).toContain("2020, 8.32 DGPA");
+    expect(text).toContain("2016, 84 %");
+    expect(text).toContain("2014, 9.2 CGPA (87.4 %)");
+    expect(text).not.toContain("2016–2020, 8.32 DGPA");
+    expect(text).toContain("Major: Computer Science and Engineering");
+    expect(text).toContain(
+      "Subjects: English, Physics, Chemistry, Mathematics, Computer Science",
+    );
+    expect(text).not.toContain("Major: CSE");
+    expect(text).not.toContain("ENG, PHY, CHEM, MATH, CS(C++)");
     expect(text).toContain("84 %");
     expect(text).toContain("87.4 %");
     expect(text).not.toContain("84.00");

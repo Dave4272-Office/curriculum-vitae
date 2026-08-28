@@ -1,6 +1,7 @@
 import { Document, Link, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import {
   pdfEducationExam,
+  pdfEducationOutcome,
   pdfEducationPlace,
   pdfEducationSpec,
   pdfSkillHeading,
@@ -295,13 +296,13 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
                 wrap={false}
               >
                 <Text style={styles.recordTitle}>
-                  {pdfEducationExam(item)} -
+                  {pdfEducationExam(item)}
                 </Text>
                 <Text style={styles.recordTitle}>
                   {pdfEducationPlace(item)}
                 </Text>
                 <Text style={styles.recordDetail}>
-                  {item.rangeLabel}, {item.score}
+                  {pdfEducationOutcome(item)}
                 </Text>
                 {item.qualspec ? (
                   <Text style={styles.recordDetail}>

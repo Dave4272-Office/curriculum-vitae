@@ -7,6 +7,7 @@ import {
   getSkillGroups,
   getPdfSocials,
   getSpokenLanguages,
+  withOptionalAbbr,
 } from "./content";
 
 export const cvPdfPath = "/cv.pdf";
@@ -48,6 +49,7 @@ export type CvPdfJob = {
 
 export type CvPdfEducation = {
   rangeLabel: string;
+  to?: string;
   qualexam: string;
   qualexammoniker: string | null;
   qualspectype: string;
@@ -63,21 +65,25 @@ export type CvPdfEducation = {
 export function pdfEducationExam(
   item: Pick<CvPdfEducation, "qualexam" | "qualexammoniker">,
 ): string {
-  return item.qualexammoniker
-    ? `${item.qualexam} (${item.qualexammoniker})`
-    : item.qualexam;
+  return withOptionalAbbr(item.qualexam, item.qualexammoniker);
 }
 
 export function pdfEducationPlace(
-  item: Pick<CvPdfEducation, "institutename" | "certauthabbr" | "certauthname">,
+  item: Pick<CvPdfEducation, "institutename" | "certauthabbr">,
 ): string {
-  return `${item.institutename} (${item.certauthabbr ?? item.certauthname})`;
+  return withOptionalAbbr(item.institutename, item.certauthabbr);
 }
 
 export function pdfEducationSpec(
-  item: Pick<CvPdfEducation, "qualspec" | "qualspecabbr">,
+  item: Pick<CvPdfEducation, "qualspec">,
 ): string {
-  return item.qualspecabbr ?? item.qualspec;
+  return item.qualspec;
+}
+
+export function pdfEducationOutcome(
+  item: Pick<CvPdfEducation, "to" | "score">,
+): string {
+  return item.to ? `${item.to}, ${item.score}` : item.score;
 }
 
 export type CvPdfCertificate = {
@@ -189,6 +195,7 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
     })),
     education: getEducation().map((item) => ({
       rangeLabel: item.rangeLabel,
+      to: item.to,
       qualexam: item.qualexam,
       qualexammoniker: item.qualexammoniker,
       qualspectype: item.qualspectype,

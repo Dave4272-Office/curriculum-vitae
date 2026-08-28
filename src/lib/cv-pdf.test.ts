@@ -14,6 +14,7 @@ import {
   getCvPdfModel,
   pdfContactAddress,
   pdfEducationExam,
+  pdfEducationOutcome,
   pdfEducationPlace,
   pdfEducationSpec,
   pdfSiteHref,
@@ -75,6 +76,9 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.jobs.map((job) => job.tenureLabel)).toEqual(
       jobs.map((job) => job.tenureLabel),
     );
+    expect(model.education.map((item) => item.to)).toEqual(
+      education.map((item) => item.to),
+    );
     expect(model.education.map((item) => item.rangeLabel)).toEqual(
       education.map((item) => item.rangeLabel),
     );
@@ -107,10 +111,27 @@ test("PDF model uses the same jobs and education as the content seam", () => {
       "Sainik School Purulia (CBSE)",
     ]);
     expect(model.education.map((item) => pdfEducationSpec(item))).toEqual([
-      "CSE",
-      "ENG, PHY, CHEM, MATH, CS(C++)",
+      "Computer Science and Engineering",
+      "English, Physics, Chemistry, Mathematics, Computer Science",
       "General Education",
     ]);
+    expect(model.education.map((item) => pdfEducationOutcome(item))).toEqual([
+      "2020, 8.32 DGPA",
+      "2016, 84 %",
+      "2014, 9.2 CGPA (87.4 %)",
+    ]);
+    expect(
+      pdfEducationPlace({
+        institutename: "Sainik School Purulia",
+        certauthabbr: null,
+      }),
+    ).toBe("Sainik School Purulia");
+    expect(
+      pdfEducationExam({
+        qualexam: "Bachelor of Technology",
+        qualexammoniker: null,
+      }),
+    ).toBe("Bachelor of Technology");
   } finally {
     vi.useRealTimers();
   }

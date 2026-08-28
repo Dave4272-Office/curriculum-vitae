@@ -544,6 +544,10 @@ a:hover {
   margin-bottom: 0.2rem;
 }
 
+.records .record-meta {
+  padding-left: var(--entry-indent);
+}
+
 .certs a {
   font-weight: 600;
   text-decoration: none;
