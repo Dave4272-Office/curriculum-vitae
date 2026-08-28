@@ -13,6 +13,9 @@ import {
   cvPdfPath,
   getCvPdfModel,
   pdfContactAddress,
+  pdfEducationExam,
+  pdfEducationPlace,
+  pdfEducationSpec,
   pdfSiteHref,
   pdfSkillHeading,
 } from "./cv-pdf";
@@ -81,6 +84,33 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.education.map((item) => item.qualspectype)).toEqual(
       education.map((item) => item.qualspectype),
     );
+    expect(model.education.map((item) => item.qualexammoniker)).toEqual(
+      education.map((item) => item.qualexammoniker),
+    );
+    expect(model.education.map((item) => item.certauthabbr)).toEqual(
+      education.map((item) => item.certauthabbr),
+    );
+    expect(model.education.map((item) => item.instituteabbr)).toEqual(
+      education.map((item) => item.instituteabbr),
+    );
+    expect(model.education.map((item) => item.qualspecabbr)).toEqual(
+      education.map((item) => item.qualspecabbr),
+    );
+    expect(model.education.map((item) => pdfEducationExam(item))).toEqual([
+      "Bachelor of Technology",
+      "AISSCE (Sr. Secondary | XII)",
+      "AISSE (Secondary | X)",
+    ]);
+    expect(model.education.map((item) => pdfEducationPlace(item))).toEqual([
+      "Birbhum Institute of Engineering and Technology, Suri (MAKAUT)",
+      "Sainik School Purulia (CBSE)",
+      "Sainik School Purulia (CBSE)",
+    ]);
+    expect(model.education.map((item) => pdfEducationSpec(item))).toEqual([
+      "CSE",
+      "ENG, PHY, CHEM, MATH, CS(C++)",
+      "General Education",
+    ]);
   } finally {
     vi.useRealTimers();
   }

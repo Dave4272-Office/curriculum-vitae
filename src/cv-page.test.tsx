@@ -63,7 +63,25 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.queryByText(/Bengaluru, KN/)).not.toBeInTheDocument();
 
   expect(screen.getByRole("heading", { name: "Education" })).toBeInTheDocument();
-  expect(screen.getByText(/B\. Tech/)).toBeInTheDocument();
+  expect(screen.getByText(/Bachelor of Technology/)).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", {
+      name: "Bachelor of Technology, Computer Science and Engineering",
+    }),
+  ).toBeInTheDocument();
+  expect(screen.queryByText(/\(CSE\)/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/\(CBSE\)/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/\(SSP\)/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/\(MAKAUT\)/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/\(BIET, Suri\)/)).not.toBeInTheDocument();
+  expect(screen.getByText("84 %")).toBeInTheDocument();
+  expect(screen.getByText("9.2 CGPA (87.4 %)")).toBeInTheDocument();
+  expect(screen.queryByText(/84\.00/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/87\.40/)).not.toBeInTheDocument();
+  expect(screen.getAllByText(/Sainik School Purulia/).length).toBeGreaterThan(0);
+  expect(
+    screen.getAllByText(/Central Board of Secondary Education/).length,
+  ).toBeGreaterThan(0);
 
   expect(
     screen.getByRole("heading", { name: "Certifications" }),
@@ -252,6 +270,45 @@ test("content JSON files stay complete, including hidden include:false rows", as
 
   expect(work.default).toHaveLength(4);
   expect(edu.default).toHaveLength(3);
+  expect(edu.default.map((item) => item.qualexam)).toEqual([
+    "AISSE",
+    "AISSCE",
+    "Bachelor of Technology",
+  ]);
+  expect(edu.default.map((item) => item.qualexammoniker)).toEqual([
+    "Secondary | X",
+    "Sr. Secondary | XII",
+    null,
+  ]);
+  expect(edu.default.map((item) => item.certauthabbr)).toEqual([
+    "CBSE",
+    "CBSE",
+    "MAKAUT",
+  ]);
+  expect(edu.default.map((item) => item.instituteabbr)).toEqual([
+    "SSP",
+    "SSP",
+    "BIET, Suri",
+  ]);
+  expect(edu.default.map((item) => item.qualspecabbr)).toEqual([
+    null,
+    "ENG, PHY, CHEM, MATH, CS(C++)",
+    "CSE",
+  ]);
+  expect(edu.default.map((item) => item.score)).toEqual([
+    "9.2 CGPA (87.4 %)",
+    "84 %",
+    "8.32 DGPA",
+  ]);
+  for (const item of edu.default) {
+    expect(item.score).not.toMatch(/\d+\.\d*0(?!\d)/);
+  }
+  for (const item of edu.default) {
+    expect(item.qualexam).not.toMatch(/ \(.+\)$/);
+    expect(item.certauthname).not.toMatch(/ \(.+\)$/);
+    expect(item.institutename).not.toMatch(/ \(.+\)$/);
+    expect(item.qualspec).not.toMatch(/\([^)]+\)$/);
+  }
   expect(certs.default).toHaveLength(4);
   expect(skills.default).toHaveLength(45);
   expect(langs.default).toHaveLength(3);
@@ -423,7 +480,7 @@ test("education and certification dates sit above their titles", () => {
   renderCv();
 
   const degree = screen.getByRole("heading", {
-    name: /B\. Tech, Computer Science and Engineering/,
+    name: "Bachelor of Technology, Computer Science and Engineering",
   });
   expect(degree.closest("li")?.querySelector(".record-when + .record-body")).toContainElement(
     degree,

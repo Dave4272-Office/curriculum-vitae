@@ -49,12 +49,36 @@ export type CvPdfJob = {
 export type CvPdfEducation = {
   rangeLabel: string;
   qualexam: string;
+  qualexammoniker: string | null;
   qualspectype: string;
   qualspec: string;
+  qualspecabbr: string | null;
   institutename: string;
+  instituteabbr: string | null;
   certauthname: string;
+  certauthabbr: string | null;
   score: string;
 };
+
+export function pdfEducationExam(
+  item: Pick<CvPdfEducation, "qualexam" | "qualexammoniker">,
+): string {
+  return item.qualexammoniker
+    ? `${item.qualexam} (${item.qualexammoniker})`
+    : item.qualexam;
+}
+
+export function pdfEducationPlace(
+  item: Pick<CvPdfEducation, "institutename" | "certauthabbr" | "certauthname">,
+): string {
+  return `${item.institutename} (${item.certauthabbr ?? item.certauthname})`;
+}
+
+export function pdfEducationSpec(
+  item: Pick<CvPdfEducation, "qualspec" | "qualspecabbr">,
+): string {
+  return item.qualspecabbr ?? item.qualspec;
+}
 
 export type CvPdfCertificate = {
   name: string;
@@ -166,10 +190,14 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
     education: getEducation().map((item) => ({
       rangeLabel: item.rangeLabel,
       qualexam: item.qualexam,
+      qualexammoniker: item.qualexammoniker,
       qualspectype: item.qualspectype,
       qualspec: item.qualspec,
+      qualspecabbr: item.qualspecabbr,
       institutename: item.institutename,
+      instituteabbr: item.instituteabbr,
       certauthname: item.certauthname,
+      certauthabbr: item.certauthabbr,
       score: item.score,
     })),
     certificates: getCertificates().map((item) => ({

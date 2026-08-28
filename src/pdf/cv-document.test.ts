@@ -105,6 +105,21 @@ test("rendered PDF includes current titles and employers from content", async ()
     for (const item of education) {
       expect(text).toContain(item.qualexam);
     }
+    expect(text).toContain("AISSE (Secondary | X)");
+    expect(text).toContain("AISSCE (Sr. Secondary | XII)");
+    expect(text).toContain("Sainik School Purulia (CBSE)");
+    expect(text).toContain(
+      "Birbhum Institute of Engineering and Technology, Suri (MAKAUT)",
+    );
+    expect(text).toContain("ENG, PHY, CHEM, MATH, CS(C++)");
+    expect(text).toContain("Major: CSE");
+    expect(text).toContain("84 %");
+    expect(text).toContain("87.4 %");
+    expect(text).not.toContain("84.00");
+    expect(text).not.toContain("87.40");
+    expect(text).not.toContain(
+      "Sainik School Purulia (Central Board of Secondary Education)",
+    );
     expect(text).toContain("Experience:");
     expect(text).toContain("Skills:");
     expect(text).toContain("Programming:");

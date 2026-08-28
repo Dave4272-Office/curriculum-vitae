@@ -1,6 +1,13 @@
 import { Document, Link, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
-import type { CvPdfLanguage, CvPdfModel, CvPdfSkillGroup } from "../lib/cv-pdf";
-import { pdfSkillHeading } from "../lib/cv-pdf";
+import {
+  pdfEducationExam,
+  pdfEducationPlace,
+  pdfEducationSpec,
+  pdfSkillHeading,
+  type CvPdfLanguage,
+  type CvPdfModel,
+  type CvPdfSkillGroup,
+} from "../lib/cv-pdf";
 import { cvPdfFontFamily, registerCvPdfFonts } from "./cv-fonts";
 
 registerCvPdfFonts();
@@ -255,16 +262,18 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
                 style={styles.record}
                 wrap={false}
               >
-                <Text style={styles.recordTitle}>{item.qualexam} -</Text>
                 <Text style={styles.recordTitle}>
-                  {item.institutename} ({item.certauthname})
+                  {pdfEducationExam(item)} -
+                </Text>
+                <Text style={styles.recordTitle}>
+                  {pdfEducationPlace(item)}
                 </Text>
                 <Text style={styles.recordDetail}>
                   {item.rangeLabel}, {item.score}
                 </Text>
                 {item.qualspec ? (
                   <Text style={styles.recordDetail}>
-                    {item.qualspectype}: {item.qualspec}
+                    {item.qualspectype}: {pdfEducationSpec(item)}
                   </Text>
                 ) : null}
               </View>
