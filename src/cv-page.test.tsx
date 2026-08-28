@@ -216,28 +216,31 @@ test("social glyphs use brand colors without recoloring labels", () => {
   expect(twitter.querySelector("span")?.textContent).toBe("Twitter");
 });
 
-test("theme control exposes Light, Dark, and System", async () => {
+test("theme control cycles Light, Dark, and System from one icon button", async () => {
   const user = userEvent.setup();
   renderCv();
 
-  const light = screen.getByRole("button", { name: "Light" });
-  const dark = screen.getByRole("button", { name: "Dark" });
-  const system = screen.getByRole("button", { name: "System" });
+  const toggle = screen.getByRole("button", {
+    name: "Theme: System (click to switch)",
+  });
+  expect(screen.queryByRole("button", { name: "Light" })).not.toBeInTheDocument();
+  expect(toggle.querySelector("svg")).toBeTruthy();
 
-  expect(light).toBeInTheDocument();
-  expect(dark).toBeInTheDocument();
-  expect(system).toBeInTheDocument();
-
-  await user.click(dark);
-  expect(dark).toHaveAttribute("aria-pressed", "true");
-  expect(document.documentElement.classList.contains("dark")).toBe(true);
-
-  await user.click(light);
-  expect(light).toHaveAttribute("aria-pressed", "true");
+  await user.click(toggle);
+  expect(toggle).toHaveAccessibleName("Theme: Light (click to switch)");
   expect(document.documentElement.classList.contains("light")).toBe(true);
 
-  await user.click(system);
-  expect(system).toHaveAttribute("aria-pressed", "true");
+  await user.click(toggle);
+  expect(toggle).toHaveAccessibleName("Theme: Dark (click to switch)");
+  expect(document.documentElement.classList.contains("dark")).toBe(true);
+
+  await user.click(toggle);
+  expect(toggle).toHaveAccessibleName("Theme: System (click to switch)");
+
+  toggle.focus();
+  await user.keyboard("{Enter}");
+  expect(toggle).toHaveAccessibleName("Theme: Light (click to switch)");
+  expect(document.documentElement.classList.contains("light")).toBe(true);
 });
 
 test("content JSON files stay complete, including hidden include:false rows", async () => {
