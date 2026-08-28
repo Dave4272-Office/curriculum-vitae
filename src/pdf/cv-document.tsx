@@ -16,6 +16,24 @@ const ink = "#000000";
 const heading = "#8a2386";
 const link = "#1154cc";
 
+/** A4 width in pt. Columns + gutter must fit inside the padded page. */
+const A4_WIDTH = 595.28;
+const PAGE_PADDING_X = 40;
+const COLUMN_GUTTER = 12;
+const SIDEBAR_WIDTH = 160;
+const BULLET_MARK_WIDTH = 13;
+const BULLET_PAD_RIGHT = 4;
+const NESTED_BULLET_INDENT = 14;
+
+export const cvPdfLayout = {
+  pageWidth: A4_WIDTH,
+  pagePaddingX: PAGE_PADDING_X,
+  columnGutter: COLUMN_GUTTER,
+  sidebarWidth: SIDEBAR_WIDTH,
+  contentWidth: A4_WIDTH - PAGE_PADDING_X * 2,
+  mainWidth: A4_WIDTH - PAGE_PADDING_X * 2 - COLUMN_GUTTER - SIDEBAR_WIDTH,
+} as const;
+
 const skillOrder = [
   "Language",
   "Framework / Library",
@@ -29,21 +47,21 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     paddingTop: 32,
-    paddingBottom: 28,
-    paddingHorizontal: 40,
+    paddingBottom: 12,
+    paddingHorizontal: PAGE_PADDING_X,
     fontFamily: cvPdfFontFamily,
     fontSize: 10.5,
     color: ink,
     lineHeight: 1.26,
   },
   main: {
-    width: 346,
+    width: cvPdfLayout.mainWidth,
   },
   sidebar: {
     position: "absolute",
     top: 32,
-    right: 40,
-    width: 170,
+    right: PAGE_PADDING_X,
+    width: cvPdfLayout.sidebarWidth,
   },
   name: {
     fontSize: 26,
@@ -75,7 +93,7 @@ const styles = StyleSheet.create({
     marginBottom: 1.5,
   },
   section: {
-    marginBottom: 6,
+    marginBottom: 4,
   },
   sectionHead: {
     alignSelf: "flex-start",
@@ -96,28 +114,32 @@ const styles = StyleSheet.create({
     lineHeight: 1.2,
   },
   skillGroup: {
-    marginBottom: 7,
+    marginBottom: 12,
   },
   skillTypeRule: {
     alignSelf: "flex-start",
-    marginBottom: 3,
+    marginTop: 2,
+    marginBottom: 4,
     borderBottomWidth: 0.7,
     borderBottomColor: ink,
   },
   skillType: {
     fontSize: 12,
     fontWeight: 400,
+    lineHeight: 1.35,
   },
   skillLabels: {
+    width: cvPdfLayout.sidebarWidth,
     fontSize: 10,
-    lineHeight: 1.3,
+    lineHeight: 1.45,
+    marginBottom: 4,
   },
   language: {
     fontSize: 10.5,
     marginBottom: 1.5,
   },
   job: {
-    marginBottom: 5,
+    marginBottom: 4,
   },
   jobTitle: {
     fontSize: 12,
@@ -134,26 +156,34 @@ const styles = StyleSheet.create({
   },
   bullet: {
     flexDirection: "row",
-    marginBottom: 1.5,
-    paddingRight: 4,
+    marginBottom: 1,
+    paddingRight: BULLET_PAD_RIGHT,
   },
   bulletMark: {
-    width: 13,
+    width: BULLET_MARK_WIDTH,
     fontSize: 10.5,
   },
   bulletText: {
-    flexGrow: 1,
-    flexShrink: 1,
+    width:
+      cvPdfLayout.mainWidth - BULLET_MARK_WIDTH - BULLET_PAD_RIGHT,
     fontSize: 10.5,
   },
   nestedBullet: {
     flexDirection: "row",
     marginBottom: 2,
-    marginLeft: 14,
-    paddingRight: 4,
+    marginLeft: NESTED_BULLET_INDENT,
+    paddingRight: BULLET_PAD_RIGHT,
+  },
+  nestedBulletText: {
+    width:
+      cvPdfLayout.mainWidth -
+      NESTED_BULLET_INDENT -
+      BULLET_MARK_WIDTH -
+      BULLET_PAD_RIGHT,
+    fontSize: 10.5,
   },
   record: {
-    marginBottom: 4,
+    marginBottom: 3,
   },
   recordTitle: {
     fontSize: 10.5,
@@ -246,7 +276,9 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
                     </View>
                     <View style={styles.nestedBullet}>
                       <Text style={styles.bulletMark}>○</Text>
-                      <Text style={styles.bulletText}>{job.skills.join(", ")}</Text>
+                      <Text style={styles.nestedBulletText}>
+                        {job.skills.join(", ")}
+                      </Text>
                     </View>
                   </View>
                 ) : null}
@@ -286,7 +318,6 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
               <View
                 key={`${item.name}-${item.issuedLabel}`}
                 style={styles.record}
-                wrap={false}
               >
                 <Link src={item.credurl} style={styles.certName}>
                   {item.name}
