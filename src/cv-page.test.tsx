@@ -253,28 +253,48 @@ test("social glyphs use brand colors without recoloring labels", () => {
   expect(twitter.querySelector("span")?.textContent).toBe("Twitter");
 });
 
-test("theme control exposes Light, Dark, and System", async () => {
+test("theme control cycles Light, Dark, and System from one icon button", async () => {
   const user = userEvent.setup();
   renderCv();
 
-  const light = screen.getByRole("button", { name: "Light" });
-  const dark = screen.getByRole("button", { name: "Dark" });
-  const system = screen.getByRole("button", { name: "System" });
+  const toggle = screen.getByRole("button", {
+    name: "Theme: System (click to switch)",
+  });
+  expect(screen.queryByRole("button", { name: "Light" })).not.toBeInTheDocument();
+  expect(toggle).toHaveAttribute("title", "System");
+  expect(toggle.querySelector("#theme-system-sun")).toBeTruthy();
+  expect(toggle.querySelector("#theme-system-moon")).toBeTruthy();
+  expect(toggle.querySelector("circle")).toBeTruthy();
+  expect(toggle.innerHTML).toContain(
+    "M16.65 13.35A6.35 6.35 0 0 1 10.4 6.4 6.5 6.5 0 1 0 17.7 14.85a6.1 6.1 0 0 1-1.05-1.5z",
+  );
+  expect(toggle.innerHTML).not.toContain("M8 19.25h8M12 15.75v3.5");
 
-  expect(light).toBeInTheDocument();
-  expect(dark).toBeInTheDocument();
-  expect(system).toBeInTheDocument();
-
-  await user.click(dark);
-  expect(dark).toHaveAttribute("aria-pressed", "true");
-  expect(document.documentElement.classList.contains("dark")).toBe(true);
-
-  await user.click(light);
-  expect(light).toHaveAttribute("aria-pressed", "true");
+  await user.click(toggle);
+  expect(toggle).toHaveAccessibleName("Theme: Light (click to switch)");
+  expect(toggle).toHaveAttribute("title", "Light");
+  expect(toggle.querySelector("circle")).toBeTruthy();
+  expect(toggle.querySelector("clipPath")).toBeNull();
   expect(document.documentElement.classList.contains("light")).toBe(true);
 
-  await user.click(system);
-  expect(system).toHaveAttribute("aria-pressed", "true");
+  await user.click(toggle);
+  expect(toggle).toHaveAccessibleName("Theme: Dark (click to switch)");
+  expect(toggle).toHaveAttribute("title", "Dark");
+  expect(toggle.querySelector("circle")).toBeNull();
+  expect(toggle.querySelector("clipPath")).toBeNull();
+  expect(document.documentElement.classList.contains("dark")).toBe(true);
+
+  await user.click(toggle);
+  expect(toggle).toHaveAccessibleName("Theme: System (click to switch)");
+  expect(toggle).toHaveAttribute("title", "System");
+  expect(toggle.querySelector("#theme-system-sun")).toBeTruthy();
+  expect(toggle.querySelector("#theme-system-moon")).toBeTruthy();
+
+  toggle.focus();
+  await user.keyboard("{Enter}");
+  expect(toggle).toHaveAccessibleName("Theme: Light (click to switch)");
+  expect(toggle).toHaveAttribute("title", "Light");
+  expect(document.documentElement.classList.contains("light")).toBe(true);
 });
 
 test("content JSON files stay complete, including hidden include:false rows", async () => {
