@@ -15,13 +15,17 @@ export type AcademicRecord = {
   from: string;
   to?: string;
   qualexam: string;
+  qualexammoniker: string | null;
   score: string;
   certauthtype: "Board" | "University";
   certauthname: string;
+  certauthabbr: string | null;
   institutetype: "School" | "College";
   institutename: string;
+  instituteabbr: string | null;
   qualspectype: "Subjects" | "Major";
   qualspec: string;
+  qualspecabbr: string | null;
 };
 
 export type Certificate = {

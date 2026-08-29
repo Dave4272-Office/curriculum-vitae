@@ -7,6 +7,7 @@ import {
   getSkillGroups,
   getPdfSocials,
   getSpokenLanguages,
+  withOptionalAbbr,
 } from "./content";
 
 export const cvPdfPath = "/cv.pdf";
@@ -48,13 +49,46 @@ export type CvPdfJob = {
 
 export type CvPdfEducation = {
   rangeLabel: string;
+  to?: string;
   qualexam: string;
+  qualexammoniker: string | null;
   qualspectype: string;
   qualspec: string;
+  qualspecabbr: string | null;
   institutename: string;
+  instituteabbr: string | null;
   certauthname: string;
+  certauthabbr: string | null;
   score: string;
 };
+
+export function pdfEducationExam(
+  item: Pick<CvPdfEducation, "qualexam" | "qualexammoniker">,
+): string {
+  return withOptionalAbbr(item.qualexam, item.qualexammoniker);
+}
+
+export function pdfEducationPlace(
+  item: Pick<CvPdfEducation, "institutename" | "certauthabbr">,
+): string {
+  return withOptionalAbbr(item.institutename, item.certauthabbr);
+}
+
+export function pdfEducationSpec(
+  item: Pick<CvPdfEducation, "qualspectype" | "qualspec" | "qualspecabbr">,
+): string | null {
+  if (item.qualspectype === "Subjects") {
+    const abbr = item.qualspecabbr?.trim();
+    return abbr ? abbr : null;
+  }
+  return item.qualspec || null;
+}
+
+export function pdfEducationOutcome(
+  item: Pick<CvPdfEducation, "to" | "score">,
+): string {
+  return item.to ? `${item.to}, ${item.score}` : item.score;
+}
 
 export type CvPdfCertificate = {
   name: string;
@@ -165,11 +199,16 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
     })),
     education: getEducation().map((item) => ({
       rangeLabel: item.rangeLabel,
+      to: item.to,
       qualexam: item.qualexam,
+      qualexammoniker: item.qualexammoniker,
       qualspectype: item.qualspectype,
       qualspec: item.qualspec,
+      qualspecabbr: item.qualspecabbr,
       institutename: item.institutename,
+      instituteabbr: item.instituteabbr,
       certauthname: item.certauthname,
+      certauthabbr: item.certauthabbr,
       score: item.score,
     })),
     certificates: getCertificates().map((item) => ({

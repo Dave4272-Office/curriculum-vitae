@@ -13,6 +13,10 @@ import {
   cvPdfPath,
   getCvPdfModel,
   pdfContactAddress,
+  pdfEducationExam,
+  pdfEducationOutcome,
+  pdfEducationPlace,
+  pdfEducationSpec,
   pdfSiteHref,
   pdfSkillHeading,
 } from "./cv-pdf";
@@ -72,6 +76,9 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.jobs.map((job) => job.tenureLabel)).toEqual(
       jobs.map((job) => job.tenureLabel),
     );
+    expect(model.education.map((item) => item.to)).toEqual(
+      education.map((item) => item.to),
+    );
     expect(model.education.map((item) => item.rangeLabel)).toEqual(
       education.map((item) => item.rangeLabel),
     );
@@ -81,6 +88,79 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.education.map((item) => item.qualspectype)).toEqual(
       education.map((item) => item.qualspectype),
     );
+    expect(model.education.map((item) => item.qualexammoniker)).toEqual(
+      education.map((item) => item.qualexammoniker),
+    );
+    expect(model.education.map((item) => item.certauthabbr)).toEqual(
+      education.map((item) => item.certauthabbr),
+    );
+    expect(model.education.map((item) => item.instituteabbr)).toEqual(
+      education.map((item) => item.instituteabbr),
+    );
+    expect(model.education.map((item) => item.qualspecabbr)).toEqual(
+      education.map((item) => item.qualspecabbr),
+    );
+    expect(model.education.map((item) => pdfEducationExam(item))).toEqual([
+      "Bachelor of Technology (Bachelors)",
+      "AISSCE (Sr. Secondary | XII)",
+      "AISSE (Secondary | X)",
+    ]);
+    expect(model.education.map((item) => pdfEducationPlace(item))).toEqual([
+      "Birbhum Institute of Engineering and Technology, Suri (MAKAUT)",
+      "Sainik School Purulia (CBSE)",
+      "Sainik School Purulia (CBSE)",
+    ]);
+    expect(model.education.map((item) => pdfEducationSpec(item))).toEqual([
+      "Computer Science and Engineering",
+      "ENG, PHY, CHEM, MATH, CS(C++)",
+      null,
+    ]);
+    expect(model.education.map((item) => pdfEducationOutcome(item))).toEqual([
+      "2020, 8.32 DGPA",
+      "2016, 84 %",
+      "2014, 9.2 CGPA (87.4 %)",
+    ]);
+    expect(
+      pdfEducationPlace({
+        institutename: "Sainik School Purulia",
+        certauthabbr: null,
+      }),
+    ).toBe("Sainik School Purulia");
+    expect(
+      pdfEducationExam({
+        qualexam: "Bachelor of Technology",
+        qualexammoniker: null,
+      }),
+    ).toBe("Bachelor of Technology");
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Major",
+        qualspec: "Computer Science and Engineering",
+        qualspecabbr: "CSE",
+      }),
+    ).toBe("Computer Science and Engineering");
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Subjects",
+        qualspec:
+          "English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+        qualspecabbr: "ENG, PHY, CHEM, MATH, CS(C++)",
+      }),
+    ).toBe("ENG, PHY, CHEM, MATH, CS(C++)");
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Subjects",
+        qualspec: "General Education",
+        qualspecabbr: null,
+      }),
+    ).toBeNull();
+    expect(
+      pdfEducationSpec({
+        qualspectype: "Subjects",
+        qualspec: "General Education",
+        qualspecabbr: "",
+      }),
+    ).toBeNull();
   } finally {
     vi.useRealTimers();
   }

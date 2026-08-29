@@ -10,6 +10,7 @@ import {
   getExperience,
   getSkillGroups,
   getSpokenLanguages,
+  withOptionalAbbr,
 } from "../lib/content";
 import { brandColorVars } from "../lib/brand-colors";
 import { sectionIds, skipToHref, skipToSectionId } from "../lib/nav";
@@ -136,13 +137,16 @@ export function CvPage() {
                 <p className="record-when">{item.rangeLabel}</p>
                 <div className="record-body">
                   <h3>
-                    {item.qualexam}
-                    {item.qualspec ? `, ${item.qualspec}` : ""}
+                    {withOptionalAbbr(item.qualexam, item.qualexammoniker)}
                   </h3>
                   <p>
-                    {item.institutename}
-                    <span aria-hidden="true"> · </span>
-                    {item.certauthname}
+                    {withOptionalAbbr(item.institutename, item.instituteabbr)}
+                  </p>
+                  <p>
+                    {withOptionalAbbr(item.certauthname, item.certauthabbr)}
+                  </p>
+                  <p>
+                    {item.qualspectype}: {item.qualspec}
                   </p>
                   <p className="record-meta">{item.score}</p>
                 </div>

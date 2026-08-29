@@ -103,6 +103,13 @@ export type ParsedEducation = AcademicRecord & {
   rangeLabel: string;
 };
 
+export function withOptionalAbbr(
+  name: string,
+  abbr: string | null | undefined,
+): string {
+  return abbr ? `${name} (${abbr})` : name;
+}
+
 function rootedHref(path: string): string {
   if (!path) {
     return "";

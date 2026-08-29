@@ -5,6 +5,7 @@ import {
   getCertificates,
   getEducation,
   getExperience,
+  withOptionalAbbr,
   getPdfSocials,
   getSkillGroups,
   getSocials,
@@ -152,11 +153,26 @@ test("hidden catalog rows still fail if their icon key is missing", () => {
 });
 
 test("education records leave the content seam with a year rangeLabel", () => {
-  expect(getEducation().map((item) => item.rangeLabel)).toEqual([
+  const education = getEducation();
+  expect(education.map((item) => item.rangeLabel)).toEqual([
     "2016–2020",
     "2014–2016",
     "2009–2014",
   ]);
+  expect(education.map((item) => item.qualspectype)).toEqual([
+    "Major",
+    "Subjects",
+    "Subjects",
+  ]);
+});
+
+test("optional education abbreviations wrap the full name and skip empty parentheses", () => {
+  expect(withOptionalAbbr("Bachelor of Technology", "Bachelors")).toBe(
+    "Bachelor of Technology (Bachelors)",
+  );
+  expect(withOptionalAbbr("Sainik School Purulia", null)).toBe(
+    "Sainik School Purulia",
+  );
 });
 
 test("experience leaves view-ready jobs and career length", () => {

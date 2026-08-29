@@ -63,7 +63,44 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.queryByText(/Bengaluru, KN/)).not.toBeInTheDocument();
 
   expect(screen.getByRole("heading", { name: "Education" })).toBeInTheDocument();
-  expect(screen.getByText(/B\. Tech/)).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", {
+      name: "Bachelor of Technology (Bachelors)",
+    }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(
+      "Birbhum Institute of Engineering and Technology, Suri (BIET, Suri)",
+    ),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(
+      "Maulana Abul Kalam Azad University of Technology (MAKAUT)",
+    ),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText("Major: Computer Science and Engineering"),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(
+      "Subjects: English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+    ),
+  ).toBeInTheDocument();
+  expect(screen.getByText("Subjects: General Education")).toBeInTheDocument();
+  expect(screen.getByText("8.32 DGPA")).toBeInTheDocument();
+  expect(screen.queryByText(/\(CSE\)/)).not.toBeInTheDocument();
+  expect(
+    screen.queryByText("ENG, PHY, CHEM, MATH, CS(C++)"),
+  ).not.toBeInTheDocument();
+  expect(screen.getAllByText("Sainik School Purulia (SSP)")).toHaveLength(2);
+  expect(
+    screen.getAllByText("Central Board of Secondary Education (CBSE)"),
+  ).toHaveLength(2);
+  expect(screen.getByText("84 %")).toBeInTheDocument();
+  expect(screen.getByText("9.2 CGPA (87.4 %)")).toBeInTheDocument();
+  expect(screen.queryByText(/84\.00/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/87\.40/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/\(\)/)).not.toBeInTheDocument();
 
   expect(
     screen.getByRole("heading", { name: "Certifications" }),
@@ -252,6 +289,52 @@ test("content JSON files stay complete, including hidden include:false rows", as
 
   expect(work.default).toHaveLength(4);
   expect(edu.default).toHaveLength(3);
+  expect(edu.default.map((item) => item.qualexam)).toEqual([
+    "AISSE",
+    "AISSCE",
+    "Bachelor of Technology",
+  ]);
+  expect(edu.default.map((item) => item.qualexammoniker)).toEqual([
+    "Secondary | X",
+    "Sr. Secondary | XII",
+    "Bachelors",
+  ]);
+  expect(edu.default.map((item) => item.certauthabbr)).toEqual([
+    "CBSE",
+    "CBSE",
+    "MAKAUT",
+  ]);
+  expect(edu.default.map((item) => item.instituteabbr)).toEqual([
+    "SSP",
+    "SSP",
+    "BIET, Suri",
+  ]);
+  expect(edu.default.map((item) => item.qualspecabbr)).toEqual([
+    null,
+    "ENG, PHY, CHEM, MATH, CS(C++)",
+    "CSE",
+  ]);
+  expect(edu.default.map((item) => item.qualspec)).toEqual([
+    "General Education",
+    "English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+    "Computer Science and Engineering",
+  ]);
+  expect(edu.default.map((item) => item.score)).toEqual([
+    "9.2 CGPA (87.4 %)",
+    "84 %",
+    "8.32 DGPA",
+  ]);
+  for (const item of edu.default) {
+    expect(item.score).not.toMatch(/\d+\.\d*0(?!\d)/);
+  }
+  for (const item of edu.default) {
+    expect(item.qualexam).not.toMatch(/ \(.+\)$/);
+    expect(item.certauthname).not.toMatch(/ \(.+\)$/);
+    expect(item.institutename).not.toMatch(/ \(.+\)$/);
+  }
+  expect(edu.default[0]?.qualspec).not.toMatch(/\([^)]+\)$/);
+  expect(edu.default[1]?.qualspec).toMatch(/ \(C\+\+\)$/);
+  expect(edu.default[2]?.qualspec).not.toMatch(/\([^)]+\)$/);
   expect(certs.default).toHaveLength(4);
   expect(skills.default).toHaveLength(45);
   expect(langs.default).toHaveLength(3);
@@ -423,11 +506,13 @@ test("education and certification dates sit above their titles", () => {
   renderCv();
 
   const degree = screen.getByRole("heading", {
-    name: /B\. Tech, Computer Science and Engineering/,
+    name: "Bachelor of Technology (Bachelors)",
   });
-  expect(degree.closest("li")?.querySelector(".record-when + .record-body")).toContainElement(
-    degree,
-  );
+  const eduRow = degree.closest("li");
+  const eduBody = eduRow?.querySelector(".record-when + .record-body");
+  expect(eduBody).toContainElement(degree);
+  expect(eduRow?.querySelector(".record-when")?.textContent).toBe("2016–2020");
+  expect(eduBody?.querySelector(".record-meta")?.textContent).toBe("8.32 DGPA");
 
   const cert = screen.getByRole("link", {
     name: /MTA: Introduction to Programming Using Python/,

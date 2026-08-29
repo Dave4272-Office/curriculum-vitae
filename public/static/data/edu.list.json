@@ -2,37 +2,49 @@
   {
     "from": "2009",
     "to": "2014",
-    "qualexam": "AISSE (Secondary | X)",
-    "score": "9.2 CGPA (87.40 %)",
+    "qualexam": "AISSE",
+    "qualexammoniker": "Secondary | X",
+    "score": "9.2 CGPA (87.4 %)",
     "certauthtype": "Board",
-    "certauthname": "Central Board of Secondary Education (CBSE)",
+    "certauthname": "Central Board of Secondary Education",
+    "certauthabbr": "CBSE",
     "institutetype": "School",
-    "institutename": "Sainik School Purulia (SSP)",
+    "institutename": "Sainik School Purulia",
+    "instituteabbr": "SSP",
     "qualspectype": "Subjects",
-    "qualspec": "General Education"
+    "qualspec": "General Education",
+    "qualspecabbr": null
   },
   {
     "from": "2014",
     "to": "2016",
-    "qualexam": "AISSCE (Sr. Secondary | XII)",
-    "score": "84.00 %",
+    "qualexam": "AISSCE",
+    "qualexammoniker": "Sr. Secondary | XII",
+    "score": "84 %",
     "certauthtype": "Board",
-    "certauthname": "Central Board of Secondary Education (CBSE)",
+    "certauthname": "Central Board of Secondary Education",
+    "certauthabbr": "CBSE",
     "institutetype": "School",
-    "institutename": "Sainik School Purulia (SSP)",
+    "institutename": "Sainik School Purulia",
+    "instituteabbr": "SSP",
     "qualspectype": "Subjects",
-    "qualspec": "English, Physics, Chemistry, Mathematics, Computer Science(C++)"
+    "qualspec": "English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+    "qualspecabbr": "ENG, PHY, CHEM, MATH, CS(C++)"
   },
   {
     "from": "2016",
     "to": "2020",
-    "qualexam": "B. Tech",
+    "qualexam": "Bachelor of Technology",
+    "qualexammoniker": "Bachelors",
     "score": "8.32 DGPA",
     "certauthtype": "University",
-    "certauthname": "Maulana Abul Kalam Azad University of Technology (MAKAUT)",
+    "certauthname": "Maulana Abul Kalam Azad University of Technology",
+    "certauthabbr": "MAKAUT",
     "institutetype": "College",
-    "institutename": "Birbhum Institute of Engineering and Technology, Suri (BIET, Suri)",
+    "institutename": "Birbhum Institute of Engineering and Technology, Suri",
+    "instituteabbr": "BIET, Suri",
     "qualspectype": "Major",
-    "qualspec": "Computer Science and Engineering (CSE)"
+    "qualspec": "Computer Science and Engineering",
+    "qualspecabbr": "CSE"
   }
 ]
