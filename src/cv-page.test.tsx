@@ -224,22 +224,39 @@ test("theme control cycles Light, Dark, and System from one icon button", async 
     name: "Theme: System (click to switch)",
   });
   expect(screen.queryByRole("button", { name: "Light" })).not.toBeInTheDocument();
-  expect(toggle.querySelector("svg")).toBeTruthy();
+  expect(toggle).toHaveAttribute("title", "System");
+  expect(toggle.querySelector("#theme-system-sun")).toBeTruthy();
+  expect(toggle.querySelector("#theme-system-moon")).toBeTruthy();
+  expect(toggle.querySelector("circle")).toBeTruthy();
+  expect(toggle.innerHTML).toContain(
+    "M16.65 13.35A6.35 6.35 0 0 1 10.4 6.4 6.5 6.5 0 1 0 17.7 14.85a6.1 6.1 0 0 1-1.05-1.5z",
+  );
+  expect(toggle.innerHTML).not.toContain("M8 19.25h8M12 15.75v3.5");
 
   await user.click(toggle);
   expect(toggle).toHaveAccessibleName("Theme: Light (click to switch)");
+  expect(toggle).toHaveAttribute("title", "Light");
+  expect(toggle.querySelector("circle")).toBeTruthy();
+  expect(toggle.querySelector("clipPath")).toBeNull();
   expect(document.documentElement.classList.contains("light")).toBe(true);
 
   await user.click(toggle);
   expect(toggle).toHaveAccessibleName("Theme: Dark (click to switch)");
+  expect(toggle).toHaveAttribute("title", "Dark");
+  expect(toggle.querySelector("circle")).toBeNull();
+  expect(toggle.querySelector("clipPath")).toBeNull();
   expect(document.documentElement.classList.contains("dark")).toBe(true);
 
   await user.click(toggle);
   expect(toggle).toHaveAccessibleName("Theme: System (click to switch)");
+  expect(toggle).toHaveAttribute("title", "System");
+  expect(toggle.querySelector("#theme-system-sun")).toBeTruthy();
+  expect(toggle.querySelector("#theme-system-moon")).toBeTruthy();
 
   toggle.focus();
   await user.keyboard("{Enter}");
   expect(toggle).toHaveAccessibleName("Theme: Light (click to switch)");
+  expect(toggle).toHaveAttribute("title", "Light");
   expect(document.documentElement.classList.contains("light")).toBe(true);
 });
 
