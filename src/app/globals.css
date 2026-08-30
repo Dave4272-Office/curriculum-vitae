@@ -335,10 +335,11 @@ a:hover {
 }
 
 /* Wide-desktop gutter only: 1600px is when (viewport - 1120px page) / 2
-   leaves room for a 3-column honeycomb without colliding with article text. */
+   leaves room for a 5-column honeycomb without colliding with article text. */
 .skill-honeycomb {
   --hex-w: 3.05rem;
   --hex-h: calc(var(--hex-w) * 0.86602540378);
+  --hex-cols: 5;
   display: none;
   pointer-events: none;
 }
@@ -352,7 +353,8 @@ a:hover {
   height: var(--hex-h);
 }
 
-.skill-honeycomb__cell:nth-child(3n + 2) {
+.skill-honeycomb__cell:nth-child(5n + 2),
+.skill-honeycomb__cell:nth-child(5n + 4) {
   transform: translateY(50%);
 }
 
@@ -393,9 +395,10 @@ a:hover {
     top: 0;
     z-index: 0;
     display: grid;
-    grid-template-columns: repeat(3, calc(var(--hex-w) * 0.75));
+    grid-template-columns: repeat(var(--hex-cols), calc(var(--hex-w) * 0.75));
     grid-auto-rows: var(--hex-h);
-    width: calc(var(--hex-w) * 2.5);
+    /* Packed width: first hex is full --hex-w; each extra column adds 0.75. */
+    width: calc(var(--hex-w) * (1 + 0.75 * (var(--hex-cols) - 1)));
     margin-left: 1.15rem;
     padding-bottom: calc(var(--hex-h) / 2);
   }
