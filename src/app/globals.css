@@ -337,25 +337,42 @@ a:hover {
 /* Wide-desktop gutter only: 1600px is when (viewport - 1120px page) / 2
    leaves room for a 5-column honeycomb without colliding with article text. */
 .skill-honeycomb {
-  --hex-w: 3.05rem;
+  /* Idle hexes are smaller; hover scales one cell to the previous 3.05rem. */
+  --hex-w: 2.44rem;
   --hex-h: calc(var(--hex-w) * 0.86602540378);
   --hex-cols: 5;
+  --hex-hover-scale: 1.25;
   display: none;
   pointer-events: none;
 }
 
 .skill-honeycomb__cell {
   position: relative;
+  z-index: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: var(--hex-w);
   height: var(--hex-h);
+  pointer-events: auto;
+  transform-origin: center;
+  transition: transform 160ms ease;
+}
+
+.skill-honeycomb__cell:hover {
+  z-index: 1;
+  transform: scale(var(--hex-hover-scale));
 }
 
 .skill-honeycomb__cell:nth-child(5n + 2),
 .skill-honeycomb__cell:nth-child(5n + 4) {
   transform: translateY(50%);
+}
+
+.skill-honeycomb__cell:nth-child(5n + 2):hover,
+.skill-honeycomb__cell:nth-child(5n + 4):hover {
+  z-index: 1;
+  transform: translateY(50%) scale(var(--hex-hover-scale));
 }
 
 .skill-honeycomb__stroke {
@@ -373,8 +390,8 @@ a:hover {
 .skill-honeycomb__icon {
   position: relative;
   display: block;
-  width: 1.05rem;
-  height: 1.05rem;
+  width: 0.84rem;
+  height: 0.84rem;
   color: var(--brand-color);
 }
 
@@ -401,6 +418,7 @@ a:hover {
     width: calc(var(--hex-w) * (1 + 0.75 * (var(--hex-cols) - 1)));
     margin-left: 1.15rem;
     padding-bottom: calc(var(--hex-h) / 2);
+    overflow: visible;
   }
 }
 
