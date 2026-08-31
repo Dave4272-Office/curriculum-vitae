@@ -390,6 +390,8 @@ a:hover {
 
 .skill-honeycomb__stroke polygon {
   stroke-width: 1.2;
+  /* Frosted tile: --fg at 12% so light gets a dark wash and dark a light one. */
+  fill: color-mix(in srgb, var(--fg) 12%, transparent);
 }
 
 .skill-honeycomb__icon {
