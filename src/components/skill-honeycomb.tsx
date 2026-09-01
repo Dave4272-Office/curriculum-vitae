@@ -55,6 +55,7 @@ export function SkillHoneycomb({ skills }: Readonly<SkillHoneycombProps>) {
             <Icon
               className="skill-honeycomb__icon"
               style={brandColorVars(skill.color)}
+              preserveAspectRatio="xMidYMid meet"
             />
           </div>
         );

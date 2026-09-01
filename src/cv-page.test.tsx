@@ -594,6 +594,11 @@ test("decorative honeycomb lists one brand icon per included skill", () => {
     cells[0]?.querySelector(".skill-honeycomb__icon")?.getAttribute("aria-hidden"),
   ).not.toBe("false");
   expect(
+    cells[0]
+      ?.querySelector(".skill-honeycomb__icon")
+      ?.getAttribute("preserveAspectRatio"),
+  ).toBe("xMidYMid meet");
+  expect(
     screen.getByRole("navigation", { name: "On this page" }).textContent,
   ).not.toMatch(/honeycomb|hex/i);
 });

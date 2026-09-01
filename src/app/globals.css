@@ -347,6 +347,13 @@ a:hover {
   --hex-col-step: calc(var(--hex-w) * 0.75 + var(--hex-gap) * 0.86602540378);
   --hex-row-step: calc(var(--hex-h) + var(--hex-gap));
   --hex-stagger: calc(var(--hex-row-step) / 2);
+  /* Regular hex: incircle is equidistant from all six faces (flat-to-flat). */
+  --hex-incircle: var(--hex-h);
+  /* 15% of the incircle ≈ inscribed square, ~5px at the idle 2.44rem cell. */
+  --hex-icon-inset-ratio: 0.15;
+  --hex-icon-size: calc(
+    var(--hex-incircle) * (1 - 2 * var(--hex-icon-inset-ratio))
+  );
   display: none;
   pointer-events: none;
 }
@@ -397,8 +404,13 @@ a:hover {
 .skill-honeycomb__icon {
   position: relative;
   display: block;
-  width: 0.84rem;
-  height: 0.84rem;
+  flex: 0 0 var(--hex-icon-size);
+  width: var(--hex-icon-size);
+  height: var(--hex-icon-size);
+  max-width: var(--hex-icon-size);
+  max-height: var(--hex-icon-size);
+  overflow: hidden;
+  object-fit: contain;
   color: var(--brand-color);
 }
 
