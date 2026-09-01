@@ -10,6 +10,7 @@ import {
   getSkillGroups,
   getSocials,
   skillEntryForLabel,
+  toHoneycombSkill,
 } from "./content";
 import type { SocialLink, TechSkill } from "./types";
 
@@ -33,8 +34,10 @@ test("skill groups resolve catalog icons and omit hidden rows", () => {
 
   for (const skill of items) {
     expect(typeof skill.Icon).toBe("function");
+    expect(skill.icon).toMatch(/^[A-Z][A-Za-z0-9]+$/);
     expect(skill.color).toMatch(/^#[0-9A-F]{6}$/);
   }
+  expect(items.find((skill) => skill.label === "Python")?.icon).toBe("FaPython");
   expect(items.find((skill) => skill.label === "Python")?.color).toBe("#3776AB");
   expect(items.find((skill) => skill.label === "JavaScript")?.color).toBe(
     "#F7DF1E",
@@ -44,6 +47,20 @@ test("skill groups resolve catalog icons and omit hidden rows", () => {
   expect(
     items.find((skill) => skill.label === "Amazon Web Services")?.color,
   ).toBe("#FF9900");
+});
+
+test("honeycomb skills drop Icon so they can cross the client boundary", () => {
+  const items = getSkillGroups().flatMap((group) => group.items);
+  const honeycomb = items.map(toHoneycombSkill);
+
+  expect(honeycomb).toHaveLength(41);
+  expect(honeycomb[0]).toEqual({
+    label: "Python",
+    icon: "FaPython",
+    color: "#3776AB",
+  });
+  expect(honeycomb.every((skill) => !("Icon" in skill))).toBe(true);
+  expect(JSON.parse(JSON.stringify(honeycomb))).toEqual(honeycomb);
 });
 
 test("missing icon keys fail at the content seam", () => {

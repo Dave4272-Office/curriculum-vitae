@@ -11,6 +11,7 @@ import {
   getExperience,
   getSkillGroups,
   getSpokenLanguages,
+  toHoneycombSkill,
   withOptionalAbbr,
 } from "../lib/content";
 import { brandColorVars } from "../lib/brand-colors";
@@ -75,7 +76,7 @@ export function CvPage() {
       </header>
 
       <main className="content">
-        <SkillHoneycomb skills={includedSkills} />
+        <SkillHoneycomb skills={includedSkills.map(toHoneycombSkill)} />
         <section
           id={sectionIds.experience}
           className="section section--hero"

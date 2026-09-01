@@ -2,14 +2,15 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { brandColorVars } from "../lib/brand-colors";
-import type { SkillEntry } from "../lib/content";
+import type { HoneycombSkill } from "../lib/content";
+import { resolveSkillIcon } from "../lib/skill-icons";
 import { shuffle } from "../lib/shuffle";
 
 /** Flat-top hex, inset so the stroke stays inside the viewBox. */
 const HEX_POINTS = "25,0.8 75,0.8 99.2,43.3 75,85.8 25,85.8 0.8,43.3";
 
 type SkillHoneycombProps = {
-  skills: readonly SkillEntry[];
+  skills: readonly HoneycombSkill[];
 };
 
 function subscribe() {
@@ -20,7 +21,9 @@ export function SkillHoneycomb({ skills }: Readonly<SkillHoneycombProps>) {
   // Same client-only snapshot as ThemeToggle: SSR and hydration stay empty.
   // The first client render then keeps one Fisher–Yates order in state.
   const mounted = useSyncExternalStore(subscribe, () => true, () => false);
-  const [ordered, setOrdered] = useState<readonly SkillEntry[] | null>(null);
+  const [ordered, setOrdered] = useState<readonly HoneycombSkill[] | null>(
+    null,
+  );
 
   if (mounted && ordered === null && skills.length > 0) {
     setOrdered(shuffle(skills));
@@ -33,7 +36,7 @@ export function SkillHoneycomb({ skills }: Readonly<SkillHoneycombProps>) {
   return (
     <div className="skill-honeycomb" aria-hidden="true">
       {ordered.map((skill) => {
-        const Icon = skill.Icon;
+        const Icon = resolveSkillIcon(skill.icon, skill.label);
         return (
           <div key={skill.label} className="skill-honeycomb__cell">
             <svg

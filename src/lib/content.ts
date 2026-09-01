@@ -1,53 +1,5 @@
 import { DateTime } from "luxon";
 import type { IconType } from "react-icons";
-import { CgCPlusPlus } from "react-icons/cg";
-import {
-  FaAndroid,
-  FaAngular,
-  FaAws,
-  FaBootstrap,
-  FaCss3,
-  FaDocker,
-  FaGitAlt,
-  FaHtml5,
-  FaJava,
-  FaJenkins,
-  FaJs,
-  FaLinux,
-  FaMarkdown,
-  FaNodeJs,
-  FaPhp,
-  FaPython,
-  FaReact,
-  FaRust,
-  FaSass,
-  FaWordpress,
-  FaYarn,
-} from "react-icons/fa";
-import { GrMysql, GrOracle } from "react-icons/gr";
-import {
-  SiC,
-  SiCloudfoundry,
-  SiExpress,
-  SiGithubactions,
-  SiGnubash,
-  SiGo,
-  SiHibernate,
-  SiJquery,
-  SiJupyter,
-  SiKotlin,
-  SiKubernetes,
-  SiMongodb,
-  SiNpm,
-  SiRedis,
-  SiScikitlearn,
-  SiServerless,
-  SiSpring,
-  SiSpringboot,
-  SiTerraform,
-  SiTypescript,
-} from "react-icons/si";
-import { VscVscode } from "react-icons/vsc";
 import certJson from "../../public/static/data/cert.list.json";
 import eduJson from "../../public/static/data/edu.list.json";
 import langJson from "../../public/static/data/lang.list.json";
@@ -56,6 +8,7 @@ import socialJson from "../../public/static/data/social.list.json";
 import workJson from "../../public/static/data/work.list.json";
 import { durationAsString } from "../utils/date-time";
 import { skillBrandColor } from "./brand-colors";
+import { resolveSkillIcon } from "./skill-icons";
 import type {
   AcademicRecord,
   Certificate,
@@ -75,7 +28,15 @@ const socialItems = socialJson as SocialLink[];
 
 export type SkillEntry = {
   label: string;
+  icon: string;
   Icon: IconType;
+  color: string;
+};
+
+/** Serializable skill fields for Client Components (no Icon function). */
+export type HoneycombSkill = {
+  label: string;
+  icon: string;
   color: string;
 };
 
@@ -233,62 +194,6 @@ export function skillEntryForLabel(
   return toSkillEntry(skill);
 }
 
-const skillIcons: Record<string, IconType> = {
-  FaPython,
-  FaJava,
-  CgCPlusPlus,
-  SiC,
-  SiGnubash,
-  FaJs,
-  SiTypescript,
-  SiKotlin,
-  SiGo,
-  FaRust,
-  FaPhp,
-  FaHtml5,
-  FaCss3,
-  FaSass,
-  FaMarkdown,
-  SiSpring,
-  SiSpringboot,
-  FaReact,
-  FaAngular,
-  FaNodeJs,
-  SiExpress,
-  SiJquery,
-  FaBootstrap,
-  FaWordpress,
-  SiHibernate,
-  SiScikitlearn,
-  SiServerless,
-  GrMysql,
-  SiOracle: GrOracle,
-  SiMongodb,
-  SiRedis,
-  FaGitAlt,
-  FaDocker,
-  SiKubernetes,
-  SiNpm,
-  FaYarn,
-  FaJenkins,
-  SiGithubactions,
-  FaAndroid,
-  FaAws,
-  SiCloudfoundry,
-  FaLinux,
-  SiJupyter,
-  SiVisualstudiocode: VscVscode,
-  SiTerraform,
-};
-
-function resolveSkillIcon(skill: TechSkill): IconType {
-  const Icon = skillIcons[skill.icon];
-  if (!Icon) {
-    throw new Error(`Missing skill icon "${skill.icon}" for "${skill.label}"`);
-  }
-  return Icon;
-}
-
 function resolveSkillBrandColor(skill: TechSkill): string {
   const color = skillBrandColor(skill.icon);
   if (!color) {
@@ -302,8 +207,17 @@ function resolveSkillBrandColor(skill: TechSkill): string {
 function toSkillEntry(skill: TechSkill): SkillEntry {
   return {
     label: skill.label,
-    Icon: resolveSkillIcon(skill),
+    icon: skill.icon,
+    Icon: resolveSkillIcon(skill.icon, skill.label),
     color: resolveSkillBrandColor(skill),
+  };
+}
+
+export function toHoneycombSkill(skill: SkillEntry): HoneycombSkill {
+  return {
+    label: skill.label,
+    icon: skill.icon,
+    color: skill.color,
   };
 }
 
