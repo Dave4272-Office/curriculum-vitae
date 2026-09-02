@@ -1,8 +1,22 @@
 [
   {
     "include": true,
+    "designation": "Independent Contractor",
+    "from": "2026-08-28",
+    "organization": "CorpDK",
+    "organizationicon": "",
+    "emptype": "Contract",
+    "location": "Kolkata, West Bengal, India",
+    "desc": [
+      "Working as an independent contractor under the CorpDK brand."
+    ],
+    "skills": []
+  },
+  {
+    "include": true,
     "designation": "Senior Associate Consultant",
     "from": "2025-01",
+    "to": "2026-08",
     "organization": "Infosys",
     "organizationicon": "static/logos/third-party/Infosys.svg",
     "emptype": "Full Time",

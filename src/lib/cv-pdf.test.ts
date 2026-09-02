@@ -23,7 +23,7 @@ import {
 
 test("PDF model uses the same jobs and education as the content seam", () => {
   vi.useFakeTimers();
-  vi.setSystemTime(new Date("2026-08-25T12:00:00+05:30"));
+  vi.setSystemTime(new Date("2026-09-02T12:00:00+05:30"));
 
   try {
     const { jobs, careerLength } = getExperience();
@@ -40,17 +40,20 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.jobs.map((job) => job.rangeLabel)).toEqual(
       jobs.map((job) => job.rangeLabelLong),
     );
-    expect(model.jobs[0]?.rangeLabel).toBe("January 2025 – Present");
+    expect(model.jobs[0]?.rangeLabel).toBe("August 2026 – Present");
+    expect(model.jobs[1]?.rangeLabel).toBe("January 2025 – August 2026");
     expect(model.jobs.every((job) => !job.rangeLabel.includes("PRESENT"))).toBe(
       true,
     );
     expect(model.jobs.map((job) => job.location)).toEqual([
+      "Kolkata, WB, India",
       "Kolkata, WB, India",
       "Bengaluru, KN, India",
       "Bengaluru, KN, India",
       "Bengaluru, KN, India",
     ]);
     expect(jobs.map((job) => job.location)).toEqual([
+      "Kolkata, West Bengal, India",
       "Kolkata, West Bengal, India",
       "Bengaluru, Karnataka, India",
       "Bengaluru, Karnataka, India",

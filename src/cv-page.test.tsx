@@ -49,18 +49,31 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(
     screen.getByRole("heading", { name: "Experience" }),
   ).toBeInTheDocument();
+  expect(screen.getByText("Independent Contractor")).toBeInTheDocument();
   expect(screen.getByText("Senior Associate Consultant")).toBeInTheDocument();
+  expect(screen.getAllByText(/CorpDK/).length).toBeGreaterThan(0);
   expect(screen.getAllByText(/Infosys/).length).toBeGreaterThan(0);
   expect(screen.getAllByText("Technologies used:")).toHaveLength(4);
   expect(
     screen.getAllByText(/AWS Lambda, Amazon API Gateway/).length,
   ).toBeGreaterThan(0);
-  expect(screen.getByText("Jan 2025 – Present")).toBeInTheDocument();
+  expect(screen.getByText("Aug 2026 – Present")).toBeInTheDocument();
+  expect(screen.getByText("Jan 2025 – Aug 2026")).toBeInTheDocument();
+  expect(screen.queryByText("Jan 2025 – Present")).not.toBeInTheDocument();
   expect(screen.queryByText("January 2025 – Present")).not.toBeInTheDocument();
+  expect(screen.queryByText("August 2026 – Present")).not.toBeInTheDocument();
   expect(screen.getByText(/Wipro/)).toBeInTheDocument();
   expect(screen.queryByText(/Wipro Limited/)).not.toBeInTheDocument();
   expect(screen.getAllByText(/Bengaluru, Karnataka, India/)).toHaveLength(3);
-  expect(screen.getByText(/Kolkata, West Bengal, India/)).toBeInTheDocument();
+  expect(screen.getAllByText(/Kolkata, West Bengal, India/)).toHaveLength(2);
+  expect(
+    screen.getByText(
+      /I currently work as an independent contractor under CorpDK/,
+    ),
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByText(/senior associate consultant at Infosys/i),
+  ).not.toBeInTheDocument();
   expect(screen.queryByText(/Bengaluru, KN/)).not.toBeInTheDocument();
 
   expect(screen.getByRole("heading", { name: "Education" })).toBeInTheDocument();
@@ -308,7 +321,7 @@ test("content JSON files stay complete, including hidden include:false rows", as
     import("../public/static/data/social.list.json"),
   ]);
 
-  expect(work.default).toHaveLength(4);
+  expect(work.default).toHaveLength(5);
   expect(edu.default).toHaveLength(3);
   expect(edu.default.map((item) => item.qualexam)).toEqual([
     "AISSE",
@@ -363,38 +376,55 @@ test("content JSON files stay complete, including hidden include:false rows", as
 
   expect(work.default[0]).toEqual(
     expect.objectContaining({
+      designation: "Independent Contractor",
+      organization: "CorpDK",
+      organizationicon: "",
+      emptype: "Contract",
+      from: "2026-08-28",
+      location: "Kolkata, West Bengal, India",
+    }),
+  );
+  expect(work.default[0]).not.toHaveProperty("to");
+  expect(work.default[0]?.skills).toEqual([]);
+  expect(work.default[1]).toEqual(
+    expect.objectContaining({
+      designation: "Senior Associate Consultant",
+      organization: "Infosys",
       organizationicon: "static/logos/third-party/Infosys.svg",
+      to: "2026-08",
       location: "Kolkata, West Bengal, India",
     }),
   );
   expect(work.default.map((job) => job.designation)).toEqual([
+    "Independent Contractor",
     "Senior Associate Consultant",
     "Associate Consultant",
     "Associate Business Analyst",
     "Project Engineer",
   ]);
-  expect(work.default[0]?.skills).toContain("GitHub Actions");
   expect(work.default[1]?.skills).toContain("GitHub Actions");
-  expect(work.default[2]?.skills).toContain("Jenkins");
+  expect(work.default[2]?.skills).toContain("GitHub Actions");
   expect(work.default[3]?.skills).toContain("Jenkins");
-  expect(work.default[0]?.skills).not.toContain("Jenkins");
+  expect(work.default[4]?.skills).toContain("Jenkins");
   expect(work.default[1]?.skills).not.toContain("Jenkins");
-  expect(work.default[2]?.skills).not.toContain("GitHub Actions");
+  expect(work.default[2]?.skills).not.toContain("Jenkins");
   expect(work.default[3]?.skills).not.toContain("GitHub Actions");
-  expect(work.default[3]?.organization).toBe("Wipro");
+  expect(work.default[4]?.skills).not.toContain("GitHub Actions");
+  expect(work.default[4]?.organization).toBe("Wipro");
+  const jobSkillLists = work.default.map((job) => job.skills as string[]);
   expect(
-    work.default.some((job) => job.skills.includes("Serverless Framework")),
+    jobSkillLists.some((skills) => skills.includes("Serverless Framework")),
   ).toBe(true);
-  expect(work.default.every((job) => !job.skills.includes("Serverless"))).toBe(
+  expect(jobSkillLists.every((skills) => !skills.includes("Serverless"))).toBe(
     true,
   );
-  expect(work.default.every((job) => !job.skills.includes("GHA"))).toBe(true);
+  expect(jobSkillLists.every((skills) => !skills.includes("GHA"))).toBe(true);
   expect(
-    work.default.every((job) => !job.skills.includes("Amazon Web Services")),
+    jobSkillLists.every((skills) => !skills.includes("Amazon Web Services")),
   ).toBe(true);
-  expect(
-    work.default.some((job) => job.skills.includes("AWS Lambda")),
-  ).toBe(true);
+  expect(jobSkillLists.some((skills) => skills.includes("AWS Lambda"))).toBe(
+    true,
+  );
   expect(skills.default.some((skill) => skill.label === "Rust" && !skill.include)).toBe(
     true,
   );
