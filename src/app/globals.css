@@ -342,18 +342,14 @@ a:hover {
   --hex-h: calc(var(--hex-w) * 0.86602540378);
   --hex-cols: 5;
   --hex-hover-scale: 1.25;
-  /* Face-to-face gap. Column step grows by gap * √3/2 so the lattice stays regular. */
+  /* Flat-top regular hex. Neighbor center-to-center is flat-to-flat + gap
+     on all six sides. Vertical neighbors use that pitch as the row step.
+     Diagonal neighbors sit 30° off the x-axis, so the extra column pitch
+     is g / cos(30°) = g * 2/√3. Packed column pitch is 3/4 of vertex width. */
   --hex-gap: 3px;
-  --hex-col-step: calc(var(--hex-w) * 0.75 + var(--hex-gap) * 0.86602540378);
   --hex-row-step: calc(var(--hex-h) + var(--hex-gap));
+  --hex-col-step: calc(var(--hex-w) * 0.75 + var(--hex-gap) / 0.86602540378);
   --hex-stagger: calc(var(--hex-row-step) / 2);
-  /* Regular hex: incircle is equidistant from all six faces (flat-to-flat). */
-  --hex-incircle: var(--hex-h);
-  /* 15% of the incircle ≈ inscribed square, ~5px at the idle 2.44rem cell. */
-  --hex-icon-inset-ratio: 0.15;
-  --hex-icon-size: calc(
-    var(--hex-incircle) * (1 - 2 * var(--hex-icon-inset-ratio))
-  );
   display: none;
   pointer-events: none;
 }
@@ -404,13 +400,8 @@ a:hover {
 .skill-honeycomb__icon {
   position: relative;
   display: block;
-  flex: 0 0 var(--hex-icon-size);
-  width: var(--hex-icon-size);
-  height: var(--hex-icon-size);
-  max-width: var(--hex-icon-size);
-  max-height: var(--hex-icon-size);
-  overflow: hidden;
-  object-fit: contain;
+  width: 0.84rem;
+  height: 0.84rem;
   color: var(--brand-color);
 }
 
@@ -431,6 +422,8 @@ a:hover {
     top: 0;
     z-index: 0;
     display: grid;
+    justify-items: start;
+    align-items: start;
     grid-template-columns: repeat(var(--hex-cols), var(--hex-col-step));
     grid-auto-rows: var(--hex-row-step);
     /* First hex is full --hex-w; each extra column adds the gapped step. */
