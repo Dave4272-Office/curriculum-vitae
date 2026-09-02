@@ -278,7 +278,7 @@ export const bio = {
   summary:
     "I am a learner at heart, an experimenter in mind, an adventurer from the soul. I thrive on challenges.",
   focus:
-    "Most of that curiosity goes into technology, especially cyber security and AI. I currently work as an independent contractor under CorpDK.",
+    "Most of that curiosity goes into technology, especially cyber security and AI. I now work independently as CorpDK, the brand for my personal work and projects.",
   interests:
     "I pick up new tools and ideas for the pleasure of it, not only when a ticket says so. Novels fill the quieter hours. I sketch when I want to think with a pencil, and music is almost always on in the background.",
 };

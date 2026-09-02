@@ -403,7 +403,7 @@ test("bio contact location is city, state, and country only", () => {
   expect(JSON.stringify(bio)).not.toContain("16/5");
   expect(JSON.stringify(bio)).not.toContain("Ghosh");
   expect(bio.focus).toBe(
-    "Most of that curiosity goes into technology, especially cyber security and AI. I currently work as an independent contractor under CorpDK.",
+    "Most of that curiosity goes into technology, especially cyber security and AI. I now work independently as CorpDK, the brand for my personal work and projects.",
   );
   expect(bio.focus).not.toMatch(/Infosys/i);
 });

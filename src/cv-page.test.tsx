@@ -68,7 +68,7 @@ test("renders employment-first editorial page from existing JSON", () => {
   expect(screen.getAllByText(/Kolkata, West Bengal, India/)).toHaveLength(2);
   expect(
     screen.getByText(
-      /I currently work as an independent contractor under CorpDK/,
+      /I now work independently as CorpDK/,
     ),
   ).toBeInTheDocument();
   expect(
