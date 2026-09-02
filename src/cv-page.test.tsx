@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { expect, test, vi } from "vitest";
 import { CvPage } from "./components/cv-page";
 import { Providers } from "./app/providers";
+import { getSkillGroups } from "./lib/content";
 import { cvPdfFilename, cvPdfPath } from "./lib/cv-pdf";
 import { sections, skipToHref } from "./lib/nav";
 import nextConfig from "../next.config";
@@ -563,6 +564,43 @@ test("skill commas stay attached to the preceding name", () => {
   expect(
     screen.getByText("Java").closest(".skill-inline")?.previousSibling,
   ).toBeNull();
+});
+
+test("decorative honeycomb lists one brand icon per included skill", () => {
+  renderCv();
+
+  const included = getSkillGroups().flatMap((group) => group.items);
+  const honeycomb = document.querySelector(".skill-honeycomb");
+  const cells = [...(honeycomb?.querySelectorAll(".skill-honeycomb__cell") ?? [])];
+  const cellColors = cells.map(
+    (cell) =>
+      cell
+        .querySelector(".skill-honeycomb__icon")
+        ?.getAttribute("style")
+        ?.match(/--brand-color:\s*([^;]+)/)?.[1]
+        ?.trim() ?? "",
+  );
+
+  expect(honeycomb).toHaveAttribute("aria-hidden", "true");
+  expect(included).toHaveLength(41);
+  expect(cells).toHaveLength(included.length);
+  expect(included.map((skill) => skill.label)).not.toContain("Rust");
+  expect(included.map((skill) => skill.label)).not.toContain("Kotlin");
+  expect(included[0]?.label).toBe("Python");
+  expect([...cellColors].sort()).toEqual(
+    [...included.map((skill) => skill.color)].sort(),
+  );
+  expect(
+    cells[0]?.querySelector(".skill-honeycomb__icon")?.getAttribute("aria-hidden"),
+  ).not.toBe("false");
+  expect(
+    cells[0]
+      ?.querySelector(".skill-honeycomb__icon")
+      ?.getAttribute("preserveAspectRatio"),
+  ).toBe("xMidYMid meet");
+  expect(
+    screen.getByRole("navigation", { name: "On this page" }).textContent,
+  ).not.toMatch(/honeycomb|hex/i);
 });
 
 test("CSP allows the GA collect fallback and does not open unpkg.com", async () => {

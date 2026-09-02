@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { BrandMark } from "./brand-mark";
 import { SiteNav } from "./site-nav";
+import { SkillHoneycomb } from "./skill-honeycomb";
 import { SocialList } from "./social-list";
 import { ThemeToggle } from "./theme-toggle";
 import {
@@ -10,6 +11,7 @@ import {
   getExperience,
   getSkillGroups,
   getSpokenLanguages,
+  toHoneycombSkill,
   withOptionalAbbr,
 } from "../lib/content";
 import { brandColorVars } from "../lib/brand-colors";
@@ -36,6 +38,7 @@ export function CvPage() {
   const education = getEducation();
   const certificates = getCertificates();
   const skillGroups = getSkillGroups();
+  const includedSkills = skillGroups.flatMap((group) => group.items);
   const languages = getSpokenLanguages();
 
   return (
@@ -73,6 +76,7 @@ export function CvPage() {
       </header>
 
       <main className="content">
+        <SkillHoneycomb skills={includedSkills.map(toHoneycombSkill)} />
         <section
           id={sectionIds.experience}
           className="section section--hero"
