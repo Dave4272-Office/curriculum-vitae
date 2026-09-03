@@ -194,28 +194,33 @@ test("optional education abbreviations wrap the full name and skip empty parenth
 
 test("experience leaves view-ready jobs and career length", () => {
   vi.useFakeTimers();
-  vi.setSystemTime(new Date("2026-08-25T12:00:00+05:30"));
+  vi.setSystemTime(new Date("2026-09-02T12:00:00+05:30"));
 
   try {
     const { jobs, careerLength } = getExperience();
 
-    expect(careerLength).toBe("6 yrs");
+    expect(careerLength).toBe("6 yrs 1 mth");
     expect(jobs.map((job) => job.tenureLabel)).toEqual([
+      "1 mth",
       "1 yr 8 mths",
       "1 yr",
       "1 yr 2 mths",
       "2 yrs 2 mths",
     ]);
-    expect(jobs[0]?.rangeLabelShort).toBe("Jan 2025 – Present");
-    expect(jobs[0]?.rangeLabelLong).toBe("January 2025 – Present");
+    expect(jobs[0]?.rangeLabelShort).toBe("Aug 2026 – Present");
+    expect(jobs[0]?.rangeLabelLong).toBe("August 2026 – Present");
+    expect(jobs[1]?.rangeLabelShort).toBe("Jan 2025 – Aug 2026");
+    expect(jobs[1]?.rangeLabelLong).toBe("January 2025 – August 2026");
     expect(jobs.map((job) => job.rangeLabelShort)).toEqual([
-      "Jan 2025 – Present",
+      "Aug 2026 – Present",
+      "Jan 2025 – Aug 2026",
       "Jan 2024 – Dec 2024",
       "Nov 2022 – Dec 2023",
       "Sep 2020 – Oct 2022",
     ]);
     expect(jobs.map((job) => job.rangeLabelLong)).toEqual([
-      "January 2025 – Present",
+      "August 2026 – Present",
+      "January 2025 – August 2026",
       "January 2024 – December 2024",
       "November 2022 – December 2023",
       "September 2020 – October 2022",
@@ -232,18 +237,21 @@ test("experience leaves view-ready jobs and career length", () => {
 
 test("experience brand marks leave as rooted hrefs", () => {
   expect(getExperience().jobs.map((job) => job.organizationicon)).toEqual([
+    "",
     "/static/logos/third-party/Infosys.svg",
     "/static/logos/third-party/Infosys.svg",
     "/static/logos/third-party/Infosys.svg",
     "/static/logos/third-party/Wipro.svg",
   ]);
   expect(getExperience().jobs.map((job) => job.organization)).toEqual([
+    "CorpDK",
     "Infosys",
     "Infosys",
     "Infosys",
     "Wipro",
   ]);
   expect(getExperience().jobs.map((job) => job.location)).toEqual([
+    "Kolkata, West Bengal, India",
     "Kolkata, West Bengal, India",
     "Bengaluru, Karnataka, India",
     "Bengaluru, Karnataka, India",
@@ -394,4 +402,8 @@ test("bio contact location is city, state, and country only", () => {
   expect(bio).not.toHaveProperty("line2");
   expect(JSON.stringify(bio)).not.toContain("16/5");
   expect(JSON.stringify(bio)).not.toContain("Ghosh");
+  expect(bio.focus).toBe(
+    "Most of that curiosity goes into technology, especially cyber security and AI. I now work independently as CorpDK, the brand for my personal work and projects.",
+  );
+  expect(bio.focus).not.toMatch(/Infosys/i);
 });

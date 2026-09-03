@@ -92,12 +92,19 @@ function yearRangeLabel(from: string, to?: string): string {
   return to ? `${from}–${to}` : from;
 }
 
+function parseWorkDate(value: string, asMonthEnd: boolean): DateTime {
+  if (value.length === 10) {
+    return DateTime.fromFormat(value, "yyyy-MM-dd");
+  }
+  const month = DateTime.fromFormat(value, "yyyy-MM");
+  return asMonthEnd ? month.endOf("month") : month;
+}
+
 function workSpan(item: WorkItem): { from: DateTime; to?: DateTime } {
-  const from = DateTime.fromFormat(item.from, "yyyy-MM");
-  const to = item.to
-    ? DateTime.fromFormat(item.to, "yyyy-MM").endOf("month")
-    : undefined;
-  return { from, to };
+  return {
+    from: parseWorkDate(item.from, false),
+    to: item.to ? parseWorkDate(item.to, true) : undefined,
+  };
 }
 
 function toJob(item: WorkItem, now: DateTime): ParsedWork {
@@ -271,7 +278,7 @@ export const bio = {
   summary:
     "I am a learner at heart, an experimenter in mind, an adventurer from the soul. I thrive on challenges.",
   focus:
-    "Most of that curiosity goes into technology, especially cyber security and AI. I currently work as a senior associate consultant at Infosys, building authorization, cloud, and logistics systems for manufacturing.",
+    "Most of that curiosity goes into technology, especially cyber security and AI. I now work independently as CorpDK, the brand for my personal work and projects.",
   interests:
     "I pick up new tools and ideas for the pleasure of it, not only when a ticket says so. Novels fill the quieter hours. I sketch when I want to think with a pencil, and music is almost always on in the background.",
 };

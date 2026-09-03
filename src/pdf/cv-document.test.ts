@@ -82,7 +82,7 @@ function pdfPlainText(pdf: Buffer): string {
 
 test("rendered PDF includes current titles and employers from content", async () => {
   vi.useFakeTimers();
-  vi.setSystemTime(new Date("2026-08-25T12:00:00+05:30"));
+  vi.setSystemTime(new Date("2026-09-02T12:00:00+05:30"));
 
   try {
     const model = getCvPdfModel();
@@ -136,8 +136,12 @@ test("rendered PDF includes current titles and employers from content", async ()
     expect(text).toContain("Experience:");
     expect(text).toContain("Skills:");
     expect(text).toContain("Programming:");
+    expect(text).toContain("@ CorpDK,");
     expect(text).toContain("@ Infosys,");
     expect(text).toContain("@ Wipro,");
+    expect(text).toContain("Independent Contractor");
+    expect(text).toContain("January 2025 – August 2026");
+    expect(text).toContain("August 2026 – Present");
     expect(text).not.toContain("Wipro Limited");
     expect(text).toContain("Bengaluru, KN, India");
     expect(text).toContain("Kolkata, WB, India");
