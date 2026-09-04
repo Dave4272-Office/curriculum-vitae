@@ -10,7 +10,7 @@ import {
 import { SiTryhackme } from "react-icons/si";
 import { brandColorVars, socialBrandColor } from "../lib/brand-colors";
 import { getSocials } from "../lib/content";
-import { cvPdfFilename, cvPdfPath } from "../lib/cv-pdf";
+import { cvPdfFilename, cvPdfPath } from "../lib/cv-download";
 import type { SocialIcon, SocialLink } from "../lib/types";
 
 const icons: Record<SocialIcon, IconType> = {

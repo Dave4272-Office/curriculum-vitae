@@ -1,26 +1,11 @@
 import { expect, test } from "vitest";
-import skillJson from "../../public/static/data/skill.list.json";
 import {
   brandColorVars,
   contrastRatio,
   readableOnDark,
-  skillBrandColor,
-  skillBrandColors,
   socialBrandColor,
   socialBrandColors,
 } from "./brand-colors";
-import type { TechSkill } from "./types";
-
-const skills = skillJson as TechSkill[];
-
-test("every catalog skill icon has a Simple Icons brand hex", () => {
-  for (const skill of skills) {
-    expect(
-      skillBrandColor(skill.icon),
-      `${skill.icon} (${skill.label})`,
-    ).toMatch(/^#[0-9A-F]{6}$/);
-  }
-});
 
 test("every social glyph has a Simple Icons brand hex", () => {
   expect(socialBrandColor("pdf")).toBe("#EC1C24");
@@ -53,13 +38,4 @@ test("brand vars attach official hex to the icon, not a wrapper", () => {
     "--brand-color": "#181717",
     "--brand-color-dark": "#f0ebe3",
   });
-});
-
-test("spot-check recognizable skill brands", () => {
-  expect(skillBrandColors.FaPython).toBe("#3776AB");
-  expect(skillBrandColors.FaJs).toBe("#F7DF1E");
-  expect(skillBrandColors.FaReact).toBe("#61DAFB");
-  expect(skillBrandColors.FaDocker).toBe("#2496ED");
-  expect(skillBrandColors.FaAws).toBe("#FF9900");
-  expect(skillBrandColors.SiTypescript).toBe("#3178C6");
 });

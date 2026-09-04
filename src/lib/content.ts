@@ -7,7 +7,11 @@ import skillJson from "../../public/static/data/skill.list.json";
 import socialJson from "../../public/static/data/social.list.json";
 import workJson from "../../public/static/data/work.list.json";
 import { durationAsString } from "../utils/date-time";
-import { skillBrandColor } from "./brand-colors";
+import {
+  presentEducation,
+  type EducationLines,
+  type EducationProfile,
+} from "./education";
 import { resolveSkillIcon } from "./skill-icons";
 import type {
   AcademicRecord,
@@ -60,16 +64,7 @@ export type ParsedCertificate = Certificate & {
   issuedLabel: string;
 };
 
-export type ParsedEducation = AcademicRecord & {
-  rangeLabel: string;
-};
-
-export function withOptionalAbbr(
-  name: string,
-  abbr: string | null | undefined,
-): string {
-  return abbr ? `${name} (${abbr})` : name;
-}
+export type { EducationLines, EducationProfile };
 
 function rootedHref(path: string): string {
   if (!path) {
@@ -86,10 +81,6 @@ function monthRangeLabel(
   const start = from.toFormat(`${monthFormat} yyyy`);
   const end = to ? to.toFormat(`${monthFormat} yyyy`) : "Present";
   return `${start} – ${end}`;
-}
-
-function yearRangeLabel(from: string, to?: string): string {
-  return to ? `${from}–${to}` : from;
 }
 
 function parseWorkDate(value: string, asMonthEnd: boolean): DateTime {
@@ -136,13 +127,12 @@ export function getExperience(now = DateTime.now()): Experience {
   };
 }
 
-export function getEducation(): ParsedEducation[] {
+export function getEducation(
+  profile: EducationProfile = "site",
+): EducationLines[] {
   return [...educationItems]
     .sort((a, b) => Number(b.from) - Number(a.from))
-    .map((item) => ({
-      ...item,
-      rangeLabel: yearRangeLabel(item.from, item.to),
-    }));
+    .map((item) => presentEducation(item, profile));
 }
 
 export function getCertificates(): ParsedCertificate[] {
@@ -163,7 +153,7 @@ export function getCertificates(): ParsedCertificate[] {
     .map((entry) => entry.cert);
 }
 
-const skillTypeOrder: TechType[] = [
+export const skillTypeOrder: TechType[] = [
   "Language",
   "Framework / Library",
   "Database",
@@ -201,30 +191,13 @@ export function skillEntryForLabel(
   return toSkillEntry(skill);
 }
 
-function resolveSkillBrandColor(skill: TechSkill): string {
-  const color = skillBrandColor(skill.icon);
-  if (!color) {
-    throw new Error(
-      `Missing skill brand color "${skill.icon}" for "${skill.label}"`,
-    );
-  }
-  return color;
-}
-
 function toSkillEntry(skill: TechSkill): SkillEntry {
+  const { Icon, color } = resolveSkillIcon(skill.icon, skill.label);
   return {
     label: skill.label,
     icon: skill.icon,
-    Icon: resolveSkillIcon(skill.icon, skill.label),
-    color: resolveSkillBrandColor(skill),
-  };
-}
-
-export function toHoneycombSkill(skill: SkillEntry): HoneycombSkill {
-  return {
-    label: skill.label,
-    icon: skill.icon,
-    color: skill.color,
+    Icon,
+    color,
   };
 }
 

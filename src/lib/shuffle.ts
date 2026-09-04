@@ -1,3 +1,5 @@
+export type Shuffle = <T>(items: readonly T[]) => readonly T[];
+
 /** In-place Fisher–Yates on a copy. Does not mutate `items`. */
 export function shuffle<T>(items: readonly T[]): T[] {
   const next = [...items];

@@ -3,22 +3,18 @@ import {
   getCertificates,
   getEducation,
   getExperience,
-  getSkillGroups,
   getPdfSocials,
+  getSkillGroups,
   getSpokenLanguages,
+  skillTypeOrder,
 } from "./content";
+import { cvPdfDocumentTitle, cvPdfFilename, cvPdfPath } from "./cv-download";
 import {
-  cvPdfDocumentTitle,
-  cvPdfFilename,
-  cvPdfPath,
   getCvPdfModel,
   pdfContactAddress,
-  pdfEducationExam,
-  pdfEducationOutcome,
-  pdfEducationPlace,
-  pdfEducationSpec,
   pdfSiteHref,
   pdfSkillHeading,
+  spokenLanguageLine,
 } from "./cv-pdf";
 
 test("PDF model uses the same jobs and education as the content seam", () => {
@@ -26,11 +22,11 @@ test("PDF model uses the same jobs and education as the content seam", () => {
   vi.setSystemTime(new Date("2026-09-02T12:00:00+05:30"));
 
   try {
-    const { jobs, careerLength } = getExperience();
-    const education = getEducation();
+    const { jobs } = getExperience();
+    const education = getEducation("pdf");
     const model = getCvPdfModel();
 
-    expect(model.careerLength).toBe(careerLength);
+    expect(model).not.toHaveProperty("careerLength");
     expect(model.jobs.map((job) => job.designation)).toEqual(
       jobs.map((job) => job.designation),
     );
@@ -45,6 +41,8 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.jobs.every((job) => !job.rangeLabel.includes("PRESENT"))).toBe(
       true,
     );
+    expect(model.jobs.every((job) => !("tenureLabel" in job))).toBe(true);
+    expect(model.jobs.every((job) => !("emptype" in job))).toBe(true);
     expect(model.jobs.map((job) => job.location)).toEqual([
       "Kolkata, WB, India",
       "Kolkata, WB, India",
@@ -76,94 +74,34 @@ test("PDF model uses the same jobs and education as the content seam", () => {
     expect(model.jobs.map((job) => job.organization)).not.toContain(
       "Wipro Limited",
     );
-    expect(model.jobs.map((job) => job.tenureLabel)).toEqual(
-      jobs.map((job) => job.tenureLabel),
+    expect(model.education).toEqual(
+      education.map(({ exam, place, spec, outcome }) => ({
+        exam,
+        place,
+        spec,
+        outcome,
+      })),
     );
-    expect(model.education.map((item) => item.to)).toEqual(
-      education.map((item) => item.to),
-    );
-    expect(model.education.map((item) => item.rangeLabel)).toEqual(
-      education.map((item) => item.rangeLabel),
-    );
-    expect(model.education.map((item) => item.qualexam)).toEqual(
-      education.map((item) => item.qualexam),
-    );
-    expect(model.education.map((item) => item.qualspectype)).toEqual(
-      education.map((item) => item.qualspectype),
-    );
-    expect(model.education.map((item) => item.qualexammoniker)).toEqual(
-      education.map((item) => item.qualexammoniker),
-    );
-    expect(model.education.map((item) => item.certauthabbr)).toEqual(
-      education.map((item) => item.certauthabbr),
-    );
-    expect(model.education.map((item) => item.instituteabbr)).toEqual(
-      education.map((item) => item.instituteabbr),
-    );
-    expect(model.education.map((item) => item.qualspecabbr)).toEqual(
-      education.map((item) => item.qualspecabbr),
-    );
-    expect(model.education.map((item) => pdfEducationExam(item))).toEqual([
+    expect(model.education.map((item) => item.exam)).toEqual([
       "Bachelor of Technology (Bachelors)",
       "AISSCE (Sr. Secondary | XII)",
       "AISSE (Secondary | X)",
     ]);
-    expect(model.education.map((item) => pdfEducationPlace(item))).toEqual([
+    expect(model.education.map((item) => item.place)).toEqual([
       "Birbhum Institute of Engineering and Technology, Suri (MAKAUT)",
       "Sainik School Purulia (CBSE)",
       "Sainik School Purulia (CBSE)",
     ]);
-    expect(model.education.map((item) => pdfEducationSpec(item))).toEqual([
-      "Computer Science and Engineering",
-      "ENG, PHY, CHEM, MATH, CS(C++)",
+    expect(model.education.map((item) => item.spec)).toEqual([
+      "Major: Computer Science and Engineering",
+      "Subjects: ENG, PHY, CHEM, MATH, CS(C++)",
       null,
     ]);
-    expect(model.education.map((item) => pdfEducationOutcome(item))).toEqual([
+    expect(model.education.map((item) => item.outcome)).toEqual([
       "2020, 8.32 DGPA",
       "2016, 84 %",
       "2014, 9.2 CGPA (87.4 %)",
     ]);
-    expect(
-      pdfEducationPlace({
-        institutename: "Sainik School Purulia",
-        certauthabbr: null,
-      }),
-    ).toBe("Sainik School Purulia");
-    expect(
-      pdfEducationExam({
-        qualexam: "Bachelor of Technology",
-        qualexammoniker: null,
-      }),
-    ).toBe("Bachelor of Technology");
-    expect(
-      pdfEducationSpec({
-        qualspectype: "Major",
-        qualspec: "Computer Science and Engineering",
-        qualspecabbr: "CSE",
-      }),
-    ).toBe("Computer Science and Engineering");
-    expect(
-      pdfEducationSpec({
-        qualspectype: "Subjects",
-        qualspec:
-          "English, Physics, Chemistry, Mathematics, Computer Science (C++)",
-        qualspecabbr: "ENG, PHY, CHEM, MATH, CS(C++)",
-      }),
-    ).toBe("ENG, PHY, CHEM, MATH, CS(C++)");
-    expect(
-      pdfEducationSpec({
-        qualspectype: "Subjects",
-        qualspec: "General Education",
-        qualspecabbr: null,
-      }),
-    ).toBeNull();
-    expect(
-      pdfEducationSpec({
-        qualspectype: "Subjects",
-        qualspec: "General Education",
-        qualspecabbr: "",
-      }),
-    ).toBeNull();
   } finally {
     vi.useRealTimers();
   }
@@ -189,10 +127,19 @@ test("PDF filename and document title share the generate-time date", () => {
 test("PDF model keeps certs, spoken languages, socials, and hidden skills aligned with the page", () => {
   const model = getCvPdfModel();
   const skillLabels = model.skillGroups.flatMap((group) => group.labels);
-  const pageSkillLabels = getSkillGroups().flatMap((group) =>
+  const pageGroups = getSkillGroups();
+  const pageSkillLabels = pageGroups.flatMap((group) =>
     group.items.map((item) => item.label),
   );
 
+  expect(model.skillGroups.map((group) => group.type)).toEqual(
+    pageGroups.map((group) => group.type),
+  );
+  expect(model.skillGroups.map((group) => group.type)).toEqual(
+    skillTypeOrder.filter((type) =>
+      pageGroups.some((group) => group.type === type),
+    ),
+  );
   expect(skillLabels).toEqual(pageSkillLabels);
   expect(skillLabels).toContain("Python");
   expect(skillLabels).toContain("Amazon Web Services");
@@ -245,10 +192,23 @@ test("PDF model keeps certs, spoken languages, socials, and hidden skills aligne
   expect(model.languages.map((item) => item.language)).toEqual(
     getSpokenLanguages().map((item) => item.language),
   );
+  expect(model.languages.map((item) => item.line)).toEqual(
+    getSpokenLanguages().map(spokenLanguageLine),
+  );
+  expect(spokenLanguageLine(getSpokenLanguages()[0]!)).toBe("English (Fluent)");
+  expect(spokenLanguageLine(getSpokenLanguages()[1]!)).toBe(
+    "Bengali (Native Fluent; RW Intermediate)",
+  );
+  expect(spokenLanguageLine(getSpokenLanguages()[2]!)).toBe(
+    "Hindi (Fluent; RW Basic)",
+  );
   expect(model.contacts.map((item) => item.href)).toEqual(
     getPdfSocials().map((item) => item.href),
   );
   expect(model.contacts.some((item) => item.href === cvPdfPath)).toBe(false);
   expect(pdfSkillHeading("Language")).toBe("Programming");
   expect(pdfSkillHeading("Framework / Library")).toBe("Frameworks/Libraries");
+  expect(model.skillGroups.map((group) => group.heading)).toEqual(
+    pageGroups.map((group) => pdfSkillHeading(group.type)),
+  );
 });
