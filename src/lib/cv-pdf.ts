@@ -4,31 +4,17 @@ import {
   getCertificates,
   getEducation,
   getExperience,
-  getSkillGroups,
   getPdfSocials,
+  getSkillGroups,
   getSpokenLanguages,
-  withOptionalAbbr,
 } from "./content";
-
-export const cvPdfPath = "/cv.pdf";
-
-export function cvPdfGeneratedOn(now = DateTime.now()): string {
-  return now.toFormat("yyyy-MM-dd");
-}
-
-export function cvPdfFilename(
-  generatedOn = cvPdfGeneratedOn(),
-  name = bio.name,
-): string {
-  return `${name.replaceAll(" ", "-")}-CV-${generatedOn}.pdf`;
-}
-
-export function cvPdfDocumentTitle(
-  generatedOn = cvPdfGeneratedOn(),
-  name = bio.name,
-): string {
-  return `${name} CV ${generatedOn}`;
-}
+import {
+  cvPdfDocumentTitle,
+  cvPdfFilename,
+  cvPdfGeneratedOn,
+} from "./cv-download";
+import type { EducationLines } from "./education";
+import type { SpokenLanguage } from "./types";
 
 export type CvPdfContact = {
   label: string;
@@ -39,56 +25,16 @@ export type CvPdfContact = {
 export type CvPdfJob = {
   designation: string;
   organization: string;
-  emptype: string;
   location: string;
   rangeLabel: string;
-  tenureLabel: string;
   desc: string[];
   skills: string[];
 };
 
-export type CvPdfEducation = {
-  rangeLabel: string;
-  to?: string;
-  qualexam: string;
-  qualexammoniker: string | null;
-  qualspectype: string;
-  qualspec: string;
-  qualspecabbr: string | null;
-  institutename: string;
-  instituteabbr: string | null;
-  certauthname: string;
-  certauthabbr: string | null;
-  score: string;
-};
-
-export function pdfEducationExam(
-  item: Pick<CvPdfEducation, "qualexam" | "qualexammoniker">,
-): string {
-  return withOptionalAbbr(item.qualexam, item.qualexammoniker);
-}
-
-export function pdfEducationPlace(
-  item: Pick<CvPdfEducation, "institutename" | "certauthabbr">,
-): string {
-  return withOptionalAbbr(item.institutename, item.certauthabbr);
-}
-
-export function pdfEducationSpec(
-  item: Pick<CvPdfEducation, "qualspectype" | "qualspec" | "qualspecabbr">,
-): string | null {
-  if (item.qualspectype === "Subjects") {
-    const abbr = item.qualspecabbr?.trim();
-    return abbr || null;
-  }
-  return item.qualspec || null;
-}
-
-export function pdfEducationOutcome(
-  item: Pick<CvPdfEducation, "to" | "score">,
-): string {
-  return item.to ? `${item.to}, ${item.score}` : item.score;
-}
+export type CvPdfEducation = Pick<
+  EducationLines,
+  "exam" | "place" | "spec" | "outcome"
+>;
 
 export type CvPdfCertificate = {
   name: string;
@@ -100,13 +46,13 @@ export type CvPdfCertificate = {
 
 export type CvPdfSkillGroup = {
   type: string;
+  heading: string;
   labels: string[];
 };
 
 export type CvPdfLanguage = {
   language: string;
-  readwrite: string;
-  listeningspeaking: string;
+  line: string;
 };
 
 export type CvPdfModel = {
@@ -120,7 +66,6 @@ export type CvPdfModel = {
   address: string;
   interests: string;
   contacts: CvPdfContact[];
-  careerLength: string;
   jobs: CvPdfJob[];
   education: CvPdfEducation[];
   certificates: CvPdfCertificate[];
@@ -155,6 +100,13 @@ export function pdfSkillHeading(type: string): string {
   return skillHeadingByType[type] ?? type;
 }
 
+export function spokenLanguageLine(lang: SpokenLanguage): string {
+  if (lang.readwrite === lang.listeningspeaking) {
+    return `${lang.language} (${lang.listeningspeaking})`;
+  }
+  return `${lang.language} (${lang.listeningspeaking}; RW ${lang.readwrite})`;
+}
+
 const pdfStateAbbreviations: Readonly<Record<string, string>> = {
   Karnataka: "KN",
   "West Bengal": "WB",
@@ -168,7 +120,7 @@ export function pdfExperienceLocation(location: string): string {
 }
 
 export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
-  const { jobs, careerLength } = getExperience(now);
+  const { jobs } = getExperience(now);
   const generatedOn = cvPdfGeneratedOn(now);
 
   return {
@@ -186,30 +138,19 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
       href: item.href,
       display: displayHref(item.href),
     })),
-    careerLength,
     jobs: jobs.map((job) => ({
       designation: job.designation,
       organization: job.organization,
-      emptype: job.emptype,
       location: pdfExperienceLocation(job.location),
       rangeLabel: job.rangeLabelLong,
-      tenureLabel: job.tenureLabel,
       desc: job.desc,
       skills: job.skills,
     })),
-    education: getEducation().map((item) => ({
-      rangeLabel: item.rangeLabel,
-      to: item.to,
-      qualexam: item.qualexam,
-      qualexammoniker: item.qualexammoniker,
-      qualspectype: item.qualspectype,
-      qualspec: item.qualspec,
-      qualspecabbr: item.qualspecabbr,
-      institutename: item.institutename,
-      instituteabbr: item.instituteabbr,
-      certauthname: item.certauthname,
-      certauthabbr: item.certauthabbr,
-      score: item.score,
+    education: getEducation("pdf").map(({ exam, place, spec, outcome }) => ({
+      exam,
+      place,
+      spec,
+      outcome,
     })),
     certificates: getCertificates().map((item) => ({
       name: item.name,
@@ -220,12 +161,12 @@ export function getCvPdfModel(now = DateTime.now()): CvPdfModel {
     })),
     skillGroups: getSkillGroups().map((group) => ({
       type: group.type,
+      heading: pdfSkillHeading(group.type),
       labels: group.items.map((item) => item.label),
     })),
     languages: getSpokenLanguages().map((lang) => ({
       language: lang.language,
-      readwrite: lang.readwrite,
-      listeningspeaking: lang.listeningspeaking,
+      line: spokenLanguageLine(lang),
     })),
   };
 }

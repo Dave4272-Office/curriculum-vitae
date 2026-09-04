@@ -1,14 +1,5 @@
 import { Document, Link, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
-import {
-  pdfEducationExam,
-  pdfEducationOutcome,
-  pdfEducationPlace,
-  pdfEducationSpec,
-  pdfSkillHeading,
-  type CvPdfLanguage,
-  type CvPdfModel,
-  type CvPdfSkillGroup,
-} from "../lib/cv-pdf";
+import { type CvPdfModel } from "../lib/cv-pdf";
 import { cvPdfFontFamily, registerCvPdfFonts } from "./cv-fonts";
 
 registerCvPdfFonts();
@@ -39,15 +30,6 @@ export const cvPdfLayout = {
   skillGroupMarginBottom: 4,
   skillLabelsLineHeight: 1.45,
 } as const;
-
-const skillOrder = [
-  "Language",
-  "Framework / Library",
-  "Tool",
-  "Platform",
-  "Database",
-  "IDE",
-];
 
 const styles = StyleSheet.create({
   page: {
@@ -212,21 +194,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function languageLine(lang: CvPdfLanguage): string {
-  if (lang.readwrite === lang.listeningspeaking) {
-    return `${lang.language} (${lang.listeningspeaking})`;
-  }
-  return `${lang.language} (${lang.listeningspeaking}; RW ${lang.readwrite})`;
-}
-
-function orderedSkillGroups(groups: CvPdfSkillGroup[]): CvPdfSkillGroup[] {
-  return [...groups].sort((a, b) => {
-    const left = skillOrder.indexOf(a.type);
-    const right = skillOrder.indexOf(b.type);
-    return (left === -1 ? skillOrder.length : left) - (right === -1 ? skillOrder.length : right);
-  });
-}
-
 function SectionHeading({
   children,
   size = "large",
@@ -297,31 +264,20 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
 
           <View style={styles.section}>
             <SectionHeading>Education</SectionHeading>
-            {model.education.map((item) => {
-              const spec = pdfEducationSpec(item);
-              return (
-                <View
-                  key={`${item.qualexam}-${item.rangeLabel}`}
-                  style={styles.eduRecord}
-                  wrap={false}
-                >
-                  <Text style={styles.recordTitle}>
-                    {pdfEducationExam(item)}
-                  </Text>
-                  <Text style={styles.recordTitle}>
-                    {pdfEducationPlace(item)}
-                  </Text>
-                  <Text style={styles.recordDetail}>
-                    {pdfEducationOutcome(item)}
-                  </Text>
-                  {spec ? (
-                    <Text style={styles.recordDetail}>
-                      {item.qualspectype}: {spec}
-                    </Text>
-                  ) : null}
-                </View>
-              );
-            })}
+            {model.education.map((item) => (
+              <View
+                key={`${item.exam}-${item.outcome}`}
+                style={styles.eduRecord}
+                wrap={false}
+              >
+                <Text style={styles.recordTitle}>{item.exam}</Text>
+                <Text style={styles.recordTitle}>{item.place}</Text>
+                <Text style={styles.recordDetail}>{item.outcome}</Text>
+                {item.spec ? (
+                  <Text style={styles.recordDetail}>{item.spec}</Text>
+                ) : null}
+              </View>
+            ))}
           </View>
 
           <View style={styles.section}>
@@ -363,10 +319,10 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
 
           <View style={styles.section}>
             <SectionHeading size="small">Skills</SectionHeading>
-            {orderedSkillGroups(model.skillGroups).map((group) => (
+            {model.skillGroups.map((group) => (
               <View key={group.type} style={styles.skillGroup}>
                 <View style={styles.skillTypeRule}>
-                  <Text style={styles.skillType}>{pdfSkillHeading(group.type)}:</Text>
+                  <Text style={styles.skillType}>{group.heading}:</Text>
                 </View>
                 <Text style={styles.skillLabels}>{group.labels.join(", ")}</Text>
               </View>
@@ -377,7 +333,7 @@ export function CvPdfDocument({ model }: Readonly<{ model: CvPdfModel }>) {
             <SectionHeading size="small">Languages</SectionHeading>
             {model.languages.map((lang) => (
               <Text key={lang.language} style={styles.language}>
-                {languageLine(lang)}
+                {lang.line}
               </Text>
             ))}
           </View>

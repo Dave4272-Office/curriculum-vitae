@@ -17,8 +17,12 @@ The employer or issuer logo shown next to that name.
 _Avoid_: Icon, skill icon, social icon, logo path
 
 **Skill icon**:
-The pictogram for a tech skill.
+The catalog id, pictogram, and brand hex for a tech skill.
 _Avoid_: Brand mark, social icon
+
+**Education lines**:
+The presented exam, place, specification, and outcome for one AcademicRecord.
+_Avoid_: AcademicRecord (the catalog row)
 
 **Spoken language**:
 A human language with separate reading/writing and listening/speaking levels.

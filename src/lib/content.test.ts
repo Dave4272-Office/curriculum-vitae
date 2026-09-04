@@ -5,12 +5,11 @@ import {
   getCertificates,
   getEducation,
   getExperience,
-  withOptionalAbbr,
   getPdfSocials,
   getSkillGroups,
   getSocials,
   skillEntryForLabel,
-  toHoneycombSkill,
+  skillTypeOrder,
 } from "./content";
 import type { SocialLink, TechSkill } from "./types";
 
@@ -51,7 +50,11 @@ test("skill groups resolve catalog icons and omit hidden rows", () => {
 
 test("honeycomb skills drop Icon so they can cross the client boundary", () => {
   const items = getSkillGroups().flatMap((group) => group.items);
-  const honeycomb = items.map(toHoneycombSkill);
+  const honeycomb = items.map(({ label, icon, color }) => ({
+    label,
+    icon,
+    color,
+  }));
 
   expect(honeycomb).toHaveLength(41);
   expect(honeycomb[0]).toEqual({
@@ -169,26 +172,31 @@ test("hidden catalog rows still fail if their icon key is missing", () => {
   );
 });
 
-test("education records leave the content seam with a year rangeLabel", () => {
+test("education records leave the content seam as site Education lines", () => {
   const education = getEducation();
   expect(education.map((item) => item.rangeLabel)).toEqual([
     "2016–2020",
     "2014–2016",
     "2009–2014",
   ]);
-  expect(education.map((item) => item.qualspectype)).toEqual([
-    "Major",
-    "Subjects",
-    "Subjects",
+  expect(education.map((item) => item.exam)).toEqual([
+    "Bachelor of Technology (Bachelors)",
+    "AISSCE (Sr. Secondary | XII)",
+    "AISSE (Secondary | X)",
   ]);
+  expect(education.map((item) => item.spec)).toEqual([
+    "Major: Computer Science and Engineering",
+    "Subjects: English, Physics, Chemistry, Mathematics, Computer Science (C++)",
+    "Subjects: General Education",
+  ]);
+  expect(education.every((item) => !("qualspectype" in item))).toBe(true);
 });
 
-test("optional education abbreviations wrap the full name and skip empty parentheses", () => {
-  expect(withOptionalAbbr("Bachelor of Technology", "Bachelors")).toBe(
-    "Bachelor of Technology (Bachelors)",
-  );
-  expect(withOptionalAbbr("Sainik School Purulia", null)).toBe(
-    "Sainik School Purulia",
+test("skill groups follow the catalog type order", () => {
+  expect(getSkillGroups().map((group) => group.type)).toEqual(
+    skillTypeOrder.filter((type) =>
+      getSkillGroups().some((group) => group.type === type),
+    ),
   );
 });
 

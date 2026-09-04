@@ -11,8 +11,6 @@ import {
   getExperience,
   getSkillGroups,
   getSpokenLanguages,
-  toHoneycombSkill,
-  withOptionalAbbr,
 } from "../lib/content";
 import { brandColorVars } from "../lib/brand-colors";
 import { sectionIds, skipToHref, skipToSectionId } from "../lib/nav";
@@ -76,7 +74,13 @@ export function CvPage() {
       </header>
 
       <main className="content">
-        <SkillHoneycomb skills={includedSkills.map(toHoneycombSkill)} />
+        <SkillHoneycomb
+          skills={includedSkills.map(({ label, icon, color }) => ({
+            label,
+            icon,
+            color,
+          }))}
+        />
         <section
           id={sectionIds.experience}
           className="section section--hero"
@@ -137,22 +141,14 @@ export function CvPage() {
           <h2 id="education-heading">Education</h2>
           <ol className="records">
             {education.map((item) => (
-              <li key={`${item.qualexam}-${item.from}`}>
+              <li key={`${item.exam}-${item.rangeLabel}`}>
                 <p className="record-when">{item.rangeLabel}</p>
                 <div className="record-body">
-                  <h3>
-                    {withOptionalAbbr(item.qualexam, item.qualexammoniker)}
-                  </h3>
-                  <p>
-                    {withOptionalAbbr(item.institutename, item.instituteabbr)}
-                  </p>
-                  <p>
-                    {withOptionalAbbr(item.certauthname, item.certauthabbr)}
-                  </p>
-                  <p>
-                    {item.qualspectype}: {item.qualspec}
-                  </p>
-                  <p className="record-meta">{item.score}</p>
+                  <h3>{item.exam}</h3>
+                  <p>{item.place}</p>
+                  {item.authority ? <p>{item.authority}</p> : null}
+                  {item.spec ? <p>{item.spec}</p> : null}
+                  <p className="record-meta">{item.outcome}</p>
                 </div>
               </li>
             ))}

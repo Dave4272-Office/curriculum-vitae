@@ -340,7 +340,6 @@ a:hover {
   /* Idle hexes are smaller; hover scales one cell to the previous 3.05rem. */
   --hex-w: 2.44rem;
   --hex-h: calc(var(--hex-w) * 0.86602540378);
-  --hex-cols: 5;
   --hex-hover-scale: 1.25;
   /* Flat-top regular hex. Neighbor center-to-center is flat-to-flat + gap
      on all six sides. Vertical neighbors use that pitch as the row step.
@@ -372,13 +371,11 @@ a:hover {
   transform: scale(var(--hex-hover-scale));
 }
 
-.skill-honeycomb__cell:nth-child(5n + 2),
-.skill-honeycomb__cell:nth-child(5n + 4) {
+.skill-honeycomb__cell--stagger {
   transform: translateY(var(--hex-stagger));
 }
 
-.skill-honeycomb__cell:nth-child(5n + 2):hover,
-.skill-honeycomb__cell:nth-child(5n + 4):hover {
+.skill-honeycomb__cell--stagger:hover {
   z-index: 1;
   transform: translateY(var(--hex-stagger)) scale(var(--hex-hover-scale));
 }
@@ -424,10 +421,10 @@ a:hover {
     display: grid;
     justify-items: start;
     align-items: start;
-    grid-template-columns: repeat(var(--hex-cols), var(--hex-col-step));
+    grid-template-columns: repeat(var(--hex-cols, 5), var(--hex-col-step));
     grid-auto-rows: var(--hex-row-step);
     /* First hex is full --hex-w; each extra column adds the gapped step. */
-    width: calc(var(--hex-w) + var(--hex-col-step) * (var(--hex-cols) - 1));
+    width: calc(var(--hex-w) + var(--hex-col-step) * (var(--hex-cols, 5) - 1));
     margin-left: 1.15rem;
     padding-bottom: var(--hex-stagger);
     overflow: visible;

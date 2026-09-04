@@ -4,7 +4,7 @@ import { expect, test, vi } from "vitest";
 import { CvPage } from "./components/cv-page";
 import { Providers } from "./app/providers";
 import { getSkillGroups } from "./lib/content";
-import { cvPdfFilename, cvPdfPath } from "./lib/cv-pdf";
+import { cvPdfFilename, cvPdfPath } from "./lib/cv-download";
 import { sections, skipToHref } from "./lib/nav";
 import nextConfig from "../next.config";
 
@@ -614,6 +614,9 @@ test("decorative honeycomb lists one brand icon per included skill", () => {
   expect(honeycomb).toHaveAttribute("aria-hidden", "true");
   expect(included).toHaveLength(41);
   expect(cells).toHaveLength(included.length);
+  expect(honeycomb?.getAttribute("style")).toContain("--hex-cols: 5");
+  expect(cells[1]?.className).toContain("skill-honeycomb__cell--stagger");
+  expect(cells[3]?.className).toContain("skill-honeycomb__cell--stagger");
   expect(included.map((skill) => skill.label)).not.toContain("Rust");
   expect(included.map((skill) => skill.label)).not.toContain("Kotlin");
   expect(included[0]?.label).toBe("Python");

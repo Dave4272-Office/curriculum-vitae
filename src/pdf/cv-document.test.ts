@@ -97,14 +97,14 @@ test("rendered PDF includes current titles and employers from content", async ()
 
     const text = pdfPlainText(bytes);
     const { jobs } = getExperience();
-    const education = getEducation();
+    const education = getEducation("pdf");
 
     for (const job of jobs) {
       expect(text).toContain(job.designation);
       expect(text).toContain(job.organization);
     }
     for (const item of education) {
-      expect(text).toContain(item.qualexam);
+      expect(text).toContain(item.exam);
     }
     expect(text).toContain("AISSE (Secondary | X)");
     expect(text).toContain("AISSCE (Sr. Secondary | XII)");
