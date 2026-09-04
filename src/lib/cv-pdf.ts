@@ -79,7 +79,7 @@ export function pdfEducationSpec(
 ): string | null {
   if (item.qualspectype === "Subjects") {
     const abbr = item.qualspecabbr?.trim();
-    return abbr ? abbr : null;
+    return abbr || null;
   }
   return item.qualspec || null;
 }

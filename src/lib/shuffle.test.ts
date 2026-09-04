@@ -16,10 +16,22 @@ test("leaves empty and singleton lists unchanged", () => {
   expect(shuffle(["only"])).toEqual(["only"]);
 });
 
-test("Fisher–Yates picks j from Math.random at each index", () => {
-  const random = vi.spyOn(Math, "random");
-  // i = 2, random 0.9 → j = 2 (no swap); i = 1, random 0 → j = 0 (swap).
-  random.mockReturnValueOnce(0.9).mockReturnValueOnce(0);
+test("Fisher–Yates picks j from crypto.getRandomValues at each index", () => {
+  const random = vi.spyOn(crypto, "getRandomValues");
+  // i = 2, 2 % 3 → j = 2 (no swap); i = 1, 0 % 2 → j = 0 (swap).
+  random
+    .mockImplementationOnce((arr) => {
+      if (arr instanceof Uint32Array) {
+        arr[0] = 2;
+      }
+      return arr;
+    })
+    .mockImplementationOnce((arr) => {
+      if (arr instanceof Uint32Array) {
+        arr[0] = 0;
+      }
+      return arr;
+    });
 
   expect(shuffle(["a", "b", "c"])).toEqual(["b", "a", "c"]);
   expect(random).toHaveBeenCalledTimes(2);
